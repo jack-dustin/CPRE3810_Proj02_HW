@@ -294,6 +294,19 @@ architecture structure of RISCV_Processor is
   signal s_MtWB_Reg     : std_logic_vector(71 downto 0); -- 72 bit output
   --signal s_MemFunct3    : std_logic_vector(2 downto 0); -- 3 bits
 
+  component dataHaz is (
+    i_DecRS1    : in  std_logic_vector(4 downto 0);     -- 5 bits
+    i_DecRS2    : in  std_logic_vector(4 downto 0);  
+    i_ExRD      : in  std_logic_vector(4 downto 0);
+    i_ExRegWr   : in  std_logic;
+    i_MemRD     : in  std_logic_vector(4 downto 0);
+    i_MemRegWr  : in  std_logic;
+    i_CLK       : in  std_logic;
+    i_RST       : in  std_logic;
+    o_DataHaz   : out std_logic;
+    o_DataBubble: out std_logic);
+  end component;
+
 
 begin
 
@@ -582,6 +595,18 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       o_O  => s_RegWrData
     );
 
-  
+    INST_DataHazard: dataHaz port map(
+    i_DecRS1      => s_FtD_Reg(19 downto 15), -- Fetch/Dec i_RS1
+    i_DecRS2      => s_FtD_Reg(24 downto 20), -- Fetch/Dec i_RS2
+    i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
+    i_ExRegWr     => s_DtE_Reg(142),  -- Dec/Ex RegWr EN
+    i_MemRD       => s_EtM_Reg(71 downto 67), -- Ex/Mem rd
+    i_MemRegWr    => s_EtM_Reg(72), -- Ex/Mem RegWr EN
+    i_CLK         => iCLK,
+    i_RST         => iRST,
+    o_DataHaz     => ,
+    o_DataBubble  => );
+
+    
 
 end structure;
