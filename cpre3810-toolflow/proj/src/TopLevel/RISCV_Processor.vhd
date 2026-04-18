@@ -322,7 +322,7 @@ architecture structure of RISCV_Processor is
   signal s_MtWB_Reg     : std_logic_vector(71 downto 0); -- 72 bit output
   --signal s_MemFunct3    : std_logic_vector(2 downto 0); -- 3 bits
 
-  component dataHaz is (
+  component dataHaz is port(
     i_DecRS1    : in  std_logic_vector(4 downto 0);     -- 5 bits
     i_DecRS2    : in  std_logic_vector(4 downto 0);  
     i_ExRD      : in  std_logic_vector(4 downto 0);
@@ -395,7 +395,7 @@ begin
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
              i_RST  => iRST or s_IFIDFlush,
-             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall),   -- Used to stop on wfi or for stalling
+             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
              i_D    =>   s_Halt   -- halt           -- [96]
                        & s_PC4    -- PC+4 Value     -- [95:64]
                        & s_PC     -- PC Value       -- [63:32]
