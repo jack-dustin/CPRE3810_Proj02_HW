@@ -21,16 +21,17 @@ architecture mixed of dataHaz is
     signal s_Ex_RS1_Dep     : std_logic_vector(4 downto 0);
     signal s_Ex_RS2_Dep     : std_logic_vector(4 downto 0);
 
+    signal s_ExRS1And       : 
 
 
 begin
 
     -- Check for Execute Dependencies:
     s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
-    s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
-    s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
-    s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
-    s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
+    s_Ex_RS1_Dep(1) <=  i_ExRD(1) xnor i_DecRS1(1);
+    s_Ex_RS1_Dep(2) <=  i_ExRD(2) xnor i_DecRS1(2);
+    s_Ex_RS1_Dep(3) <=  i_ExRD(3) xnor i_DecRS1(3);
+    s_Ex_RS1_Dep(4) <=  i_ExRD(4) xnor i_DecRS1(4);
 
 
 
