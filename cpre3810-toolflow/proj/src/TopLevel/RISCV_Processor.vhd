@@ -246,11 +246,11 @@ architecture structure of RISCV_Processor is
     );
   end component;
   
-  signal s_CtrlHaz : std_logic;
-  signal s_IFIDFlush :  std_logic;
-  signal s_IDEXFlush :  std_logic;
-  signal s_PCStall :  std_logic;
-  signal s_IFIDStall :  std_logic;
+  signal s_CtrlHaz    : std_logic;
+  signal s_IFIDFlush  : std_logic;
+  signal s_IDEXFlush  : std_logic;
+  signal s_PCStall    : std_logic;
+  signal s_IFIDStall  : std_logic;
     
   -- NEW BRANCHING UNIT - PUT THIS IN DECODE
   component proj2_branch is 
@@ -335,7 +335,8 @@ architecture structure of RISCV_Processor is
     o_DataBubble: out std_logic);
   end component;
 
-
+  signal s_DataHazStall : std_logic;
+  signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
 begin
 
 ---------------------------------------------
@@ -380,7 +381,7 @@ begin
   port map(
     i_CLK    => iCLK,
     i_RST_PC => iRST,
-    i_WE     => ((not s_Halt) and (not s_PCStall)),
+    i_WE     => ((not s_Halt) and (not s_PCStall) and (not s_DataHazStall)),
     i_imm    => s_Oext_Dec_to_Fetch,
     i_alu    => s_JalrTarget,
     c_PC_sel => s_Fetchsrc,
@@ -394,7 +395,7 @@ begin
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
              i_RST  => iRST or s_IFIDFlush,
-             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall),   -- Consider using this port to stall as well in the future
+             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall),   -- Used to stop on wfi or for stalling
              i_D    =>   s_Halt   -- halt           -- [96]
                        & s_PC4    -- PC+4 Value     -- [95:64]
                        & s_PC     -- PC Value       -- [63:32]
@@ -488,8 +489,8 @@ begin
   Decode_To_Execute_Reg: DecodeExecute_Reg
   generic map(N => 181)      -- 181 bit register
   port map(i_CLK => iCLK,
-           i_RST => iRST or s_IDEXFlush,
-           i_WE  => not s_DtE_Reg(180),   -- Change this later for stalling (Add onto it (Logical OR(?) ) )
+           i_RST => iRST or s_IDEXFlush or s_DataHazFlush,
+           i_WE  => (not s_DtE_Reg(180)) and (not s_DataHazStall),   -- Change this later for stalling (Add onto it (Logical OR(?) ) )
            i_D   =>  s_FtD_Reg(96)  -- halt             -- [180]
                    & s_funct3     -- RawFunct3_fr_Load  -- [179:177]
                    & s_Oext       -- Immediate          -- [176:145]
@@ -623,7 +624,6 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       o_O  => s_RegWrData
     );
 
-
 -------------------------------------------------------
 ---------------- Data Hazard Dectection ---------------
     Data_Hazard_Detection: dataHaz port map(
@@ -635,8 +635,8 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
     i_MemRegWr    => s_EtM_Reg(72), -- Ex/Mem RegWr EN
     i_CLK         => iCLK,
     i_RST         => iRST,
-    o_DataHaz     => ,
-    o_DataBubble  => );
+    o_DataHaz     => s_DataHazStall,
+    o_DataBubble  => s_DataHazFlush);
     
 ----------------------------------------------------------
 ---------------- Control Hazard Dectection ---------------

@@ -62,6 +62,7 @@ architecture mixed of dataHaz is
     signal s_MemRS_DataDep  : std_logic;    -- This = 1 if there is a data hazard
 
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
+    signal os_DataBuble     : std_logic;    -- Internal signal for data flush signal
 
 component dffg is
   port(i_CLK        : in std_logic;     -- Clock input
@@ -145,6 +146,8 @@ begin
     i_RST   => i_RST,
     i_WE    => '1',
     i_D     => os_DataHaz,
-    o_Q     => o_DataBubble);
+    o_Q     => os_DataBubble);
 
+    -- Ensures the reset is enabled at the clock edge, but also reset goes low to allow next instruction through
+    o_DataBuble <= os_DataBubble and os_DataHaz;
 end architecture;
