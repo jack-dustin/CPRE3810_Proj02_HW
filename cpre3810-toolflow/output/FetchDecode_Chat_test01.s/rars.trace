@@ -1,0 +1,122 @@
+[inst #1] lui x20,65552
+Register Write to Reg: 0x14 Val: 0x10010000
+[inst #2] addi x2,x0,-128
+Register Write to Reg: 0x02 Val: 0xFFFFFF80
+[inst #3] addi x3,x0,5
+Register Write to Reg: 0x03 Val: 0x00000005
+[inst #4] addi x4,x0,3
+Register Write to Reg: 0x04 Val: 0x00000003
+[inst #5] addi x5,x0,-8
+Register Write to Reg: 0x05 Val: 0xFFFFFFF8
+[inst #6] lui x1,18
+Register Write to Reg: 0x01 Val: 0x00012000
+[inst #7] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #8] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #9] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #10] addi x1,x1,52
+Register Write to Reg: 0x01 Val: 0x00012034
+[inst #11] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #12] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #13] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #14] sw x1,0(x20)
+Memory Write to Addr: 0x10010000 Val: 0x00012034
+[inst #15] sw x2,4(x20)
+Memory Write to Addr: 0x10010004 Val: 0xFFFFFF80
+[inst #16] sw x3,8(x20)
+Memory Write to Addr: 0x10010008 Val: 0x00000005
+[inst #17] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #18] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #19] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #20] lb x10,0(x20)
+Register Write to Reg: 0x0A Val: 0x00000034
+[inst #21] lh x11,4(x20)
+Register Write to Reg: 0x0B Val: 0xFFFFFF80
+[inst #22] lw x12,8(x20)
+Register Write to Reg: 0x0C Val: 0x00000005
+[inst #23] lbu x13,0(x20)
+Register Write to Reg: 0x0D Val: 0x00000034
+[inst #24] lhu x14,4(x20)
+Register Write to Reg: 0x0E Val: 0x0000FF80
+[inst #25] addi x15,x4,10
+Register Write to Reg: 0x0F Val: 0x0000000D
+[inst #26] slli x16,x4,2
+Register Write to Reg: 0x10 Val: 0x0000000C
+[inst #27] slti x17,x5,0
+Register Write to Reg: 0x11 Val: 0x00000001
+[inst #28] sltiu x18,x5,1
+Register Write to Reg: 0x12 Val: 0x00000000
+[inst #29] xori x19,x4,12
+Register Write to Reg: 0x13 Val: 0x0000000F
+[inst #30] srli x21,x1,4
+Register Write to Reg: 0x15 Val: 0x00001203
+[inst #31] srai x22,x5,1
+Register Write to Reg: 0x16 Val: 0xFFFFFFFC
+[inst #32] ori x23,x4,8
+Register Write to Reg: 0x17 Val: 0x0000000B
+[inst #33] andi x24,x1,255
+Register Write to Reg: 0x18 Val: 0x00000034
+[inst #34] auipc x25,0
+Register Write to Reg: 0x19 Val: 0x00400084
+[inst #35] add x26,x3,x4
+Register Write to Reg: 0x1A Val: 0x00000008
+[inst #36] sub x27,x3,x4
+Register Write to Reg: 0x1B Val: 0x00000002
+[inst #37] sll x28,x4,x4
+Register Write to Reg: 0x1C Val: 0x00000018
+[inst #38] slt x29,x5,x4
+Register Write to Reg: 0x1D Val: 0x00000001
+[inst #39] sltu x30,x4,x3
+Register Write to Reg: 0x1E Val: 0x00000001
+[inst #40] xor x31,x3,x4
+Register Write to Reg: 0x1F Val: 0x00000006
+[inst #41] srl x6,x1,x4
+Register Write to Reg: 0x06 Val: 0x00002406
+[inst #42] sra x7,x5,x4
+Register Write to Reg: 0x07 Val: 0xFFFFFFFF
+[inst #43] or x8,x3,x4
+Register Write to Reg: 0x08 Val: 0x00000007
+[inst #44] and x9,x3,x4
+Register Write to Reg: 0x09 Val: 0x00000001
+[inst #45] beq x3,x3,16
+[inst #46] bne x3,x4,16
+[inst #47] blt x5,x4,16
+[inst #48] bge x3,x4,16
+[inst #49] bltu x4,x3,16
+[inst #50] bgeu x3,x4,16
+[inst #51] jal x18,16
+Register Write to Reg: 0x12 Val: 0x00400114
+[inst #52] auipc x19,0
+Register Write to Reg: 0x13 Val: 0x00400120
+[inst #53] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #54] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #55] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #56] addi x19,x19,48
+Register Write to Reg: 0x13 Val: 0x00400150
+[inst #57] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #58] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #59] addi x0,x0,0
+Register Write to Reg: 0x00 Val: 0x00000000
+[inst #60] jalr x21,x19,0
+Register Write to Reg: 0x15 Val: 0x00400144
+[inst #61] bne x0,x0,0
+[inst #62] bne x0,x0,-4
+[inst #63] bne x0,x0,-8
+[inst #64] bne x0,x0,-12
+[inst #65] bne x0,x0,-16
+[inst #66] wfi 
+
+Program terminated by dropping off the bottom.

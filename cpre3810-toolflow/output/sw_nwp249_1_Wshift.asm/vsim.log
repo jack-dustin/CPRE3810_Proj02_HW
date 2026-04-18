@@ -1,0 +1,18 @@
+Reading pref.tcl
+
+# 2025.1_2
+
+# vsim -postsimdataflow -debugdb -c -voptargs=""+acc"" tb -do "modelsim_framework.do" -gOUTPUT_TRACE=ms.trace 
+# Start time: 13:45:28 on Mar 26,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vsim-8611) Generating debug db.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Error (suppressible): ../../proj/src/TopLevel/RISCV_Processor.vhd(321): (vopt-1271) Bad default binding for component instance "ALU: proj01_ALU".
+#  (Component generic "DATA_WIDTH" is not on the entity "work.proj01_ALU".)
+#  (Entity is selected because it is in the same library as the design unit that contains the component.)
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=1.
+# Error loading design
+Error loading design
+# End time: 13:45:28 on Mar 26,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 1

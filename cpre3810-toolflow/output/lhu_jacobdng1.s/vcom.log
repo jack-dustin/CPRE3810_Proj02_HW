@@ -1,0 +1,109 @@
+QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+Start time: 10:59:55 on Mar 27,2026
+vcom -2008 -work internal/ModelSimContainer/work proj/src/RISCV_types.vhd internal/testpy/tb.vhd proj/src/RISCV_types.vhd proj/src/TopLevel/mem.vhd proj/src/TopLevel/RISCV_Processor.vhd proj/src/LogicGates/org2.vhd proj/src/LogicGates/andg2.vhd proj/src/LogicGates/mux2t1_N.vhd proj/src/LogicGates/mux2t1.vhd proj/src/LogicGates/xorg2.vhd proj/src/LogicGates/invg.vhd proj/src/Fetch/proj1_fetch.vhd proj/src/Fetch/basic_adder.vhd proj/src/Fetch/basic_adder_n.vhd proj/src/Fetch/busMux_2t1.vhd proj/src/Imm_Gen/imm_gen.vhd proj/src/Extenders/extenders.vhd proj/src/Extenders/extender_U20b.vhd proj/src/Control/ctrl_decoder.vhd proj/src/ALU/busMux_8t1.vhd proj/src/ALU/proj01_SLT.vhd proj/src/ALU/busMux_4t1.vhd proj/src/ALU/or_ALU.vhd proj/src/ALU/basic_adder_n_BRANCH.vhd proj/src/ALU/xor_N.vhd proj/src/ALU/proj01_BEQ.vhd proj/src/ALU/and_N.vhd proj/src/ALU/proj01_ALU.vhd proj/src/ALU/xor_ALU.vhd proj/src/ALU/tb_proj01_ALU.vhd proj/src/ALU/proj01_branchWrap.vhd proj/src/ALU/addSub.vhd proj/src/ALU/ones_comp_N.vhd proj/src/ALU/addSub_BRANCH.vhd proj/src/ALU/shifter.vhd proj/src/ALU/or_N.vhd proj/src/ALU/and_ALU.vhd proj/src/Datapath/MySecondDataPath.vhd proj/src/Datapath/Lab2_DataPath1 _for2.vhd proj/src/Load/proj01_LOAD.vhd proj/src/RegisterFile/mux_32t1_package.vhd proj/src/RegisterFile/dffg.vhd proj/src/RegisterFile/decoder_5t32.vhd proj/src/RegisterFile/reg_n.vhd proj/src/RegisterFile/mux_32t1.vhd proj/src/RegisterFile/reg_file.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package RISCV_types
+-- Compiling package body RISCV_types
+-- Loading package RISCV_types
+-- Loading package std_logic_textio
+-- Loading package ENV
+-- Compiling entity tb
+-- Compiling architecture mixed of tb
+** Warning: proj/src/RISCV_types.vhd(15): (vcom-1615) Existing package 'RISCV_types' at line 18 will be overwritten.
+-- Compiling package RISCV_types
+** Warning: proj/src/RISCV_types.vhd(60): (vcom-1615) Existing package body 'RISCV_types(body)' at line 60 will be overwritten.
+-- Compiling package body RISCV_types
+-- Loading package RISCV_types
+-- Loading package NUMERIC_STD
+-- Compiling entity mem
+-- Compiling architecture rtl of mem
+-- Loading package RISCV_types
+-- Compiling entity RISCV_Processor
+-- Compiling architecture structure of RISCV_Processor
+-- Compiling entity org2
+-- Compiling architecture dataflow of org2
+-- Compiling entity andg2
+-- Compiling architecture dataflow of andg2
+-- Compiling entity mux2t1_N
+-- Compiling architecture structural of mux2t1_N
+-- Compiling entity mux2t1
+-- Compiling architecture structural of mux2t1
+-- Compiling entity xorg2
+-- Compiling architecture dataflow of xorg2
+-- Compiling entity invg
+-- Compiling architecture dataflow of invg
+-- Compiling entity proj1_fetch
+-- Compiling architecture structural of proj1_fetch
+-- Compiling entity basic_adder
+-- Compiling architecture structural of basic_adder
+-- Compiling entity basic_adder_n
+-- Compiling architecture structural of basic_adder_n
+-- Compiling entity busMux_2t1
+-- Compiling architecture dataflow of busMux_2t1
+-- Compiling entity imm_gen
+-- Compiling architecture dataflow of imm_gen
+-- Compiling entity extenders
+-- Compiling architecture dataflow of extenders
+-- Compiling entity extender_20b
+-- Compiling architecture dataflow of extender_20b
+-- Compiling entity ctrl_decoder
+-- Compiling architecture dataflow of ctrl_decoder
+-- Compiling entity busMux_8t1
+-- Compiling architecture structural of busMux_8t1
+-- Compiling entity proj01_SLT
+-- Compiling architecture structural of proj01_SLT
+-- Compiling entity busMux_4t1
+-- Compiling architecture structural of busMux_4t1
+-- Compiling entity or_ALU
+-- Compiling architecture structural of or_ALU
+-- Compiling entity basic_adder_n_BRANCH
+-- Compiling architecture structural of basic_adder_n_BRANCH
+-- Compiling entity xor_N
+-- Compiling architecture structural of xor_N
+-- Compiling entity proj01_BEQ
+-- Compiling architecture structural of proj01_BEQ
+-- Compiling entity and_N
+-- Compiling architecture structural of and_N
+-- Compiling entity proj01_ALU
+-- Compiling architecture structural of proj01_ALU
+-- Compiling entity xor_ALU
+-- Compiling architecture structural of xor_ALU
+-- Compiling entity tb_proj01_ALU
+-- Compiling architecture proj01_ALU of tb_proj01_ALU
+-- Compiling entity proj01_branchWrap
+-- Compiling architecture structural of proj01_branchWrap
+-- Compiling entity addSub
+-- Compiling architecture structural of addSub
+-- Compiling entity ones_comp_N
+-- Compiling architecture structural of ones_comp_N
+-- Compiling entity addSub_BRANCH
+-- Compiling architecture structural of addSub_BRANCH
+-- Compiling entity shifter
+-- Compiling architecture structural of shifter
+-- Compiling entity or_N
+-- Compiling architecture structural of or_N
+-- Compiling entity and_ALU
+-- Compiling architecture structural of and_ALU
+-- Compiling entity MySecondDataPath
+-- Compiling architecture structural of MySecondDataPath
+-- Loading package mux_32t1_package
+-- Compiling entity Lab2_DataPath1_for2
+-- Compiling architecture structural of lab2_DataPath1_for2
+-- Compiling entity proj01_LOAD
+-- Compiling architecture structural of proj01_LOAD
+-- Compiling package mux_32t1_package
+-- Compiling entity dffg
+-- Compiling architecture mixed of dffg
+-- Compiling entity decoder_5t32
+-- Compiling architecture mixed of decoder_5t32
+-- Compiling entity reg_n
+-- Compiling architecture structural of reg_n
+-- Loading package mux_32t1_package
+-- Compiling entity mux_32t1
+-- Compiling architecture dataflow of mux_32t1
+-- Compiling entity reg_file
+-- Compiling architecture structural of reg_file
+End time: 10:59:56 on Mar 27,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 2

@@ -1,0 +1,4368 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11e MIXED_VERSIONS
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/jrd81/CPRE_381_proj01/CPRE_381_proj01/cpre3810-toolflow
+<<<<<<< HEAD
+!i122 78
+Z2 =======
+!i122 129
+R1
+<<<<<<< HEAD
+!s110 1774551851
+!i10b 1
+!s108 1774551851.000000
+!s90 -2008|-work|internal/ModelSimContainer/work|proj/src/RISCV_types.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|proj/src/TopLevel/mem.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/LogicGates/org2.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/invg.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Extenders/extenders.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/and_ALU.vhd|proj/src/Datapath/MySecondDataPath.vhd|proj/src/Datapath/Lab2_DataPath1 _for2.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_file.vhd|
+!s107 proj/src/RegisterFile/reg_file.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/Datapath/Lab2_DataPath1 _for2.vhd|proj/src/Datapath/MySecondDataPath.vhd|proj/src/ALU/and_ALU.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/Extenders/extenders.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/LogicGates/invg.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/org2.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/TopLevel/mem.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|
+R2
+Z3 !s110 1774729871
+!i10b 1
+Z4 !s108 1774729870.000000
+Z5 !s90 -2008|-work|internal/ModelSimContainer/work|proj/src/RISCV_types.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|proj/src/TopLevel/mem.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/LogicGates/org2.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/invg.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Imm_Gen/imm_gen.vhd|proj/src/Extenders/extenders.vhd|proj/src/Extenders/extender_U20b.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/ALU/busMux_8t1.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/and_ALU.vhd|proj/src/Datapath/MySecondDataPath.vhd|proj/src/Datapath/Lab2_DataPath1 _for2.vhd|proj/src/Load/proj01_LOAD.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_file.vhd|
+Z6 !s107 proj/src/RegisterFile/reg_file.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/Load/proj01_LOAD.vhd|proj/src/Datapath/Lab2_DataPath1 _for2.vhd|proj/src/Datapath/MySecondDataPath.vhd|proj/src/ALU/and_ALU.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/ALU/busMux_8t1.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/Extenders/extender_U20b.vhd|proj/src/Extenders/extenders.vhd|proj/src/Imm_Gen/imm_gen.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/LogicGates/invg.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/org2.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/TopLevel/mem.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|
+R1
+<<<<<<< HEAD
+!i122 78
+R2
+!i122 129
+R1
+<<<<<<< HEAD
+!i122 78
+R2
+!i122 129
+R1
+<<<<<<< HEAD
+Z7 OL;C;2025.1_2;82
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+Z8 o-2008 -work internal/ModelSimContainer/work
+Z9 tExplicit 1 CvgOpt 0
+R1
+Astructural
+Z10 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z11 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z12 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+Z13 DEx4 work 13 addsub_branch 0 22 276FoWDWQT;znjC3TlYTo0
+!i122 78
+l55
+Z14 L23 57
+Z15 V>?R6IT<TMGNQLRS<jzYj_1
+Z16 !s100 _0;:L96jBz@^GG]`VioK>3
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+<<<<<<< HEAD
+Z17 DEx4 work 5 andg2 0 22 zkd6DAMQeJ>Gdbz_JED5>0
+!i122 78
+l32
+Z18 L31 6
+Z19 ViHL2DEfeDAgY8?F@RAnWH0
+Z20 !s100 I`@Z@UBObS]<7m8bPgKUS1
+R2
+R13
+!i122 129
+l55
+R14
+R15
+R16
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z21 8proj/src/Fetch/basic_adder.vhd
+Z22 Fproj/src/Fetch/basic_adder.vhd
+R2
+!i122 129
+R1
+R21
+R22
+<<<<<<< HEAD
+Z23 DEx4 work 11 basic_adder 0 22 gELWnZ2X=^khOeE9A6@N]0
+!i122 78
+l53
+Z24 L19 70
+Z25 Vd9JN;F:WFmY_ia1OMOm0M3
+Z26 !s100 d2;mRS1?f@G?>PSPQ=[RL1
+R2
+R23
+!i122 129
+l53
+R24
+R25
+R26
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z27 8proj/src/Fetch/basic_adder_n.vhd
+Z28 Fproj/src/Fetch/basic_adder_n.vhd
+R2
+!i122 129
+R1
+R27
+R28
+<<<<<<< HEAD
+Z29 DEx4 work 13 basic_adder_n 0 22 XXBZ0zDPHCNzG727YGHHk0
+!i122 78
+l39
+Z30 L21 34
+Z31 VoH9aNiVez4;M@HbC?65z<3
+Z32 !s100 MGO<hNcQBHR8GPN4H<Wad0
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z33 8proj/src/Fetch/busMux_2t1.vhd
+Z34 Fproj/src/Fetch/busMux_2t1.vhd
+R2
+!i122 129
+R1
+R33
+R34
+<<<<<<< HEAD
+Z35 DEx4 work 10 busmux_2t1 0 22 Hab6M?T16[3@IC9JShDn33
+!i122 78
+l17
+Z36 L16 7
+Z37 VAS>BZd_Aiz53F][MF5GAW0
+Z38 !s100 NcYP`fEdC81ajhHG<B>ZG1
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+<<<<<<< HEAD
+w1774550927
+Z39 DPx4 work 11 riscv_types 0 22 R;PJfCR9:b4a=XE9P<:o80
+R11
+R12
+!i122 78
+R1
+Z40 8proj/src/Control/ctrl_decoder.vhd
+Z41 Fproj/src/Control/ctrl_decoder.vhd
+R2
+w1774727440
+R39
+R11
+R12
+!i122 129
+R1
+R40
+R41
+<<<<<<< HEAD
+R39
+R11
+R12
+Z42 DEx4 work 12 ctrl_decoder 0 22 SB@V_`F00=XmhzkEAXOH;3
+!i122 78
+l48
+L29 149
+V1a;_84_ab<S^M?;MPfbQ53
+!s100 XESIF<=GUE5243oN<7jE<0
+R2
+R39
+R11
+R12
+R42
+!i122 129
+l50
+L29 140
+VchWmN5[bEE<g^e:Z`8[Li0
+!s100 Y?VSnm5g8M@a^94:LG@So3
+R1
+<<<<<<< HEAD
+Z43 w1772922231
+R11
+R12
+!i122 78
+R1
+Z44 8proj/src/RegisterFile/decoder_5t32.vhd
+Z45 Fproj/src/RegisterFile/decoder_5t32.vhd
+l0
+Z46 Fproj/src/ALU/basic_adder_n_BRANCH.vhd
+R2
+R43
+R11
+R12
+!i122 129
+R1
+R44
+R45
+l0
+Z47 L13 1
+<<<<<<< HEAD
+Z48 DEx4 work 12 decoder_5t32 0 22 GCUMU0H[4<9C66KiBeS[K2
+!i122 78
+l29
+Z49 L19 57
+Z50 Vmn_`V75LfTFWdP3?iEBEe0
+Z51 !s100 O9fmJP49Vn0@dS8Q>8LM93
+R2
+R48
+!i122 129
+l29
+R49
+R50
+R51
+R1
+<<<<<<< HEAD
+Z52 w1772922242
+R11
+R12
+!i122 78
+R1
+Z53 8proj/src/RegisterFile/dffg.vhd
+Z54 Fproj/src/RegisterFile/dffg.vhd
+l0
+Z55 Fproj/src/LogicGates/andg2.vhd
+R2
+R52
+R11
+R12
+!i122 129
+R1
+R53
+R54
+l0
+Z56 L23 1
+<<<<<<< HEAD
+Z57 DEx4 work 4 dffg 0 22 >PZ[eHl^ZDc^T627=nThL3
+!i122 78
+l37
+Z58 L33 29
+Z59 VKI^@FPEc]eSB[32H4XI822
+Z60 !s100 iOdlTUid@@]UimFK_53^C1
+R2
+R57
+!i122 129
+l37
+R58
+R59
+R60
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z61 8proj/src/Extenders/extenders.vhd
+Z62 Fproj/src/Extenders/extenders.vhd
+R2
+!i122 129
+R1
+R61
+R62
+<<<<<<< HEAD
+Z63 DEx4 work 9 extenders 0 22 Y>G2de[EAONGWeolb:`BA2
+!i122 78
+l16
+Z64 L15 10
+Z65 V?@HYXZ3N4X@7^o>MYig_Z1
+Z66 !s100 i<M6c5=E;l`TkkUAb5^X_2
+R2
+R63
+!i122 129
+l16
+R64
+R65
+R66
+R1
+<<<<<<< HEAD
+Z67 !s100 MDUOjJEkQ5]:k95HU1A`o0
+R11
+R12
+!i122 78
+R1
+Z68 8proj/src/LogicGates/invg.vhd
+Z69 Fproj/src/LogicGates/invg.vhd
+l0
+R55
+R2
+Z70 w1772924084
+R11
+R12
+!i122 129
+R1
+R68
+R69
+l0
+R56
+<<<<<<< HEAD
+Z71 DEx4 work 4 invg 0 22 EIV8[cYGC3d^KTkcGjzd81
+!i122 78
+l31
+Z72 L30 6
+Z73 VgCOFGMYmXN`?<=SMTD_mC1
+Z74 !s100 bk7I76o8e1LURdoZEQb8H0
+R2
+R71
+!i122 129
+l31
+R72
+R73
+R74
+R1
+<<<<<<< HEAD
+Z75 w1772922155
+Z76 DPx4 work 16 mux_32t1_package 0 22 [e?8m<PBn?GAD2dLOK8lP3
+R10
+R11
+R12
+!i122 78
+R1
+Z77 8proj/src/Datapath/Lab2_DataPath1 _for2.vhd
+Z78 Fproj/src/Datapath/Lab2_DataPath1 _for2.vhd
+l0
+Z79 Fproj/src/ALU/busMux_4t1.vhd
+R2
+R75
+R76
+R10
+R11
+R12
+!i122 129
+R1
+R77
+R78
+l0
+Z80 L11 1
+<<<<<<< HEAD
+R76
+R10
+R11
+R12
+Z81 DEx4 work 19 lab2_datapath1_for2 0 22 9_AQe3dI0?Vjle16K6C^o3
+!i122 78
+l68
+Z82 L31 82
+Z83 V3Qi3a]2RA4;>HSZNEaY7X3
+Z84 !s100 FEAOm6R>]`Q:<T6e7?PKK1
+R2
+R76
+R10
+R11
+R12
+R81
+!i122 129
+l68
+R82
+R83
+R84
+R1
+<<<<<<< HEAD
+Z85 w1772920614
+R10
+R11
+R12
+!i122 78
+R1
+Z86 8proj/src/TopLevel/mem.vhd
+Z87 Fproj/src/TopLevel/mem.vhd
+R2
+R85
+R10
+R11
+R12
+!i122 129
+R1
+R86
+R87
+<<<<<<< HEAD
+Z88 DEx4 work 3 mem 0 22 `DCP5]PX0@1FzLJ]HFPC51
+!i122 78
+l37
+Z89 L27 24
+Z90 V7=z6;Jh7Kho4J>IEcD31I0
+Z91 !s100 OI8_3><BhDkT3l3n8`OXd3
+R2
+R88
+!i122 129
+l37
+R89
+R90
+R91
+R1
+<<<<<<< HEAD
+R67
+R11
+R12
+!i122 78
+R1
+Z92 8proj/src/LogicGates/mux2t1.vhd
+Z93 Fproj/src/LogicGates/mux2t1.vhd
+l0
+R79
+R2
+R70
+R11
+R12
+!i122 129
+R1
+R92
+R93
+l0
+R80
+<<<<<<< HEAD
+Z94 DEx4 work 6 mux2t1 0 22 4j1o;ehB[=9AakJMgEaT?2
+!i122 78
+l57
+Z95 L23 71
+Z96 V;KiWRTDU9Djj^Q6@B8J`J2
+Z97 !s100 EV9al9F9TdzEi0^95^LV^3
+R2
+R94
+!i122 129
+l57
+R95
+R96
+R97
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z98 8proj/src/LogicGates/mux2t1_N.vhd
+Z99 Fproj/src/LogicGates/mux2t1_N.vhd
+R2
+!i122 129
+R1
+R98
+R99
+<<<<<<< HEAD
+Z100 DEx4 work 8 mux2t1_n 0 22 GZ`>;oeU_8jndT_KOSU<31
+!i122 78
+l39
+Z101 L30 21
+Z102 VZN9<A@:Ed@c7fc;5^P2=91
+Z103 !s100 W>5MMWO2LBg`K8[P>h>Ye1
+R2
+R100
+!i122 129
+l39
+R101
+R102
+R103
+R1
+<<<<<<< HEAD
+Z104 w1772922217
+R76
+R11
+R12
+!i122 78
+R1
+Z105 8proj/src/RegisterFile/mux_32t1.vhd
+Z106 Fproj/src/RegisterFile/mux_32t1.vhd
+R2
+R104
+R98
+R11
+R12
+!i122 129
+R1
+R105
+R106
+<<<<<<< HEAD
+R76
+R11
+R12
+Z107 DEx4 work 8 mux_32t1 0 22 nVigPiRF``3gGAD8FB94?3
+!i122 78
+l20
+Z108 L18 38
+Z109 Vb8IX8RP_IRTV;cgLTLeLR0
+Z110 !s100 __oFo0mn0<32D_>LgG9?g0
+R2
+R98
+R11
+R12
+R107
+!i122 129
+l20
+R108
+R109
+R110
+R1
+<<<<<<< HEAD
+!i122 78
+R2
+!i122 129
+R1
+<<<<<<< HEAD
+Z111 w1772924651
+R10
+R11
+R12
+!i122 78
+R1
+Z112 8proj/src/Datapath/MySecondDataPath.vhd
+Z113 Fproj/src/Datapath/MySecondDataPath.vhd
+R2
+R111
+R10
+R11
+R12
+!i122 129
+R1
+R112
+R113
+<<<<<<< HEAD
+Z114 DEx4 work 16 myseconddatapath 0 22 UlLoUzLAhBPN4=EGS68i90
+!i122 78
+l74
+Z115 L31 85
+Z116 VaLjnMgc?UoaMSDGW9l5g10
+Z117 !s100 z[F38II>[XUoCOT83:o]S2
+R2
+R114
+!i122 129
+l74
+R115
+R116
+R117
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z118 8proj/src/ALU/ones_comp_N.vhd
+Z119 Fproj/src/ALU/ones_comp_N.vhd
+l0
+R79
+R2
+!i122 129
+R1
+R118
+R119
+l0
+R80
+<<<<<<< HEAD
+Z120 DEx4 work 11 ones_comp_n 0 22 ;9aWAI9M6P@^JCaa[SLC^0
+!i122 78
+l26
+Z121 L17 19
+Z122 VbUS;]Ib99PjPBKSkI9i]e2
+Z123 !s100 >5Q@Ofn>E8j>[>hG9n19f0
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+<<<<<<< HEAD
+R1
+<<<<<<< HEAD
+Z124 DEx4 work 4 org2 0 22 ?NH`3h?82EVlQHGfZGfFO0
+!i122 78
+l32
+R17
+Z125 V<Wo>dNlmZ7b3Bf:M>4HRk1
+Z126 !s100 h5_AzR3TdRA0a_K=dQ>mI2
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+<<<<<<< HEAD
+R1
+<<<<<<< HEAD
+DEx4 work 11 proj1_fetch 0 22 3ggHmTLAHGD>zohRbl@;^0
+!i122 78
+l59
+L21 81
+VLLiGQ[Oajbe^2JnolP1?23
+!s100 Yl03aYea8Q5I^K8gEF8^X3
+R2
+Z127 DEx4 work 4 or_n 0 22 JfYgEU5oz>SgE0=N8:<Ea1
+!i122 129
+l25
+Z128 L17 17
+Z129 V:9N[iCW;R[UBfZjA`VMT;3
+Z130 !s100 ljMaDKN6=a7l?nKkcanAS2
+R1
+<<<<<<< HEAD
+R1
+<<<<<<< HEAD
+R76
+R10
+R11
+R12
+Z131 DEx4 work 8 reg_file 0 22 ^KAYjGece>A4Y=eWTzWWE1
+!i122 78
+l50
+Z132 L23 81
+Z133 V4mMNGij4De]DlW@PM144a3
+Z134 !s100 Fhl7]>0[oYFIzC=GW3fc:2
+R2
+R98
+R10
+R11
+R12
+R131
+!i122 129
+l50
+R132
+R133
+R134
+R1
+<<<<<<< HEAD
+Z135 w1772922204
+R11
+R12
+!i122 78
+R1
+Z136 8proj/src/RegisterFile/reg_n.vhd
+Z137 Fproj/src/RegisterFile/reg_n.vhd
+R2
+R135
+R11
+R12
+!i122 129
+R1
+R136
+R137
+<<<<<<< HEAD
+Z138 DEx4 work 5 reg_n 0 22 J]@TG`>>9G>IBHNa6gjee1
+!i122 78
+l37
+Z139 L27 26
+Z140 VBZcj5UZO0oFW3`md2bI0j1
+Z141 !s100 PQF?:Nm<J0MjJV9QG0EJh1
+R2
+R138
+!i122 129
+l37
+R139
+R140
+R141
+R1
+<<<<<<< HEAD
+w1774550774
+R39
+R11
+R12
+!i122 78
+R1
+Z142 8proj/src/TopLevel/RISCV_Processor.vhd
+Z143 Fproj/src/TopLevel/RISCV_Processor.vhd
+R2
+w1774729867
+R44
+R11
+R12
+!i122 129
+R1
+R142
+R143
+<<<<<<< HEAD
+R39
+R11
+R12
+Z144 DEx4 work 15 riscv_processor 0 22 0RJ<2UUmY?5Da??WGVTG^3
+!i122 78
+l201
+L37 307
+VCAj`0@dGXT4kR;3?:0A1R1
+!s100 Xjc:8;4gfOQKo3?LBJdn22
+R2
+R44
+R11
+R12
+R144
+!i122 129
+l207
+L37 361
+Vlb7?zW<Te90oFh>BJkKG^3
+!s100 AceIPcoQ89[B=fS?f>M6X3
+R1
+<<<<<<< HEAD
+!i122 78
+Z145 w1774545462
+R1
+Z146 8proj/src/RISCV_types.vhd
+Z147 Fproj/src/RISCV_types.vhd
+R2
+!i122 129
+R145
+R1
+R146
+R147
+<<<<<<< HEAD
+R39
+R11
+R12
+!i122 78
+l0
+Z148 L60 13
+Z149 V[T63[`mMg^d^>:gH1T^Xa2
+Z150 !s100 C_KLOBNIbJWPjM=Q`P?]S0
+R7
+33
+R3
+R2
+R44
+R11
+R12
+!i122 129
+l0
+R148
+R149
+R150
+R7
+33
+Z151 !s110 1774729870
+R1
+<<<<<<< HEAD
+!i122 78
+R1
+Z152 8proj/src/ALU/shifter.vhd
+Z153 Fproj/src/ALU/shifter.vhd
+l0
+R130
+R2
+!i122 129
+R1
+R152
+R153
+l0
+R131
+<<<<<<< HEAD
+Z154 DEx4 work 7 shifter 0 22 aam=^VOAAMnIL[bFcA0NM1
+!i122 78
+l55
+Z155 L23 177
+Z156 VW:RHjY8angbT^F[[XP;UG1
+Z157 !s100 EROaeVRQ=P`K?D3lPRh7g2
+R2
+R154
+!i122 129
+l55
+R155
+R156
+R157
+R1
+<<<<<<< HEAD
+Z158 w1772193124
+Z159 DPx3 std 3 env 0 22 g[fj8WJKOa<0Y`zWY3UD70
+Z160 DPx4 ieee 16 std_logic_textio 0 22 8]8<fKiYoHe;_IDO3kmNH2
+R11
+R12
+!i122 78
+R1
+Z161 8internal/testpy/tb.vhd
+Z162 Finternal/testpy/tb.vhd
+R2
+R158
+R159
+R160
+R11
+R12
+!i122 129
+R1
+R161
+R162
+<<<<<<< HEAD
+R159
+R160
+R11
+R12
+Z163 DEx4 work 2 tb 0 22 VnzHcnmWmi<jE?5a3XOiF3
+!i122 78
+l56
+Z164 L31 127
+Z165 V5[oF0n<T4Z>Xdce12QbYh2
+Z166 !s100 ^B9]<VXY=N5NKKgkQI20c3
+R7
+33
+R3
+R2
+R159
+R160
+R11
+R12
+R163
+!i122 129
+l56
+R164
+R165
+R166
+R7
+33
+R151
+R1
+<<<<<<< HEAD
+R145
+R10
+R11
+R12
+!i122 78
+R1
+Z167 8proj/src/ALU/tb_proj01_ALU.vhd
+Z168 Fproj/src/ALU/tb_proj01_ALU.vhd
+R2
+Z169 w1774723010
+R10
+R11
+R12
+!i122 129
+R1
+R167
+R168
+<<<<<<< HEAD
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Aproj01_alu
+R10
+R11
+R12
+Z170 DEx4 work 13 tb_proj01_alu 0 22 W]Cn@d[0@5[4TaCzbm5g^3
+!i122 78
+l32
+Z171 L13 773
+Z172 VB4PKC_^miE0=3@KGQ^njW0
+Z173 !s100 1A6XV1FaEQbCN5TnJP2hj3
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+<<<<<<< HEAD
+R1
+<<<<<<< HEAD
+Z174 DEx4 work 5 xorg2 0 22 5Q>VWC4f7j5KH:`2lLMTR0
+!i122 78
+l32
+R17
+Z175 VfMT1QQS6a=jd=[j:an4<c2
+Z176 !s100 Z6[FAPS4fBLB`F?OO<AY72
+R2
+R174
+!i122 129
+l32
+R18
+R175
+R176
+R1
+>>>>>>> top-level-integration
+R1
+Z177 8proj/src/ALU/addSub.vhd
+Z178 Fproj/src/ALU/addSub.vhd
+l0
+L8 1
+Z179 V_oQi[PR>71zbJ]QIjWbaK0
+Z180 !s100 adh4PjfLaDkXEU^G8cj]:0
+R7
+33
+>>>>>>> top-level-integration
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+Z181 DEx4 work 6 addsub 0 22 _oQi[PR>71zbJ]QIjWbaK0
+>>>>>>> top-level-integration
+l49
+Z182 L17 56
+Z183 VceY^Y9B`c3Y`FzQRMI36I0
+Z184 !s100 KS^GfjL?9ZKO0PYDSWBz=3
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+R1
+Z185 8proj/src/ALU/addSub_BRANCH.vhd
+Z186 Fproj/src/ALU/addSub_BRANCH.vhd
+l0
+Z187 L12 1
+Z188 V276FoWDWQT;znjC3TlYTo0
+Z189 !s100 0VfR:8n`D5F;>cBmzgDJ61
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+Z190 L10 1
+Z191 VgELWnZ2X=^khOeE9A6@N]0
+Z192 !s100 =?V1mSd;n4eOYZ<JG46gg0
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L8 1
+Z193 VXXBZ0zDPHCNzG727YGHHk0
+Z194 !s100 Zg:z4POXT3hlU`[mib[RV2
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L9 1
+Z195 VHab6M?T16[3@IC9JShDn33
+Z196 !s100 z?GicAiI5WIndlcN2GD:Q2
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L5 1
+VSB@V_`F00=XmhzkEAXOH;3
+!s100 hPm:=<X4K6:^Fj`DLT]B13
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z197 VGCUMU0H[4<9C66KiBeS[K2
+Z198 !s100 QM^`XIcMWVZ4dKQnb`j2M0
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Amixed
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z199 V>PZ[eHl^ZDc^T627=nThL3
+Z200 !s100 T4gcXQGMCgKJbn8XhBM;b0
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Amixed
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L9 1
+Z201 VY>G2de[EAONGWeolb:`BA2
+Z202 !s100 [W?FRHMRWCISG679l:T6F1
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z203 VEIV8[cYGC3d^KTkcGjzd81
+Z204 !s100 _XK?_^5z0Rm1<k12?;5R?2
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+V9_AQe3dI0?Vjle16K6C^o3
+!s100 mfh=M_nh];Qi]7hTCb0M^1
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L8 1
+Z205 V`DCP5]PX0@1FzLJ]HFPC51
+Z206 !s100 fRlcaiTJZJ1H;nZh;8=LI3
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Artl
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z207 V4j1o;ehB[=9AakJMgEaT?2
+Z208 !s100 Z@IR;4LaGiadCllWP_gb[3
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+Z209 L21 1
+Z210 VGZ`>;oeU_8jndT_KOSU<31
+Z211 !s100 BKZeKCAB2i6lge3>7TA3d3
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+R187
+Z212 VnVigPiRF``3gGAD8FB94?3
+Z213 !s100 :9Y[olLT2^aDJ4oo8^L;k1
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z214 w1772922286
+R1
+Z215 8proj/src/RegisterFile/mux_32t1_package.vhd
+Z216 Fproj/src/RegisterFile/mux_32t1_package.vhd
+l0
+L7 3
+Z217 V[e?8m<PBn?GAD2dLOK8lP3
+Z218 !s100 B_j;H]LTMKWLLhd0J?0Zj2
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+>>>>>>> top-level-integration
+l0
+L9 1
+VUlLoUzLAhBPN4=EGS68i90
+!s100 lYMQj72l9e`UY0kQIjJ571
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z219 V;9aWAI9M6P@^JCaa[SLC^0
+Z220 !s100 h;3I`_`oAcIb5F2dQ4TgF2
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+R190
+Z221 V^KAYjGece>A4Y=eWTzWWE1
+Z222 !s100 Dn_fRz`O7c[4hJ8A_ceej2
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+Z223 L18 1
+Z224 VJ]@TG`>>9G>IBHNa6gjee1
+Z225 !s100 dmE_@cWKPMQ8S;[<e::Wj3
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L25 1
+V0RJ<2UUmY?5Da??WGVTG^3
+!s100 i]LkbTN[A?MzV@AZi15fo3
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructure
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+Z226 L15 44
+Z227 VR;PJfCR9:b4a=XE9P<:o80
+Z228 !s100 FNWE?DzVCYn:[e_moW4Qn3
+R7
+33
+b1
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Bbody
+>>>>>>> top-level-integration
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z229 Vaam=^VOAAMnIL[bFcA0NM1
+Z230 !s100 dbYDkbnJh=L`Efh<7Cc0X3
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Astructural
+R10
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+Z231 L24 1
+Z232 VVnzHcnmWmi<jE?5a3XOiF3
+Z233 !s100 ;QHYbWb3iZ[[A?fo=9D=X3
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Amixed
+>>>>>>> top-level-integration
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+l0
+L9 1
+Z234 VW]Cn@d[0@5[4TaCzbm5g^3
+Z235 !s100 l8<eae1V58hd<WVDEjAf]0
+R1
+>>>>>>> top-level-integration
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+>>>>>>> top-level-integration
+Z236 V5Q>VWC4f7j5KH:`2lLMTR0
+Z237 !s100 [hI[mXFH4_j16U;>U1Lfn2
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+Adataflow
+R11
+R12
+>>>>>>> top-level-integration
+R7
+33
+R151
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+R1
+T_opt
+!s110 1775092343
+VWU^iZC31SWL?lbR?B]aW:2
+04 2 5 work tb mixed 1
+=1-000ae431a4f1-69cdc277-384eb-aae9
+R0
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work -g OUTPUT_TRACE=ms.trace -debugdb +acc
+tCvgOpt 0
+n@_opt
+OL;O;2025.1_2;82
+Eaddsub
+Z238 w1772503859
+R11
+R12
+!i122 140
+R1
+R177
+R178
+l0
+L8 1
+R179
+R180
+R7
+33
+Z239 !s110 1775092341
+!i10b 1
+Z240 !s108 1775092341.000000
+Z241 !s90 -2008|-work|internal/ModelSimContainer/work|proj/src/RISCV_types.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|proj/src/TopLevel/mem.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/LogicGates/org2.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/mux4t1.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/andg_6t3.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/invg.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Imm_Gen/imm_gen.vhd|proj/src/Extenders/extenders.vhd|proj/src/Extenders/extender_U20b.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/ALU/busMux_8t1.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/and_ALU.vhd|proj/src/Load/proj01_LOAD.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_file.vhd|
+Z242 !s107 proj/src/RegisterFile/reg_file.vhd|proj/src/RegisterFile/mux_32t1.vhd|proj/src/RegisterFile/reg_n.vhd|proj/src/RegisterFile/decoder_5t32.vhd|proj/src/RegisterFile/dffg.vhd|proj/src/RegisterFile/mux_32t1_package.vhd|proj/src/Load/proj01_LOAD.vhd|proj/src/ALU/and_ALU.vhd|proj/src/ALU/or_N.vhd|proj/src/ALU/shifter.vhd|proj/src/ALU/addSub_BRANCH.vhd|proj/src/ALU/ones_comp_N.vhd|proj/src/ALU/addSub.vhd|proj/src/ALU/proj01_branchWrap.vhd|proj/src/ALU/tb_proj01_ALU.vhd|proj/src/ALU/xor_ALU.vhd|proj/src/ALU/proj01_ALU.vhd|proj/src/ALU/and_N.vhd|proj/src/ALU/proj01_BEQ.vhd|proj/src/ALU/xor_N.vhd|proj/src/ALU/basic_adder_n_BRANCH.vhd|proj/src/ALU/or_ALU.vhd|proj/src/ALU/busMux_4t1.vhd|proj/src/ALU/proj01_SLT.vhd|proj/src/ALU/busMux_8t1.vhd|proj/src/Control/ctrl_decoder.vhd|proj/src/Extenders/extender_U20b.vhd|proj/src/Extenders/extenders.vhd|proj/src/Imm_Gen/imm_gen.vhd|proj/src/Fetch/busMux_2t1.vhd|proj/src/Fetch/basic_adder_n.vhd|proj/src/Fetch/basic_adder.vhd|proj/src/Fetch/proj1_fetch.vhd|proj/src/LogicGates/invg.vhd|proj/src/LogicGates/xorg2.vhd|proj/src/LogicGates/mux2t1.vhd|proj/src/LogicGates/andg_6t3.vhd|proj/src/LogicGates/mux2t1_N.vhd|proj/src/LogicGates/mux4t1.vhd|proj/src/LogicGates/andg2.vhd|proj/src/LogicGates/org2.vhd|proj/src/TopLevel/RISCV_Processor.vhd|proj/src/TopLevel/mem.vhd|internal/testpy/tb.vhd|proj/src/RISCV_types.vhd|
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R181
+!i122 140
+l49
+R182
+R183
+R184
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eaddsub_branch
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R185
+R186
+l0
+R187
+R188
+R189
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R13
+!i122 140
+l55
+R14
+R15
+R16
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eand_alu
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z243 8proj/src/ALU/and_ALU.vhd
+Z244 Fproj/src/ALU/and_ALU.vhd
+l0
+L9 1
+Z245 VUnazclObPlk^9LlJ9z2]z1
+Z246 !s100 7RWbYg`@kcINHdM1Zji113
+R7
+33
+Z247 !s110 1775092330
+!i10b 1
+Z248 !s108 1775092330.000000
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z249 DEx4 work 7 and_alu 0 22 UnazclObPlk^9LlJ9z2]z1
+!i122 139
+l25
+Z250 L16 20
+Z251 V>:5@5[d@bAH6C[`_gPZe;1
+Z252 !s100 :8UXcH;3n5^?MadP<]jHk1
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eand_alu
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R243
+R244
+l0
+L9 1
+R245
+R246
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R249
+!i122 140
+l25
+R250
+R251
+R252
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eand_n
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z253 8proj/src/ALU/and_N.vhd
+Z254 Fproj/src/ALU/and_N.vhd
+l0
+R190
+Z255 V2WMID=E]W25zcT4U_T1ME3
+Z256 !s100 :e>ARmWN6cF=T?mV3ICJi2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z257 DEx4 work 5 and_n 0 22 2WMID=E]W25zcT4U_T1ME3
+!i122 139
+l25
+R128
+Z258 Vm?Bj3K@]jXT>mM0CmC?K23
+R67
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eand_n
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R253
+R254
+l0
+R190
+R255
+R256
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R257
+!i122 140
+l25
+R128
+R258
+R67
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eandg2
+R70
+R11
+R12
+!i122 139
+R1
+Z259 8proj/src/LogicGates/andg2.vhd
+R55
+l0
+R56
+Z260 Vzkd6DAMQeJ>Gdbz_JED5>0
+Z261 !s100 YT?bGzEmcFo:DlnoC^B4_0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R17
+!i122 139
+l32
+R18
+R19
+R20
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eandg2
+R70
+R11
+R12
+!i122 140
+R1
+R259
+R55
+l0
+R56
+R260
+R261
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R17
+!i122 140
+l32
+R18
+R19
+R20
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eandg_6t3
+Z262 w1775090007
+R11
+R12
+!i122 140
+R1
+Z263 8proj/src/LogicGates/andg_6t3.vhd
+Z264 Fproj/src/LogicGates/andg_6t3.vhd
+l0
+R80
+VE]=IXiIMPJ1JZDaa6z`?91
+!s100 8Tjm;T=OIcU9zhX1;Po302
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+DEx4 work 8 andg_6t3 0 22 E]=IXiIMPJ1JZDaa6z`?91
+!i122 140
+l27
+L17 28
+V3bziAf5:VW6l66aljM<LB3
+!s100 507?G;P]R<o?azzOgCl3_1
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebasic_adder
+R145
+R11
+R12
+!i122 140
+R1
+R21
+R22
+l0
+R190
+R191
+R192
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R23
+!i122 140
+l53
+R24
+R25
+R26
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebasic_adder_n
+R145
+R11
+R12
+!i122 140
+R1
+R27
+R28
+l0
+L8 1
+R193
+R194
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R29
+!i122 140
+l39
+R30
+R31
+R32
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebasic_adder_n_branch
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z265 8proj/src/ALU/basic_adder_n_BRANCH.vhd
+R46
+l0
+R47
+Z266 V8@0h7V0YPLhe5Ph1_:aII3
+Z267 !s100 C>GUNXaEzFJUhVb4?V<ML0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z268 DEx4 work 20 basic_adder_n_branch 0 22 8@0h7V0YPLhe5Ph1_:aII3
+!i122 139
+l35
+Z269 L23 27
+Z270 V@8_L;k4Vhd7E@EoBCmlFU0
+Z271 !s100 ^N0C>g=z`T@0kC7Q@N^M>2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Ebasic_adder_n_branch
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R265
+R46
+l0
+R47
+R266
+R267
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R268
+!i122 140
+l35
+R269
+R270
+R271
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebusmux_2t1
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R33
+R34
+l0
+L9 1
+R195
+R196
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R10
+R11
+R12
+R35
+!i122 140
+l17
+R36
+R37
+R38
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebusmux_4t1
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z272 8proj/src/ALU/busMux_4t1.vhd
+R79
+l0
+R80
+Z273 VPlOoTbzM9Im=DM9HR8`8b1
+Z274 !s100 hb=ZCN3>aM3cLU>iiPWb^2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z275 DEx4 work 10 busmux_4t1 0 22 PlOoTbzM9Im=DM9HR8`8b1
+!i122 139
+l35
+Z276 L21 35
+Z277 V?>:loIKmL9lQ5EoMbHKI80
+Z278 !s100 MeS@;PI5BD^EU`bj961YN2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Ebusmux_4t1
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R272
+R79
+l0
+R80
+R273
+R274
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R275
+!i122 140
+l35
+R276
+R277
+R278
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ebusmux_8t1
+Z279 w1774730027
+R11
+R12
+!i122 140
+R1
+Z280 8proj/src/ALU/busMux_8t1.vhd
+Z281 Fproj/src/ALU/busMux_8t1.vhd
+l0
+L8 1
+Vda2jnbLcUAh8]jem@dc;M1
+!s100 e1n9U^5BATS<c2ZDf_eFA2
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+DEx4 work 10 busmux_8t1 0 22 da2jnbLcUAh8]jem@dc;M1
+!i122 140
+l45
+L23 49
+VNMCQ4I8D:@QTgSM^1lT]n2
+!s100 mciHc=;3=g=bJc;742n_;0
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ectrl_decoder
+Z282 w1775090035
+R39
+R11
+R12
+!i122 140
+R1
+R40
+R41
+l0
+L5 1
+V6DWE@2oH21IVIKQ@4DiGn0
+!s100 :h:^d@Lo9`h^OXmf1lV>;2
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R39
+R11
+R12
+DEx4 work 12 ctrl_decoder 0 22 6DWE@2oH21IVIKQ@4DiGn0
+!i122 140
+l50
+L31 143
+VYXl>b5cD15kf=jfhYkX6S3
+!s100 3j>k<?=@3_gI_ShmXKl9b2
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Edecoder_5t32
+R43
+R11
+R12
+!i122 140
+R1
+R44
+R45
+l0
+R47
+R197
+R198
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Amixed
+R11
+R12
+R48
+!i122 140
+l29
+R49
+R50
+R51
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Edffg
+R52
+R11
+R12
+!i122 140
+R1
+R53
+R54
+l0
+R56
+R199
+R200
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Amixed
+R11
+R12
+R57
+!i122 140
+l37
+R58
+R59
+R60
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eextender_20b
+R279
+R10
+R11
+R12
+!i122 140
+R1
+Z283 8proj/src/Extenders/extender_U20b.vhd
+Z284 Fproj/src/Extenders/extender_U20b.vhd
+l0
+R80
+V>3z0F1>Qd4j4=O0an_6Q21
+!s100 VBbcUU@LC9>X>E7_HmG?60
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R10
+R11
+R12
+DEx4 work 12 extender_20b 0 22 >3z0F1>Qd4j4=O0an_6Q21
+!i122 140
+l18
+R36
+VBzeacI2MdhCD;dLmXEV_Y0
+!s100 XCI9@R@S2HhF[I@?4<mAD3
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eextenders
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R61
+R62
+l0
+L9 1
+R201
+R202
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R10
+R11
+R12
+R63
+!i122 140
+l16
+R64
+R65
+R66
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eimm_gen
+R279
+R39
+R11
+R12
+!i122 140
+R1
+Z285 8proj/src/Imm_Gen/imm_gen.vhd
+Z286 Fproj/src/Imm_Gen/imm_gen.vhd
+l0
+L5 1
+V5SRiO2iPCWQd=7P:0mmIW2
+!s100 73U9SXm0UKXaH:oj<DL`J1
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R39
+R11
+R12
+DEx4 work 7 imm_gen 0 22 5SRiO2iPCWQd=7P:0mmIW2
+!i122 140
+l20
+L12 36
+VnW<1`EN9;cjQ>c`Po[o_<1
+!s100 >9P2;?HR]1nNM]>A4nD>d0
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Einvg
+R70
+R11
+R12
+!i122 140
+R1
+R68
+R69
+l0
+R56
+R203
+R204
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R71
+!i122 140
+l31
+R72
+R73
+R74
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Elab2_datapath1_for2
+R1
+Emem
+R85
+R10
+R11
+R12
+!i122 140
+R1
+R86
+R87
+l0
+L8 1
+R205
+R206
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Artl
+R10
+R11
+R12
+R88
+!i122 140
+l37
+R89
+R90
+R91
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Emux2t1
+R70
+R11
+R12
+!i122 140
+R1
+R92
+R93
+l0
+R80
+R207
+R208
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R94
+!i122 140
+l57
+R95
+R96
+R97
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Emux2t1_n
+R145
+R11
+R12
+!i122 140
+R1
+R98
+R99
+l0
+R209
+R210
+R211
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R100
+!i122 140
+l39
+R101
+R102
+R103
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Emux4t1
+Z287 w1774882721
+R10
+R11
+R12
+!i122 140
+R1
+Z288 8proj/src/LogicGates/mux4t1.vhd
+Z289 Fproj/src/LogicGates/mux4t1.vhd
+l0
+L9 1
+VGzJ^j7jCRNT1>5TD6Cn@a3
+!s100 ngT`ALg[3Tb]2R@A65<e[1
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+DEx4 work 6 mux4t1 0 22 GzJ^j7jCRNT1>5TD6Cn@a3
+!i122 140
+l31
+L19 33
+V3W5W5_]BlEGZLod11eSSb2
+!s100 db]zX<XC>Zk`ofNMo^do=1
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Emux_32t1
+R104
+R76
+R11
+R12
+!i122 140
+R1
+R105
+R106
+l0
+R187
+R212
+R213
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R76
+R11
+R12
+R107
+!i122 140
+l20
+R108
+R109
+R110
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Pmux_32t1_package
+R11
+R12
+!i122 140
+R214
+R1
+R215
+R216
+l0
+L7 3
+R217
+R218
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Emyseconddatapath
+R1
+Eones_comp_n
+R145
+R11
+R12
+!i122 140
+R1
+R118
+R119
+l0
+R80
+R219
+R220
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R120
+!i122 140
+l26
+R121
+R122
+R123
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eor_alu
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z290 8proj/src/ALU/or_ALU.vhd
+Z291 Fproj/src/ALU/or_ALU.vhd
+l0
+L9 1
+Z292 VK[jCmEF^3F4NZKf7Xn>i_1
+Z293 !s100 ^lL=h^;m?24z>`MBGXA^a0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z294 DEx4 work 6 or_alu 0 22 K[jCmEF^3F4NZKf7Xn>i_1
+!i122 139
+l25
+R250
+Z295 VzhfZcf^4?ZR=Tged:_1Lf2
+Z296 !s100 G724a58VM4n_`1:Tf4iC81
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eor_alu
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R290
+R291
+l0
+L9 1
+R292
+R293
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R294
+!i122 140
+l25
+R250
+R295
+R296
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eor_n
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z297 8proj/src/ALU/or_N.vhd
+Z298 Fproj/src/ALU/or_N.vhd
+l0
+R190
+Z299 VJfYgEU5oz>SgE0=N8:<Ea1
+Z300 !s100 Y82E;HNaeF9Si>2IoQ=HZ2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R127
+!i122 139
+l25
+R128
+R129
+R130
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eor_n
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R297
+R298
+l0
+R190
+R299
+R300
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R127
+!i122 140
+l25
+R128
+R129
+R130
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eorg2
+R70
+R11
+R12
+!i122 139
+R1
+Z301 8proj/src/LogicGates/org2.vhd
+Z302 Fproj/src/LogicGates/org2.vhd
+l0
+R56
+Z303 V?NH`3h?82EVlQHGfZGfFO0
+Z304 !s100 bGQ1F9eW^Q17OoL9h4g7z2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R124
+!i122 139
+l32
+R18
+R125
+R126
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eorg2
+R70
+R11
+R12
+!i122 140
+R1
+R301
+R302
+l0
+R56
+R303
+R304
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R124
+!i122 140
+l32
+R18
+R125
+R126
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_alu
+Z305 w1774725123
+R10
+R11
+R12
+!i122 139
+R1
+Z306 8proj/src/ALU/proj01_ALU.vhd
+Z307 Fproj/src/ALU/proj01_ALU.vhd
+l0
+L9 1
+Z308 V36zdCSheoQ6W0VfMkAmg73
+Z309 !s100 @QTSHTRZ:=DVGRI;DHAO22
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z310 DEx4 work 10 proj01_alu 0 22 36zdCSheoQ6W0VfMkAmg73
+!i122 139
+l151
+Z311 L23 250
+Z312 V`gAPa<=FoNnMO6UTU25TS2
+Z313 !s100 OK:lUL=c1ORD=X;S5KKT93
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_alu
+R305
+R10
+R11
+R12
+!i122 140
+R1
+R306
+R307
+l0
+L9 1
+R308
+R309
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R310
+!i122 140
+l151
+R311
+R312
+R313
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_beq
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z314 8proj/src/ALU/proj01_BEQ.vhd
+Z315 Fproj/src/ALU/proj01_BEQ.vhd
+l0
+Z316 L26 1
+Z317 VKPMK6f7^TQc>@K>A7CN@:0
+Z318 !s100 9Sl9]dL4bii_RnBA5zJ1Q1
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z319 DEx4 work 10 proj01_beq 0 22 KPMK6f7^TQc>@K>A7CN@:0
+!i122 139
+l78
+Z320 L33 155
+Z321 VBknhCz;EK[_L;<>YAcg900
+Z322 !s100 j0_zQ@R0=XQ[Cn1;>N5:63
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_beq
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R314
+R315
+l0
+R316
+R317
+R318
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R319
+!i122 140
+l78
+R320
+R321
+R322
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_branchwrap
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z323 8proj/src/ALU/proj01_branchWrap.vhd
+Z324 Fproj/src/ALU/proj01_branchWrap.vhd
+l0
+Z325 L15 1
+Z326 VKTPWINjVnQH2E:7YVNfeL2
+Z327 !s100 nUBV;;POBJnj9d6PUFmHD2
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z328 DEx4 work 17 proj01_branchwrap 0 22 KTPWINjVnQH2E:7YVNfeL2
+!i122 139
+l67
+Z329 L24 88
+Z330 V96C6Pi5DMCTLS`g5Lgkno1
+Z331 !s100 JHGVS9^gTd_dao62AzBl92
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_branchwrap
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R323
+R324
+l0
+R325
+R326
+R327
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R328
+!i122 140
+l67
+R329
+R330
+R331
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_load
+R279
+R10
+R11
+R12
+!i122 140
+R1
+Z332 8proj/src/Load/proj01_LOAD.vhd
+Z333 Fproj/src/Load/proj01_LOAD.vhd
+l0
+L9 1
+Vh?[3UAE9LiQ[bD^DSNKUz1
+!s100 ld85Wl1kmX15[0N=BDhX[0
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+DEx4 work 11 proj01_load 0 22 h?[3UAE9LiQ[bD^DSNKUz1
+!i122 140
+l54
+L16 89
+V<g`gZMj?]]ocmeo>nBOTQ3
+!s100 YaIMlenF1oMNaQ_^<nC_g3
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_slt
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z334 8proj/src/ALU/proj01_SLT.vhd
+Z335 Fproj/src/ALU/proj01_SLT.vhd
+l0
+R187
+Z336 V38;[jTEigZTYUNaSi=b?m0
+Z337 !s100 i7b>_nb=<CNKFKRd`an6Q0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z338 DEx4 work 10 proj01_slt 0 22 38;[jTEigZTYUNaSi=b?m0
+!i122 139
+l37
+Z339 L20 38
+Z340 VDiY4eBbeVoUMgB<7>fN`X0
+Z341 !s100 f^nSS?COIg7iUeW;T;b4>3
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eproj01_slt
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R334
+R335
+l0
+R187
+R336
+R337
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R338
+!i122 140
+l37
+R339
+R340
+R341
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eproj1_fetch
+Z342 w1775092322
+R10
+R11
+R12
+!i122 139
+R1
+Z343 8proj/src/Fetch/proj1_fetch.vhd
+Z344 Fproj/src/Fetch/proj1_fetch.vhd
+l0
+R47
+Z345 Vk>8>ASHW[7ZYJRLQY@QiT3
+Z346 !s100 lQmYnUYOIJj5Te0Pb?zE91
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z347 DEx4 work 11 proj1_fetch 0 22 k>8>ASHW[7ZYJRLQY@QiT3
+!i122 139
+l70
+Z348 L24 100
+Z349 V]Hm46ZYzadfWOF?Cj`9zF1
+Z350 !s100 l2XE<EMgRdDd`Sj;YdbC50
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Eproj1_fetch
+R342
+R10
+R11
+R12
+!i122 140
+R1
+R343
+R344
+l0
+R47
+R345
+R346
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R347
+!i122 140
+l70
+R348
+R349
+R350
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ereg_file
+Z351 w1772922192
+R76
+R10
+R11
+R12
+!i122 139
+R1
+Z352 8proj/src/RegisterFile/reg_file.vhd
+Z353 Fproj/src/RegisterFile/reg_file.vhd
+l0
+R190
+R221
+R222
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R76
+R10
+R11
+R12
+R131
+!i122 139
+l50
+R132
+R133
+R134
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Ereg_file
+R351
+R76
+R10
+R11
+R12
+!i122 140
+R1
+R352
+R353
+l0
+R190
+R221
+R222
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R76
+R10
+R11
+R12
+R131
+!i122 140
+l50
+R132
+R133
+R134
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Ereg_n
+R135
+R11
+R12
+!i122 140
+R1
+R136
+R137
+l0
+R223
+R224
+R225
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R11
+R12
+R138
+!i122 140
+l37
+R139
+R140
+R141
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eriscv_processor
+Z354 w1775091976
+R39
+R11
+R12
+!i122 140
+R1
+R142
+R143
+l0
+L27 1
+VL_BTgc5FXk_LZRPa^zD:k1
+!s100 Q2kZ5f7Cda4F`2<S1E5dJ3
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructure
+R39
+R11
+R12
+DEx4 work 15 riscv_processor 0 22 L_BTgc5FXk_LZRPa^zD:k1
+!i122 140
+l238
+L39 406
+VK7NdDNLeM:X?[Vk[6<zW82
+!s100 6FFENnMb_<_k5N]LaiDFb0
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Priscv_types
+R11
+R12
+!i122 140
+R145
+R1
+R146
+R147
+l0
+R226
+R227
+R228
+R7
+33
+b1
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Bbody
+R39
+R11
+R12
+!i122 140
+l0
+R148
+R149
+R150
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Eshifter
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R152
+R153
+l0
+R325
+R229
+R230
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R154
+!i122 140
+l55
+R155
+R156
+R157
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Etb
+R158
+R159
+R160
+R11
+R12
+!i122 140
+R1
+R161
+R162
+l0
+R231
+R232
+R233
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Amixed
+R159
+R160
+R11
+R12
+R163
+!i122 140
+l56
+R164
+R165
+R166
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Etb_proj01_alu
+R169
+R10
+R11
+R12
+!i122 140
+R1
+R167
+R168
+l0
+L9 1
+R234
+R235
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Aproj01_alu
+R10
+R11
+R12
+R170
+!i122 140
+l32
+R171
+R172
+R173
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Exor_alu
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z355 8proj/src/ALU/xor_ALU.vhd
+Z356 Fproj/src/ALU/xor_ALU.vhd
+l0
+L9 1
+Z357 VZ`KHbP5CRWlLSS2N2HBTW3
+Z358 !s100 m<aCW[3ah5fo7MCb<:4;g0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z359 DEx4 work 7 xor_alu 0 22 Z`KHbP5CRWlLSS2N2HBTW3
+!i122 139
+l25
+R250
+Z360 Vg45IDoYoXEea>XC<=l=El2
+Z361 !s100 FGcBle8eJ]RP7mlXUCmWT3
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Exor_alu
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R355
+R356
+l0
+L9 1
+R357
+R358
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R359
+!i122 140
+l25
+R250
+R360
+R361
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Exor_n
+R145
+R10
+R11
+R12
+!i122 139
+R1
+Z362 8proj/src/ALU/xor_N.vhd
+Z363 Fproj/src/ALU/xor_N.vhd
+l0
+Z364 L16 1
+Z365 Vz<=<QW]dOl?<e<@OE[W4N2
+Z366 !s100 McQcUDiVT:nbdlbh8[QZ02
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+Z367 DEx4 work 5 xor_n 0 22 z<=<QW]dOl?<e<@OE[W4N2
+!i122 139
+l31
+Z368 L23 17
+Z369 VcPD5TfGU^8TZ3JI`[oDm?3
+Z370 !s100 KKfZ;H85O?;1l3dGKW2hM0
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Exor_n
+R145
+R10
+R11
+R12
+!i122 140
+R1
+R362
+R363
+l0
+R364
+R365
+R366
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Astructural
+R10
+R11
+R12
+R367
+!i122 140
+l31
+R368
+R369
+R370
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Exorg2
+R70
+R11
+R12
+!i122 139
+R1
+Z371 8proj/src/LogicGates/xorg2.vhd
+Z372 Fproj/src/LogicGates/xorg2.vhd
+l0
+R56
+R236
+R237
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R174
+!i122 139
+l32
+R18
+R175
+R176
+R7
+33
+R247
+!i10b 1
+R248
+R241
+R242
+!i113 0
+R8
+R9
+Aproj01_alu
+R10
+R11
+R12
+R170
+!i122 129
+l32
+R171
+R172
+R173
+R7
+33
+R3
+!i10b 1
+R4
+R5
+R6
+!i113 0
+R8
+R9
+Exorg2
+R70
+R11
+R12
+!i122 140
+R1
+R371
+R372
+l0
+R56
+R236
+R237
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9
+Adataflow
+R11
+R12
+R174
+!i122 140
+l32
+R18
+R175
+R176
+R7
+33
+R239
+!i10b 1
+R240
+R241
+R242
+!i113 0
+R8
+R9

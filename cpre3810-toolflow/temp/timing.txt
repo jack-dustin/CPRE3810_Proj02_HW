@@ -1,0 +1,67 @@
+
+#
+# CprE 381 toolflow Timing dump
+#
+
+FMax: 45.49mhz Clk Constraint: 20.00ns Slack: -1.98ns
+
+The path is given below
+
+ ===================================================================
+ From Node    : reg_file:Rfile|reg_n:\GEN_REGISTERS:21:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:4:RegI|s_Q
+ To Node      : proj1_fetch:IFetch|reg_n:INST_REG_N|dffg:\G_nBit_Reg:11:RegI|s_Q
+ Launch Clock : iCLK (INVERTED)
+ Latch Clock  : iCLK
+ Data Arrival Path:
+ Total (ns)  Incr (ns)     Type  Element
+ ==========  ========= ==  ====  ===================================
+     10.000     10.000           launch edge time
+     13.204      3.204  F        clock network delay
+     13.436      0.232     uTco  reg_file:Rfile|reg_n:\GEN_REGISTERS:21:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:4:RegI|s_Q
+     13.436      0.000 FF  CELL  Rfile|\GEN_REGISTERS:21:INST_x1_31:INST_REGISTERS|\G_nBit_Reg:4:RegI|s_Q|q
+     14.150      0.714 FF    IC  Rfile|INST_MUX_2|Mux27~11|dataa
+     14.574      0.424 FF  CELL  Rfile|INST_MUX_2|Mux27~11|combout
+     14.844      0.270 FF    IC  Rfile|INST_MUX_2|Mux27~12|datab
+     15.233      0.389 FR  CELL  Rfile|INST_MUX_2|Mux27~12|combout
+     16.456      1.223 RR    IC  Rfile|INST_MUX_2|Mux27~15|dataa
+     16.856      0.400 RR  CELL  Rfile|INST_MUX_2|Mux27~15|combout
+     17.060      0.204 RR    IC  Rfile|INST_MUX_2|Mux27~18|datad
+     17.215      0.155 RR  CELL  Rfile|INST_MUX_2|Mux27~18|combout
+     17.415      0.200 RR    IC  Rfile|INST_MUX_2|Mux27~19|datac
+     17.700      0.285 RR  CELL  Rfile|INST_MUX_2|Mux27~19|combout
+     18.072      0.372 RR    IC  Mux_ALUSrc|\G_NBit_MUX:4:MUXI|g_or|o_F~0|datad
+     18.227      0.155 RR  CELL  Mux_ALUSrc|\G_NBit_MUX:4:MUXI|g_or|o_F~0|combout
+     19.235      1.008 RR    IC  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~5|datab
+     19.653      0.418 RR  CELL  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~5|combout
+     20.021      0.368 RR    IC  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~6|datad
+     20.176      0.155 RR  CELL  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~6|combout
+     20.381      0.205 RR    IC  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~7|datad
+     20.536      0.155 RR  CELL  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~7|combout
+     20.737      0.201 RR    IC  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_EQ1_AND_LT0|o_F|datac
+     21.024      0.287 RR  CELL  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_EQ1_AND_LT0|o_F|combout
+     21.396      0.372 RR    IC  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~10|datac
+     21.683      0.287 RR  CELL  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_LT1_OR_EQ1LT0|o_F~10|combout
+     21.895      0.212 RR    IC  s_Fetchsrc~5|datad
+     22.034      0.139 RF  CELL  s_Fetchsrc~5|combout
+     22.260      0.226 FF    IC  s_Fetchsrc~9|datad
+     22.385      0.125 FF  CELL  s_Fetchsrc~9|combout
+     22.620      0.235 FF    IC  s_Fetchsrc~6|datac
+     22.900      0.280 FF  CELL  s_Fetchsrc~6|combout
+     23.292      0.392 FF    IC  s_Fetchsrc[0]~7|datad
+     23.442      0.150 FR  CELL  s_Fetchsrc[0]~7|combout
+     24.711      1.269 RR    IC  IFetch|INST_REG_N|\G_nBit_Reg:11:RegI|s_Q~0|datad
+     24.850      0.139 RF  CELL  IFetch|INST_REG_N|\G_nBit_Reg:11:RegI|s_Q~0|combout
+     24.850      0.000 FF    IC  IFetch|INST_REG_N|\G_nBit_Reg:11:RegI|s_Q|d
+     24.954      0.104 FF  CELL  proj1_fetch:IFetch|reg_n:INST_REG_N|dffg:\G_nBit_Reg:11:RegI|s_Q
+ Data Required Path:
+ Total (ns)  Incr (ns)     Type  Element
+ ==========  ========= ==  ====  ===================================
+     20.000     20.000           latch edge time
+     22.942      2.942  R        clock network delay
+     22.974      0.032           clock pessimism removed
+     22.954     -0.020           clock uncertainty
+     22.972      0.018     uTsu  proj1_fetch:IFetch|reg_n:INST_REG_N|dffg:\G_nBit_Reg:11:RegI|s_Q
+ Data Arrival Time  :    24.954
+ Data Required Time :    22.972
+ Slack              :    -1.982 (VIOLATED)
+ ===================================================================

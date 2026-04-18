@@ -1,0 +1,69 @@
+
+#
+# CprE 381 Generated Quartus Settings File
+#
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 21.1.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:07:08  JANUARY 28, 2019"
+set_global_assignment -name LAST_QUARTUS_VERSION "21.1.1 Standard Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name TOP_LEVEL_ENTITY RISCV_Processor
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/addSub.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/addSub_BRANCH.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/and_ALU.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/and_N.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/basic_adder_n_BRANCH.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/busMux_4t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/busMux_8t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/ones_comp_N.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/or_ALU.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/or_N.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/proj01_BEQ.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/proj01_SLT.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/proj01_branchWrap.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/proj02_ALU.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/shifter.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/tb_proj01_ALU.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/xor_ALU.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/ALU/xor_N.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/blt_combine.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/blt_combine_n.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/comparator.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/comparator_n.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/proj2_blt.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Branching/proj2_branch.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Control/ctrl_decoder.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Extenders/extender_U20b.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Extenders/extenders.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Fetch/basic_adder.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Fetch/basic_adder_n.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Fetch/busMux_2t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Fetch/proj1_fetch.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Imm_Gen/imm_gen.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/Load/proj01_LOAD.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/andg2.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/andg_6t3.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/invg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/mux2t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/mux2t1_N.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/mux4t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/org2.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/LogicGates/xorg2.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/PipeRegisters/DecodeExecute_Reg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/PipeRegisters/ExecuteMemory_Reg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/PipeRegisters/FetchDecode_Reg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/PipeRegisters/MemoryWriteback_Reg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RISCV_types.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RegisterFile/decoder_5t32.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RegisterFile/dffg.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RegisterFile/mux_32t1.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RegisterFile/reg_file.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/RegisterFile/reg_n.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/TopLevel/RISCV_Processor.vhd"
+set_global_assignment -name VHDL_FILE "/home/jrd81/CPRE_381_Proj02/CPRE3810_Proj02/cpre3810-toolflow/proj/src/TopLevel/mem.vhd"

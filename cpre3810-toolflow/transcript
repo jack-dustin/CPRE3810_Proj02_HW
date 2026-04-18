@@ -1,0 +1,66 @@
+# //  Questa Sim-64
+# //  Version 2025.1_2 linux_x86_64 Apr  7 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+add wave -position insertpoint  \
+vsim:/tb/MyRiscv/iCLK \
+vsim:/tb/MyRiscv/iRST \
+vsim:/tb/MyRiscv/iInstLd \
+vsim:/tb/MyRiscv/iInstAddr \
+vsim:/tb/MyRiscv/iInstExt \
+vsim:/tb/MyRiscv/oALUOut \
+vsim:/tb/MyRiscv/s_DMemWr \
+vsim:/tb/MyRiscv/s_DMemAddr \
+vsim:/tb/MyRiscv/s_DMemData \
+vsim:/tb/MyRiscv/s_DMemOut \
+vsim:/tb/MyRiscv/s_RegWr \
+vsim:/tb/MyRiscv/s_RegWrAddr \
+vsim:/tb/MyRiscv/s_RegWrData \
+vsim:/tb/MyRiscv/s_IMemAddr \
+vsim:/tb/MyRiscv/s_PC \
+vsim:/tb/MyRiscv/s_Inst \
+vsim:/tb/MyRiscv/s_Halt \
+vsim:/tb/MyRiscv/s_Ovfl \
+vsim:/tb/MyRiscv/s_ALUsrc \
+vsim:/tb/MyRiscv/s_ALUctl \
+vsim:/tb/MyRiscv/s_ALUctl_OverRide \
+vsim:/tb/MyRiscv/s_WBsel \
+vsim:/tb/MyRiscv/s_Branch \
+vsim:/tb/MyRiscv/s_jal \
+vsim:/tb/MyRiscv/s_jalr \
+vsim:/tb/MyRiscv/s_Ors1 \
+vsim:/tb/MyRiscv/s_Ors2 \
+vsim:/tb/MyRiscv/s_Oext \
+vsim:/tb/MyRiscv/s_Oext_Dec_to_Fetch \
+vsim:/tb/MyRiscv/s_DMemRD \
+vsim:/tb/MyRiscv/s_ALUOut \
+vsim:/tb/MyRiscv/s_ALUIn2 \
+vsim:/tb/MyRiscv/s_RS1orPC \
+vsim:/tb/MyRiscv/s_isLUI \
+vsim:/tb/MyRiscv/s_isAUIPC \
+vsim:/tb/MyRiscv/s_LoadOut \
+vsim:/tb/MyRiscv/s_Fetchsrc \
+vsim:/tb/MyRiscv/s_PC4 \
+vsim:/tb/MyRiscv/s_JalrTarget \
+vsim:/tb/MyRiscv/s_FtD_Reg \
+vsim:/tb/MyRiscv/s_branch_from_decode \
+vsim:/tb/MyRiscv/s_DtE_Reg \
+vsim:/tb/MyRiscv/s_ForceAddSub \
+vsim:/tb/MyRiscv/s_jump \
+vsim:/tb/MyRiscv/s_funct3 \
+vsim:/tb/MyRiscv/s_RegWrAddr_Dec \
+vsim:/tb/MyRiscv/s_RegWr_Dec \
+vsim:/tb/MyRiscv/s_DMemWr_Dec \
+vsim:/tb/MyRiscv/s_EtM_Reg \
+vsim:/tb/MyRiscv/s_EXout \
+vsim:/tb/MyRiscv/s_MtWB_Reg

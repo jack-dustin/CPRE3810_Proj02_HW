@@ -1,0 +1,7 @@
+[inst #1] addi x5,x0,15
+Register Write to Reg: 0x05 Val: 0x0000000F
+[inst #2] ori x6,x5,240
+Register Write to Reg: 0x06 Val: 0x000000FF
+[inst #3] wfi 
+
+Program terminated by dropping off the bottom.
