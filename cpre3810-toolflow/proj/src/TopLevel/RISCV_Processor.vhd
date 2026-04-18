@@ -224,9 +224,37 @@ architecture structure of RISCV_Processor is
          c_funct3       : in  std_logic_vector(2  downto 0);
          o_LoadOut      : out std_logic_vector(31 downto 0));
   end component;
+
+
+  -- Control Hazards
+  component ctrlHaz is
+    port(
+      -- ID-stage branch info
+        i_IDBranch      : in  std_logic;  -- 1 when instruction in ID is a branch
+        i_IDBranchTaken : in  std_logic;  -- 1 when that branch is taken
+
+        -- EX-stage jump info
+        i_EXJump        : in  std_logic;  -- 1 when instruction in EX causes non-sequential PC update (jal/jalr)
+
+        -- Hazard outputs
+        o_CtrlHaz       : out std_logic;
+        o_IFIDFlush     : out std_logic;
+        o_IDEXFlush     : out std_logic;
+        o_PCStall       : out std_logic;
+        o_IFIDStall     : out std_logic
+
+    );
+  end component;
+  
+  signal s_CtrlHaz : std_logic;
+  signal s_IFIDFlush :  std_logic;
+  signal s_IDEXFlush :  std_logic;
+  signal s_PCStall :  std_logic;
+  signal s_IFIDStall :  std_logic;
     
   -- NEW BRANCHING UNIT - PUT THIS IN DECODE
-  component proj2_branch is port( 
+  component proj2_branch is 
+  port( 
     i_A         : in  std_logic_vector(31 downto 0);
     i_B         : in  std_logic_vector(31 downto 0);
     c_funct3    : in  std_logic_vector(2  downto 0);
@@ -339,7 +367,7 @@ begin
   port map(
     i_CLK    => iCLK,
     i_RST_PC => iRST,
-    i_WE     => (not s_Halt),
+    i_WE     => ((not s_Halt) and (not s_PCStall)),
     i_imm    => s_Oext_Dec_to_Fetch,
     i_alu    => s_JalrTarget,
     c_PC_sel => s_Fetchsrc,
@@ -352,8 +380,8 @@ begin
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
-             i_RST  => iRST or s_Flush,
-             i_WE   => not s_FtD_Reg(96),   -- Consider using this port to stall as well in the future
+             i_RST  => iRST or s_IFIDFlush,
+             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall),   -- Consider using this port to stall as well in the future
              i_D    =>   s_Halt   -- halt           -- [96]
                        & s_PC4    -- PC+4 Value     -- [95:64]
                        & s_PC     -- PC Value       -- [63:32]
@@ -447,7 +475,7 @@ begin
   Decode_To_Execute_Reg: DecodeExecute_Reg
   generic map(N => 181)      -- 181 bit register
   port map(i_CLK => iCLK,
-           i_RST => iRST,
+           i_RST => iRST or s_IDEXFlush,
            i_WE  => not s_DtE_Reg(180),   -- Change this later for stalling (Add onto it (Logical OR(?) ) )
            i_D   =>  s_FtD_Reg(96)  -- halt             -- [180]
                    & s_funct3     -- RawFunct3_fr_Load  -- [179:177]
@@ -582,6 +610,18 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       o_O  => s_RegWrData
     );
 
-  
+--------------------------------------------------
+---------------- Hazard Dectection ---------------
+Ctrl_Hazard_Detection: ctrlHaz
+  port map(
+    i_IDBranch      => s_Branch,
+    i_IDBranchTaken => s_branch_from_decode,
+    i_EXJump        => s_DtE_Reg(133),
+    o_CtrlHaz       => s_CtrlHaz,
+    o_IFIDFlush     => s_IFIDFlush,
+    o_IDEXFlush     => s_IDEXFlush,
+    o_PCStall       => s_PCStall,
+    o_IFIDStall     => s_IFIDStall
+  );
 
 end structure;
