@@ -251,6 +251,9 @@ architecture structure of RISCV_Processor is
   signal s_IDEXFlush  : std_logic;
   signal s_PCStall    : std_logic;
   signal s_IFIDStall  : std_logic;
+
+    signal s_FtD_Reg_In : std_logic_vector(96 downto 0);
+  signal s_DtE_Reg_In : std_logic_vector(180 downto 0);
     
   -- NEW BRANCHING UNIT - PUT THIS IN DECODE
   component proj2_branch is 
@@ -322,7 +325,8 @@ architecture structure of RISCV_Processor is
   signal s_MtWB_Reg     : std_logic_vector(71 downto 0); -- 72 bit output
   --signal s_MemFunct3    : std_logic_vector(2 downto 0); -- 3 bits
 
-  component dataHaz is (
+  component dataHaz is 
+  port (
     i_DecRS1    : in  std_logic_vector(4 downto 0);     -- 5 bits
     i_DecRS2    : in  std_logic_vector(4 downto 0);  
     i_ExRD      : in  std_logic_vector(4 downto 0);
@@ -354,13 +358,22 @@ begin
             else '0';
 
 
-  s_jump <= s_jal or s_DtE_Reg(132); 
-  --s_jump <= s_jal or s_jalr;
-  -- PC source select for fetch unit: TODO: may need to move into control decoder
-  --   bit 1: JALR (register-indirect target via ALU)
-  --   bit 0: any non-sequential update (JAL, JALR, or taken branch)
-  -- claculated outside of control decoder since it depends on branch taken flag from ALU
-  s_Fetchsrc(1) <= s_DtE_Reg(132);  -- s_jalr from Execute Stage
+  -- s_jump <= s_jal or s_DtE_Reg(132); 
+  -- --s_jump <= s_jal or s_jalr;
+  -- -- PC source select for fetch unit: TODO: may need to move into control decoder
+  -- --   bit 1: JALR (register-indirect target via ALU)
+  -- --   bit 0: any non-sequential update (JAL, JALR, or taken branch)
+  -- -- claculated outside of control decoder since it depends on branch taken flag from ALU
+  -- s_Fetchsrc(1) <= s_DtE_Reg(132);  -- s_jalr from Execute Stage
+  -- s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
+
+    -- Keep all jump redirection in EX so PC redirect timing matches ctrlHaz timing
+  s_jump <= s_DtE_Reg(133);
+
+  -- PC source select for fetch unit
+  --   bit 1: JALR target from EX
+  --   bit 0: any non-sequential PC update
+  s_Fetchsrc(1) <= s_DtE_Reg(132);  -- jalr from EX
   s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
 
   with iInstLd select
@@ -391,15 +404,29 @@ begin
 ----------------------------------------------
 ---------------- DECODE STAGE ----------------
 
+  -- Fetch_To_Decode_Reg: FetchDecode_Reg
+  --   generic map(N => 97)      -- 97 bit register
+  --   port map(i_CLK  => iCLK,
+  --            i_RST  => iRST or s_IFIDFlush,
+  --            i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
+  --            i_D    =>   s_Halt   -- halt           -- [96]
+  --                      & s_PC4    -- PC+4 Value     -- [95:64]
+  --                      & s_PC     -- PC Value       -- [63:32]
+  --                      & s_Inst,  -- Instructions   -- [31:0]
+  --            o_Q    => s_FtD_Reg);
+
+s_FtD_Reg_In <= (others => '0') when s_IFIDFlush = '1' else
+                  (s_Halt
+                   & s_PC4
+                   & s_PC
+                   & s_Inst);
+
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
-             i_RST  => iRST or s_IFIDFlush,
-             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall),   -- Used to stop on wfi or for stalling
-             i_D    =>   s_Halt   -- halt           -- [96]
-                       & s_PC4    -- PC+4 Value     -- [95:64]
-                       & s_PC     -- PC Value       -- [63:32]
-                       & s_Inst,  -- Instructions   -- [31:0]
+             i_RST  => iRST,
+             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
+             i_D    => s_FtD_Reg_In,  -- Input is now muxed for flush and stall
              o_Q    => s_FtD_Reg);
 
   s_RegWrAddr_Dec <= s_FtD_Reg(11 downto 7);      -- s_Inst(11 downto 7);
@@ -458,6 +485,11 @@ begin
     i_B      => s_ALUIn2,   -- RS2 OR Imm
     c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
     o_out    => s_branch_from_decode);   
+    -- INST_BRANCHING: proj2_branch port map(
+    -- i_A      => s_Ors1,     -- Output RS1
+    -- i_B      => s_Ors2,     -- Branches compare RS1 vs RS2
+    -- c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
+    -- o_out    => s_branch_from_decode);
 
 
   DtoF_pcPLUSimm: addSub      -- In parallel with Register File
@@ -486,32 +518,58 @@ begin
   --              '1' when WB_MEM,
   --              '0' when others;
 
+  -- Decode_To_Execute_Reg: DecodeExecute_Reg
+  -- generic map(N => 181)      -- 181 bit register
+  -- port map(i_CLK => iCLK,
+  --          i_RST => iRST or s_IDEXFlush or s_DataHazFlush,
+  --          i_WE  => (not s_DtE_Reg(180)) and (not s_DataHazStall),   -- Change this later for stalling (Add onto it (Logical OR(?) ) )
+  --          i_D   =>  s_FtD_Reg(96)  -- halt             -- [180]
+  --                  & s_funct3     -- RawFunct3_fr_Load  -- [179:177]
+  --                  & s_Oext       -- Immediate          -- [176:145]
+  --                  & s_isLUI       -- Inst is lui       -- [144] 
+  --                  & s_ForceAddSub -- Force AddSub_o    -- [143]
+  --                  & s_RegWr_Dec  -- RegFile Write EN   -- [142]
+  --                  & s_RegWrAddr_Dec -- [rd]            -- [141:137]
+  --                  & s_DMemWr_Dec -- DMem Write EN      -- [136]
+  --                  & s_DMemRD     -- DMem Read EN       -- [135]
+  --                  & s_WBsel      -- Write Back Sel     -- [134]        
+  --                  --& s_Branch     -- Inst. Branch Bit   -- [133]
+  --                  & (s_jal or s_jalr)   -- is jump in current stage -- [133]
+  --                  & s_jalr       -- jalr               -- [132] 
+                   
+  --                  & s_ALUctl                           -- [131:128]
+  --                  & s_FtD_Reg(95 downto 64) -- PC + 4  -- [127:96]
+  --                  & s_RS1orPC    -- RS1 Or PC          -- [95:64]
+  --                  & s_Ors2       -- RS2 for Stores     -- [63:32]
+  --                  & s_ALUIn2,    -- RS2 Or IMM         -- [31:0]
+  --          o_Q   => s_DtE_Reg);
+s_DtE_Reg_In <= (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
+                  (s_FtD_Reg(96)
+                   & s_funct3
+                   & s_Oext
+                   & s_isLUI
+                   & s_ForceAddSub
+                   & s_RegWr_Dec
+                   & s_RegWrAddr_Dec
+                   & s_DMemWr_Dec
+                   & s_DMemRD
+                   & s_WBsel
+                   & (s_jal or s_jalr)
+                   & s_jalr
+                   & s_ALUctl
+                   & s_FtD_Reg(95 downto 64)
+                   & s_RS1orPC
+                   & s_Ors2
+                   & s_ALUIn2);
+
   Decode_To_Execute_Reg: DecodeExecute_Reg
   generic map(N => 181)      -- 181 bit register
   port map(i_CLK => iCLK,
-           i_RST => iRST or s_IDEXFlush or s_DataHazFlush,
-           i_WE  => (not s_DtE_Reg(180)) and (not s_DataHazStall),   -- Change this later for stalling (Add onto it (Logical OR(?) ) )
-           i_D   =>  s_FtD_Reg(96)  -- halt             -- [180]
-                   & s_funct3     -- RawFunct3_fr_Load  -- [179:177]
-                   & s_Oext       -- Immediate          -- [176:145]
-                   & s_isLUI       -- Inst is lui       -- [144] 
-                   & s_ForceAddSub -- Force AddSub_o    -- [143]
-                   & s_RegWr_Dec  -- RegFile Write EN   -- [142]
-                   & s_RegWrAddr_Dec -- [rd]            -- [141:137]
-                   & s_DMemWr_Dec -- DMem Write EN      -- [136]
-                   & s_DMemRD     -- DMem Read EN       -- [135]
-                   & s_WBsel      -- Write Back Sel     -- [134]        
-                   --& s_Branch     -- Inst. Branch Bit   -- [133]
-                   & (s_jal or s_jalr)   -- is jump in current stage -- [133]
-                   & s_jalr       -- jalr               -- [132] 
+           i_RST => iRST,
+           i_WE  => (not s_DtE_Reg(180)) and (not s_DataHazStall),
+           i_D   => s_DtE_Reg_In,
                    
-                   & s_ALUctl                           -- [131:128]
-                   & s_FtD_Reg(95 downto 64) -- PC + 4  -- [127:96]
-                   & s_RS1orPC    -- RS1 Or PC          -- [95:64]
-                   & s_Ors2       -- RS2 for Stores     -- [63:32]
-                   & s_ALUIn2,    -- RS2 Or IMM         -- [31:0]
            o_Q   => s_DtE_Reg);
-
   -- s_Inst(2) = OpCode(2) = s_DtE_Reg(143)
     -- This bit is 1 for ONLY aupic, lui, jal, jalr, (and fence).   Use this to force the ALU output to Add/Sub
   s_ALUctl_OverRide(0)  <= s_DtE_Reg(128);   -- Func7 Doesn't Change        -- s_ALUctl(0)

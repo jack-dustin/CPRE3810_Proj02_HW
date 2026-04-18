@@ -62,7 +62,7 @@ architecture mixed of dataHaz is
     signal s_MemRS_DataDep  : std_logic;    -- This = 1 if there is a data hazard
 
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
-    signal os_DataBuble     : std_logic;    -- Internal signal for data flush signal
+    signal os_DataBubble     : std_logic;    -- Internal signal for data flush signal
 
 component dffg is
   port(i_CLK        : in std_logic;     -- Clock input
@@ -103,8 +103,8 @@ begin
     s_ExRS2And_3    <= s_ExRS2And_2 and s_Ex_RS2_Dep(4);
 
     s_ExRS_res      <= s_ExRS2And_3 or s_ExRS1And_3;
-    s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr;    -- If RS Haz and RegWr Haz --> A data Haz Exists
-
+    --s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr;    -- If RS Haz and RegWr Haz --> A data Haz Exists
+    s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr when i_ExRD /= "00000" else '0';
 
   -- MEM(rd) and DEC(rs1)
     -- Check for dependencies betwen Mem rd and RS1:
@@ -134,20 +134,24 @@ begin
     s_MemRS2And_3   <= s_MemRS2And_2 and s_Mem_RS2_Dep(4);
 
     s_MemRS_res     <= s_MemRS1And_3 or s_MemRS2And_3; 
-    s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr;  -- If RS Haz and RegWr Haz --> A data Hazard Exists
+    --s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr;  -- If RS Haz and RegWr Haz --> A data Hazard Exists
+    s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr when i_MemRD /= "00000" else '0';
 
     -- If a Data Hazard is detected from Execute or Memory, this outputs 1
     o_DataHaz   <= os_DataHaz;
     os_DataHaz   <= s_MemRS_DataDep or s_ExRS_DataDep;
 
-    -- Make sure DEC/EX register flush is synchronous with clock
-    INST_DFFG: dffg port map(
-    i_CLK   => i_CLK,
-    i_RST   => i_RST,
-    i_WE    => '1',
-    i_D     => os_DataHaz,
-    o_Q     => os_DataBubble);
+    -- -- Make sure DEC/EX register flush is synchronous with clock
+    -- INST_DFFG: dffg port map(
+    -- i_CLK   => i_CLK,
+    -- i_RST   => i_RST,
+    -- i_WE    => '1',
+    -- i_D     => os_DataHaz,
+    -- o_Q     => os_DataBubble);
+        -- Bubble request should assert immediately when a hazard is detected.
+    -- The pipeline register itself handles the synchronous bubble injection.
+    o_DataBubble <= os_DataHaz;
 
     -- Ensures the reset is enabled at the clock edge, but also reset goes low to allow next instruction through
-    o_DataBuble <= os_DataBubble and os_DataHaz;
+    o_DataBubble <= os_DataBubble and os_DataHaz;
 end architecture;
