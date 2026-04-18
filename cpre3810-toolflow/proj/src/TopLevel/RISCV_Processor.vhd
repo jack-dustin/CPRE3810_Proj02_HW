@@ -352,7 +352,7 @@ begin
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
-             i_RST  => iRST,
+             i_RST  => iRST or s_Flush,
              i_WE   => not s_FtD_Reg(96),   -- Consider using this port to stall as well in the future
              i_D    =>   s_Halt   -- halt           -- [96]
                        & s_PC4    -- PC+4 Value     -- [95:64]
