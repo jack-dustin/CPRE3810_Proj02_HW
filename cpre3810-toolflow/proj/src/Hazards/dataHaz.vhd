@@ -15,7 +15,7 @@ entity dataHaz is port(
     i_ExRegWr   : in  std_logic;
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
-
+    i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
 
@@ -102,7 +102,7 @@ begin
     s_ExRS2And_2    <= s_ExRS2And_0 and s_ExRS2And_1;
     s_ExRS2And_3    <= s_ExRS2And_2 and s_Ex_RS2_Dep(4);
 
-    s_ExRS_res      <= s_ExRS2And_3 or s_ExRS1And_3;
+    s_ExRS_res  <= (s_ExRS2And_3 and i_DecUsesRS2) or s_ExRS1And_3;
     --s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr;    -- If RS Haz and RegWr Haz --> A data Haz Exists
     s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr when i_ExRD /= "00000" else '0';
 
@@ -138,9 +138,9 @@ begin
     s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr when i_MemRD /= "00000" else '0';
 
     -- If a Data Hazard is detected from Execute or Memory, this outputs 1
-    o_DataHaz   <= os_DataHaz;
+   
     os_DataHaz   <= s_MemRS_DataDep or s_ExRS_DataDep;
-
+    o_DataHaz   <= os_DataHaz;
     -- -- Make sure DEC/EX register flush is synchronous with clock
     -- INST_DFFG: dffg port map(
     -- i_CLK   => i_CLK,
@@ -153,5 +153,5 @@ begin
     o_DataBubble <= os_DataHaz;
 
     -- Ensures the reset is enabled at the clock edge, but also reset goes low to allow next instruction through
-    o_DataBubble <= os_DataBubble and os_DataHaz;
+    --o_DataBubble <= os_DataBubble and os_DataHaz;
 end architecture;
