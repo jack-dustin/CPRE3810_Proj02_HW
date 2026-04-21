@@ -384,13 +384,13 @@ s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
   -- s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
 
     -- Keep all jump redirection in EX so PC redirect timing matches ctrlHaz timing
-  s_jump <= s_DtE_Reg(133);
+  -- s_jump <= s_DtE_Reg(133);
 
   -- PC source select for fetch unit
   --   bit 1: JALR target from EX
   --   bit 0: any non-sequential PC update
   s_Fetchsrc(1) <= s_DtE_Reg(132);  -- jalr from EX
-  s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
+  s_Fetchsrc(0) <= s_jal or (s_Branch and s_branch_from_decode) or s_DtE_Reg(132);
 
   with iInstLd select
     s_IMemAddr <= s_PC      when '0',
@@ -725,9 +725,9 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
 ---------------- Control Hazard Dectection ---------------
 Ctrl_Hazard_Detection: ctrlHaz
   port map(
-    i_IDBranch      => s_Branch,
-    i_IDBranchTaken => s_branch_from_decode,
-    i_EXJump        => s_DtE_Reg(133),
+    i_IDBranch      => s_Branch or s_jal,  
+    i_IDBranchTaken => s_branch_from_decode or s_jal,
+    i_EXJump        => s_DtE_Reg(132),
     o_CtrlHaz       => s_CtrlHaz,
     o_IFIDFlush     => s_IFIDFlush,
     o_IDEXFlush     => s_IDEXFlush,
