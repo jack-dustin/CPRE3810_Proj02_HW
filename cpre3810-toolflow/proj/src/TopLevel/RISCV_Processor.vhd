@@ -107,6 +107,10 @@ architecture structure of RISCV_Processor is
   -- JALR target (ALU result with LSB cleared)
   signal s_JalrTarget   : std_logic_vector(N-1 downto 0);
 
+  signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
+  signal s_all_but_halt_execute : std_logic_vector(179 downto 0);
+  signal s_HaltDecoded : std_logic;
+
 
 
 
@@ -271,6 +275,7 @@ architecture structure of RISCV_Processor is
     generic (N : integer := 96);   -- 96 bit register
     port (i_CLK   : in std_logic;                          -- Clock input
           i_RST   : in std_logic;                          -- Reset input
+          i_FLUSH : in std_logic;
           i_WE    : in std_logic;                          -- Write enable input
           i_D     : in std_logic_vector(N-1 downto 0);     -- (Bus) Data value input
           o_Q     : out std_logic_vector(N-1 downto 0));   -- (Bus) Data value output
@@ -284,6 +289,7 @@ architecture structure of RISCV_Processor is
     generic (N : integer := 180);   -- 180 bit register
     port (i_CLK   : in std_logic;                          -- Clock input
           i_RST   : in std_logic;                          -- Reset input
+          i_FLUSH : in std_logic;
           i_WE    : in std_logic;                          -- Write enable input
           i_D     : in std_logic_vector(N-1 downto 0);     -- (Bus) Data value input
           o_Q     : out std_logic_vector(N-1 downto 0));   -- (Bus) Data value output
@@ -333,12 +339,13 @@ architecture structure of RISCV_Processor is
     i_ExRegWr   : in  std_logic;
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
+    i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
-
+  signal s_DecUsesRS2 : std_logic;
   signal s_DataHazStall : std_logic;
   signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
 begin
@@ -349,14 +356,23 @@ begin
   s_Ovfl  <= '0';
   oALUOut <= s_ALUOut;
 
+  
+-- R-type and B-type (store uses rs2 but is a source not destination — still relevant)
+-- S-type also uses rs2 as the data to write
+s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
+                        or s_FtD_Reg(6 downto 0) = "1100011"   -- B-type
+                        or s_FtD_Reg(6 downto 0) = "0100011")  -- S-type
+                else '0';
+
   -- WFI halt detection
   -- TODO: ensure signal doesnt go high till WB stage
-  s_Halt <= '1' when (iRST='0' and iInstLd='0' and
+  -- s_Halt <= 
+  s_HaltDecoded <= '1' when (iRST='0' and iInstLd='0' and
                       s_FtD_Reg(6 downto 0)  = "1110011" and
                       s_FtD_Reg(14 downto 12) = "000"    and
                       s_FtD_Reg(31 downto 20) = x"105")
             else '0';
-
+ s_Halt <= s_MtWB_Reg(71);
 
   -- s_jump <= s_jal or s_DtE_Reg(132); 
   -- --s_jump <= s_jal or s_jalr;
@@ -415,16 +431,20 @@ begin
   --                      & s_Inst,  -- Instructions   -- [31:0]
   --            o_Q    => s_FtD_Reg);
 
-s_FtD_Reg_In <= (others => '0') when s_IFIDFlush = '1' else
-                  (s_Halt
-                   & s_PC4
+s_all_but_halt_decode <=(others => '0') when s_IFIDFlush = '1' else
+                  (
+                    s_PC4
                    & s_PC
                    & s_Inst);
+
+s_FtD_Reg_In <= s_HaltDecoded
+                  & s_all_but_halt_decode;
 
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
     port map(i_CLK  => iCLK,
              i_RST  => iRST,
+             i_FLUSH => s_IFIDFlush,
              i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
              i_D    => s_FtD_Reg_In,  -- Input is now muxed for flush and stall
              o_Q    => s_FtD_Reg);
@@ -480,16 +500,16 @@ s_FtD_Reg_In <= (others => '0') when s_IFIDFlush = '1' else
     o_O  => s_ALUIn2
   );
 
-  INST_BRANCHING: proj2_branch port map(
+  -- INST_BRANCHING: proj2_branch port map(
+  --   i_A      => s_Ors1,     -- Output RS1
+  --   i_B      => s_ALUIn2,   -- RS2 OR Imm
+  --   c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
+  --   o_out    => s_branch_from_decode);   
+    INST_BRANCHING: proj2_branch port map(
     i_A      => s_Ors1,     -- Output RS1
-    i_B      => s_ALUIn2,   -- RS2 OR Imm
+    i_B      => s_Ors2,     -- Branches compare RS1 vs RS2
     c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
-    o_out    => s_branch_from_decode);   
-    -- INST_BRANCHING: proj2_branch port map(
-    -- i_A      => s_Ors1,     -- Output RS1
-    -- i_B      => s_Ors2,     -- Branches compare RS1 vs RS2
-    -- c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
-    -- o_out    => s_branch_from_decode);
+    o_out    => s_branch_from_decode);
 
 
   DtoF_pcPLUSimm: addSub      -- In parallel with Register File
@@ -543,9 +563,10 @@ s_FtD_Reg_In <= (others => '0') when s_IFIDFlush = '1' else
   --                  & s_Ors2       -- RS2 for Stores     -- [63:32]
   --                  & s_ALUIn2,    -- RS2 Or IMM         -- [31:0]
   --          o_Q   => s_DtE_Reg);
-s_DtE_Reg_In <= (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
-                  (s_FtD_Reg(96)
-                   & s_funct3
+
+ s_all_but_halt_execute <=  (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
+                  (
+                    s_funct3
                    & s_Oext
                    & s_isLUI
                    & s_ForceAddSub
@@ -562,14 +583,17 @@ s_DtE_Reg_In <= (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1')
                    & s_Ors2
                    & s_ALUIn2);
 
+s_DtE_Reg_In <= s_FtD_Reg(96)
+                  & s_all_but_halt_execute;
+
   Decode_To_Execute_Reg: DecodeExecute_Reg
-  generic map(N => 181)      -- 181 bit register
-  port map(i_CLK => iCLK,
-           i_RST => iRST,
-           i_WE  => (not s_DtE_Reg(180)) and (not s_DataHazStall),
-           i_D   => s_DtE_Reg_In,
-                   
-           o_Q   => s_DtE_Reg);
+    generic map(N => 181)
+    port map(i_CLK => iCLK,
+            i_RST => iRST,
+            i_FLUSH => s_IDEXFlush or s_DataHazFlush,
+            i_WE  => (not s_DtE_Reg(180)),
+            i_D   => s_DtE_Reg_In,
+            o_Q   => s_DtE_Reg);
   -- s_Inst(2) = OpCode(2) = s_DtE_Reg(143)
     -- This bit is 1 for ONLY aupic, lui, jal, jalr, (and fence).   Use this to force the ALU output to Add/Sub
   s_ALUctl_OverRide(0)  <= s_DtE_Reg(128);   -- Func7 Doesn't Change        -- s_ALUctl(0)
@@ -691,6 +715,7 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
     i_ExRegWr     => s_DtE_Reg(142),  -- Dec/Ex RegWr EN
     i_MemRD       => s_EtM_Reg(71 downto 67), -- Ex/Mem rd
     i_MemRegWr    => s_EtM_Reg(72), -- Ex/Mem RegWr EN
+    i_DecUsesRS2  => s_DecUsesRS2,
     i_CLK         => iCLK,
     i_RST         => iRST,
     o_DataHaz     => s_DataHazStall,
