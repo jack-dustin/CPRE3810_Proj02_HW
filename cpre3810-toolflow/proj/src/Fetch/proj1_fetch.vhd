@@ -27,17 +27,17 @@ architecture structural of proj1_fetch is
     -- Wire/Signal/constant declarations. Component declarations afterwards
     constant N : natural := 32;
     signal is_PC          : std_logic_vector(31 downto 0);    -- Carries PC contents to adders
-    signal os_busMux1     : std_logic_vector(31 downto 0);    -- Signal carries from busMux_1 to busMux_2
+    --signal os_busMux1     : std_logic_vector(31 downto 0);    -- Signal carries from busMux_1 to busMux_2
     signal os_busMux2     : std_logic_vector(31 downto 0);    -- Signal carries from busMux_2 to PC register
     signal os_busMux3     : std_logic_vector(31 downto 0);    -- Signal carries from busMux_3 to busMux_1 (for jalr)
     signal s_PC_4_mux     : std_logic_vector(31 downto 0);    -- Signal carries "PC + 4" result to busMux(0)
-    signal s_PC_imm_mux   : std_logic_vector(31 downto 0);    -- Signal carries "PC + imm" result to busMux(1)
-    signal s_CLK_n : std_logic;
+    --signal s_PC_imm_mux   : std_logic_vector(31 downto 0);    -- Signal carries "PC + imm" result to busMux(1)
+    --signal s_CLK_n : std_logic;
 
         -- 3-way select signals: first pick between PC+imm and ALU, then between PC+4 and the result of the first mux
-    signal s_jalr_or_branch : std_logic_vector(31 downto 0);  -- result of inner mux
-    signal s_next_pc        : std_logic_vector(31 downto 0);  -- result of outer mux (pre-reset)
-    signal s_next_pc_rst    : std_logic_vector(31 downto 0);  -- after reset override
+    --signal s_jalr_or_branch : std_logic_vector(31 downto 0);  -- result of inner mux
+    --signal s_next_pc        : std_logic_vector(31 downto 0);  -- result of outer mux (pre-reset)
+    --signal s_next_pc_rst    : std_logic_vector(31 downto 0);  -- after reset override
  
 
     component basic_adder_n is 

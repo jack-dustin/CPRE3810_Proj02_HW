@@ -1,19 +1,23 @@
 -- Jack Dustin
 -- Control Hazard Logic
--- Branches resolve in ID
--- Jumps resolve in EX
+-- Branches + jal resolve in ID
+-- Jalr resolve in EX
+
+library IEEE;
+use IEEE.std_logic_1164.all;
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity ctrlHaz is
     port(
-        -- ID-stage branch info
-        i_IDBranch      : in  std_logic;  -- 1 when instruction in ID is a branch
-        i_IDBranchTaken : in  std_logic;  -- 1 when that branch is taken
+        -- ID-stage control-flow info
+        i_IDBranch      : in  std_logic;
+        i_IDBranchTaken : in  std_logic;
+        i_IDJal         : in  std_logic;
 
-        -- EX-stage jump info
-        i_EXJump        : in  std_logic;  -- 1 when instruction in EX causes non-sequential PC update (jal/jalr)
+        -- EX-stage control-flow info
+        i_EXJalr        : in  std_logic;
 
         -- Hazard outputs
         o_CtrlHaz       : out std_logic;
@@ -27,26 +31,27 @@ end entity;
 architecture dataflow of ctrlHaz is
 
     signal s_BranchHaz : std_logic;
-    signal s_JumpHaz   : std_logic;
+    signal s_JalHaz    : std_logic;
+    signal s_JalrHaz   : std_logic;
 
 begin
 
-    -- A control hazard exists if:
-    -- 1) a branch in ID is taken
-    -- 2) a jump in EX redirects the PC
+    -- ID-stage hazards
     s_BranchHaz <= i_IDBranch and i_IDBranchTaken;
-    s_JumpHaz   <= i_EXJump;
+    s_JalHaz    <= i_IDJal;
 
-    o_CtrlHaz <= s_BranchHaz or s_JumpHaz;
+    -- EX-stage hazard
+    s_JalrHaz   <= i_EXJalr;
 
-    -- Flush wrong-path younger instructions
-    -- Taken branch in ID kills the instruction currently behind it in IF/ID
-    -- Jump in EX kills the younger instructions in both IF/ID and ID/EX
-    o_IFIDFlush <= s_BranchHaz or s_JumpHaz;
-    o_IDEXFlush <= s_JumpHaz;
+    o_CtrlHaz <= s_BranchHaz or s_JalHaz or s_JalrHaz;
 
-    -- No stalls required for this baseline control-hazard unit
-    -- Keep these outputs so the unit is easy to integrate with your existing pipeline control style
+    -- Any redirect kills the younger IF/ID instruction
+    o_IFIDFlush <= s_BranchHaz or s_JalHaz or s_JalrHaz;
+
+    -- Only EX-stage jalr needs to kill the current ID/EX contents
+    o_IDEXFlush <= s_JalrHaz;
+
+    -- No stalls in this baseline unit
     o_PCStall   <= '0';
     o_IFIDStall <= '0';
 

@@ -26,6 +26,8 @@ architecture structural of reg_file is
     signal wire_WE    : std_logic_vector(31 downto 0) := (others => '0');
     signal wire_iReg  : i_reg_array := (others => (others => '0'));
     -- i_Reg(0) = x0    i_Reg(31) = x31
+    signal s_rs1_raw : std_logic_vector(31 downto 0);
+    signal s_rs2_raw : std_logic_vector(31 downto 0);
 
     component decoder_5t32 is
         port(i_D    : in std_logic_vector(4 downto 0 ); -- 5 total bits
@@ -71,7 +73,8 @@ architecture structural of reg_file is
             INST_x0: if i = 0 generate
               INST_REGISTER: reg_n
               generic map (N => 32)
-              port map(i_CLK  => not i_CLK,
+              --port map(i_CLK  => not i_CLK,
+              port map(i_CLK  => i_CLK,
                        i_RST  => i_RST,     -- force RESET of x0 to '1'
                        i_WE   => '0',    
                        i_D    => (others => '0'),    -- Register Input
@@ -80,7 +83,8 @@ architecture structural of reg_file is
 
             INST_x1_31: if i /= 0 generate
             INST_REGISTERS: reg_n
-              port map(i_CLK  => not i_CLK,
+              --port map(i_CLK  => not i_CLK,
+              port map(i_CLK  => i_CLK,
                        i_RST  => i_RST,
                        i_WE   => wire_WE(i),    
                        i_D    => i_DATA,    -- Register Input
@@ -91,14 +95,27 @@ architecture structural of reg_file is
 
         --wire_iReg(0) <= x"00000000";    -- Force x0 output to 0
 
+        -- INST_MUX_1: mux_32t1
+        -- port map(i_Sel  => i_RS1,
+        --          i_R    => wire_iReg,   -- Double check this
+        --          o_Reg  => o_rs1 );
+
+        -- INST_MUX_2: mux_32t1
+        -- port map(i_Sel  => i_RS2,
+        --          i_R    => wire_iReg,   -- Double check this
+        --          o_Reg  => o_rs2 );
+
         INST_MUX_1: mux_32t1
-        port map(i_Sel  => i_RS1,
-                 i_R    => wire_iReg,   -- Double check this
-                 o_Reg  => o_rs1 );
+            port map(i_Sel  => i_RS1,
+                    i_R    => wire_iReg,
+                    o_Reg  => s_rs1_raw );
 
         INST_MUX_2: mux_32t1
-        port map(i_Sel  => i_RS2,
-                 i_R    => wire_iReg,   -- Double check this
-                 o_Reg  => o_rs2 );
+            port map(i_Sel  => i_RS2,
+                    i_R    => wire_iReg,
+                    o_Reg  => s_rs2_raw );
+
+        o_rs1 <= i_DATA when (i_dEN = '1' and i_rd /= "00000" and i_RS1 = i_rd) else s_rs1_raw;
+        o_rs2 <= i_DATA when (i_dEN = '1' and i_rd /= "00000" and i_RS2 = i_rd) else s_rs2_raw;
 
 end architecture;

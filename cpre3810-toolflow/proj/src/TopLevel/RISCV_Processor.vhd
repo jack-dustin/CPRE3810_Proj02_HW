@@ -107,7 +107,7 @@ architecture structure of RISCV_Processor is
   -- JALR target (ALU result with LSB cleared)
   signal s_JalrTarget   : std_logic_vector(N-1 downto 0);
 
-  signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
+  --signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
   signal s_all_but_halt_execute : std_logic_vector(179 downto 0);
   signal s_HaltDecoded : std_logic;
 
@@ -233,12 +233,13 @@ architecture structure of RISCV_Processor is
   -- Control Hazards
   component ctrlHaz is
     port(
-      -- ID-stage branch info
-        i_IDBranch      : in  std_logic;  -- 1 when instruction in ID is a branch
-        i_IDBranchTaken : in  std_logic;  -- 1 when that branch is taken
+      -- ID-stage control-flow info
+        i_IDBranch      : in  std_logic;
+        i_IDBranchTaken : in  std_logic;
+        i_IDJal         : in  std_logic;
 
-        -- EX-stage jump info
-        i_EXJump        : in  std_logic;  -- 1 when instruction in EX causes non-sequential PC update (jal/jalr)
+        -- EX-stage control-flow info
+        i_EXJalr        : in  std_logic;
 
         -- Hazard outputs
         o_CtrlHaz       : out std_logic;
@@ -298,7 +299,7 @@ architecture structure of RISCV_Processor is
   signal s_DtE_Reg      : std_logic_vector(180 downto 0); -- 181 bit output
   signal s_ForceAddSub  : std_logic;  -- Signal to pass through processor to ALU - Forces Add/Sub output from ALU
   --signal s_Ex_WB        : std_logic;  -- For now use this instead of s_WBsel
-  signal s_jump         : std_logic;
+  --signal s_jump         : std_logic;
   signal s_funct3       : std_logic_vector(2 downto 0);   -- 3 bit vector
 
   signal s_RegWrAddr_Dec  : std_logic_vector(4 downto 0); -- 5 bit vector for passing rd past decode
@@ -384,13 +385,13 @@ s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
   -- s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
 
     -- Keep all jump redirection in EX so PC redirect timing matches ctrlHaz timing
-  s_jump <= s_DtE_Reg(133);
+  -- s_jump <= s_DtE_Reg(133);
 
   -- PC source select for fetch unit
   --   bit 1: JALR target from EX
   --   bit 0: any non-sequential PC update
   s_Fetchsrc(1) <= s_DtE_Reg(132);  -- jalr from EX
-  s_Fetchsrc(0) <= s_jump or (s_Branch and s_branch_from_decode);
+  s_Fetchsrc(0) <= s_DtE_Reg(132) or s_jal or (s_Branch and s_branch_from_decode);
 
   with iInstLd select
     s_IMemAddr <= s_PC      when '0',
@@ -431,14 +432,19 @@ s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
   --                      & s_Inst,  -- Instructions   -- [31:0]
   --            o_Q    => s_FtD_Reg);
 
-s_all_but_halt_decode <=(others => '0') when s_IFIDFlush = '1' else
-                  (
-                    s_PC4
-                   & s_PC
-                   & s_Inst);
+-- s_all_but_halt_decode <=(others => '0') when s_IFIDFlush = '1' else
+--                   (
+--                     s_PC4
+--                    & s_PC
+--                    & s_Inst);
+
+-- s_FtD_Reg_In <= s_HaltDecoded
+--                   & s_all_but_halt_decode;
 
 s_FtD_Reg_In <= s_HaltDecoded
-                  & s_all_but_halt_decode;
+              & s_PC4
+              & s_PC
+              & s_Inst;
 
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
@@ -564,8 +570,7 @@ s_FtD_Reg_In <= s_HaltDecoded
   --                  & s_ALUIn2,    -- RS2 Or IMM         -- [31:0]
   --          o_Q   => s_DtE_Reg);
 
- s_all_but_halt_execute <=  (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
-                  (
+s_all_but_halt_execute <=
                     s_funct3
                    & s_Oext
                    & s_isLUI
@@ -581,7 +586,7 @@ s_FtD_Reg_In <= s_HaltDecoded
                    & s_FtD_Reg(95 downto 64)
                    & s_RS1orPC
                    & s_Ors2
-                   & s_ALUIn2);
+                   & s_ALUIn2;
 
 s_DtE_Reg_In <= s_FtD_Reg(96)
                   & s_all_but_halt_execute;
@@ -727,7 +732,8 @@ Ctrl_Hazard_Detection: ctrlHaz
   port map(
     i_IDBranch      => s_Branch,
     i_IDBranchTaken => s_branch_from_decode,
-    i_EXJump        => s_DtE_Reg(133),
+    i_IDJal         => s_jal,
+    i_EXJalr        => s_DtE_Reg(132),
     o_CtrlHaz       => s_CtrlHaz,
     o_IFIDFlush     => s_IFIDFlush,
     o_IDEXFlush     => s_IDEXFlush,
