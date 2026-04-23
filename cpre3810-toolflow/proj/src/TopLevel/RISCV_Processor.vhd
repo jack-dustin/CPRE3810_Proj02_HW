@@ -341,6 +341,7 @@ architecture structure of RISCV_Processor is
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
+  signal s_DecUsesRS1 : std_logic;
   signal s_DecUsesRS2 : std_logic;
   signal s_DataHazStall : std_logic;
   signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
@@ -353,12 +354,22 @@ begin
   oALUOut <= s_ALUOut;
 
   
--- R-type and B-type (store uses rs2 but is a source not destination — still relevant)
--- S-type also uses rs2 as the data to write
-s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
-                        or s_FtD_Reg(6 downto 0) = "1100011"   -- B-type
-                        or s_FtD_Reg(6 downto 0) = "0100011")  -- S-type
-                else '0';
+s_DecUsesRS1 <= '1' when (
+                    s_FtD_Reg(6 downto 0) = "0110011" or  -- R-type
+                    s_FtD_Reg(6 downto 0) = "0010011" or  -- I-type ALU
+                    s_FtD_Reg(6 downto 0) = "0000011" or  -- loads
+                    s_FtD_Reg(6 downto 0) = "0100011" or  -- stores
+                    s_FtD_Reg(6 downto 0) = "1100011" or  -- branches
+                    s_FtD_Reg(6 downto 0) = "1100111"     -- jalr
+                 )
+                 else '0';
+
+s_DecUsesRS2 <= '1' when (
+                    s_FtD_Reg(6 downto 0) = "0110011" or  -- R-type
+                    s_FtD_Reg(6 downto 0) = "0100011" or  -- stores
+                    s_FtD_Reg(6 downto 0) = "1100011"     -- branches
+                 )
+                 else '0';
 
   -- WFI halt detection
   -- TODO: ensure signal doesnt go high till WB stage
@@ -648,12 +659,13 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
 -------------------------------------------------------
 ---------------- Data Hazard Dectection ---------------
     Data_Hazard_Detection: dataHaz port map(
-    i_DecRS1      => s_FtD_Reg(19 downto 15),   -- Fetch/Dec i_RS1
-    i_DecRS2      => s_FtD_Reg(24 downto 20),   -- Fetch/Dec i_RS2
-    i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
-    i_ExRegWr     => s_DtE_Reg(142),            -- Dec/Ex RegWr EN
-    i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
-    i_MemRegWr    => s_EtM_Reg(72),             -- Ex/Mem RegWr EN
+    i_DecRS1      => s_FtD_Reg(19 downto 15),
+    i_DecRS2      => s_FtD_Reg(24 downto 20),
+    i_ExRD        => s_DtE_Reg(141 downto 137),
+    i_ExRegWr     => s_DtE_Reg(142),
+    i_MemRD       => s_EtM_Reg(71 downto 67),
+    i_MemRegWr    => s_EtM_Reg(72),
+    i_DecUsesRS1  => s_DecUsesRS1,
     i_DecUsesRS2  => s_DecUsesRS2,
     i_CLK         => iCLK,
     i_RST         => iRST,

@@ -42,6 +42,7 @@
 .globl _start
 _start:
     lui  ra, 0x00400
+<<<<<<< HEAD
     addi ra, ra, 0x00c   # manually point at RET1
     j    FUNC
 RET1:
@@ -50,3 +51,17 @@ RET1:
 FUNC:
     jr   ra
 wfi
+=======
+    addi ra, ra, 0x010   # RET1 address for this layout
+    j    FUNC
+
+FUNC:
+    jr   ra
+
+RET1:
+    addi t0, x0, 1
+    j END
+
+END:
+    wfi
+>>>>>>> isaiah-branch
