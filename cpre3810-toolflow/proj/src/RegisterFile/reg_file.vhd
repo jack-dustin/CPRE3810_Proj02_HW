@@ -57,8 +57,6 @@ architecture structural of reg_file is
                  i_EN   => i_dEN,
                  o_D    => wire_WE);
 
-        --wire_WE(0) <= '0';  -- Make sure x0 can NEVER be overwritten
-
         -- Every register has the same Clock and Reset* Signal  (* = x0 (maybe) always 1)
         -- Each register gets 1 Write EN bit from decoder: i_WE --> wire_WE(i)
         -- Every register gets the same DATA input
@@ -89,16 +87,14 @@ architecture structural of reg_file is
 
         end generate;
 
-        --wire_iReg(0) <= x"00000000";    -- Force x0 output to 0
-
         INST_MUX_1: mux_32t1
         port map(i_Sel  => i_RS1,
-                 i_R    => wire_iReg,   -- Double check this
+                 i_R    => wire_iReg, 
                  o_Reg  => o_rs1 );
 
         INST_MUX_2: mux_32t1
         port map(i_Sel  => i_RS2,
-                 i_R    => wire_iReg,   -- Double check this
+                 i_R    => wire_iReg, 
                  o_Reg  => o_rs2 );
 
 end architecture;

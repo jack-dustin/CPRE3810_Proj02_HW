@@ -52,7 +52,6 @@ architecture mixed of dataHaz is
     signal s_MemRS1And_2    : std_logic;
     signal s_MemRS1And_3    : std_logic;    -- This = 1 if EX(rd) = DEC(rs1)
 
-
     signal s_MemRS2And_0    : std_logic;
     signal s_MemRS2And_1    : std_logic;
     signal s_MemRS2And_2    : std_logic;
@@ -60,20 +59,6 @@ architecture mixed of dataHaz is
 
     signal s_MemRS_res      : std_logic;    -- This = 1 if Ex(rd) = DEC(rs1 or rs2)
     signal s_MemRS_DataDep  : std_logic;    -- This = 1 if there is a data hazard
-
-    -- signal s_notEXrd        : std_logic_vector(4 downto 0);
-    --   signal s_AndEXrd_0    : std_logic;
-    --   signal s_AndEXrd_1    : std_logic;
-    --   signal s_AndEXrd_2    : std_logic;
-    --   signal s_AndEXrd_3    : std_logic;
-
-
-    -- signal s_notMEMrd       : std_logic_vector(4 downto 0);
-    --   signal s_AndMEMrd_0    : std_logic;
-    --   signal s_AndMEMrd_1    : std_logic;
-    --   signal s_AndMEMrd_2    : std_logic;
-    --   signal s_AndMEMrd_3    : std_logic;
-
 
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
     signal os_DataBubble    : std_logic;    -- Internal signal for data flush signal
@@ -151,47 +136,14 @@ begin
     -- If RS = rd,
     --    RegWr = 1,
     --    rd != x0,  IT IS A DATA HAZARD    
-    s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr when i_MemRD /= "00000" else '0';
+    s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr when i_MemRD /= "00000" else '0'; -- Does nothing if hazard is for x0
 
--- -------------------------------------------------
--- ---------------- Checking for x0 ----------------
---     s_notEXrd   <= not i_ExRD;
---     s_notMEMrd  <= not i_MemRD;
-
---     -- Execute rd
---     s_AndEXrd_0 <= s_notEXrd(0) and s_notEXrd(1);
---     s_AndEXrd_1 <= s_notEXrd(2) and s_notEXrd(3);
---     s_AndEXrd_2 <= s_AndEXrd_0 and s_AndEXrd_1;
---     s_AndEXrd_3 <= s_AndEXrd_2 and s_notEXrd(4);    -- this is 1 if EX rd = x0
-
---     -- Memory rd
---     s_AndMEMrd_0 <= s_notMEMrd(0) and s_notMEMrd(1);
---     s_AndMEMrd_1 <= s_notMEMrd(2) and s_notMEMrd(3);
---     s_AndMEMrd_2 <= s_AndMEMrd_0 and s_AndMEMrd_1;
---     s_AndMEMrd_3 <= s_AndMEMrd_2 and s_notMEMrd(4);    -- this is 1 if MEM rd = x0
-
---     -- Enforce Logic if x0 is detected --> Force Data DataDependance to 0
---     s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr and (not s_AndEXrd_3);
---     s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr and (not s_AndMEMrd_3);
-
-  --------------------------------------------------------
-  ---------------- Confirming Data Hazard ----------------
+  -----------------------------------------------------------
+  ---------------- Output Data Hazard Status ----------------
   
     -- If a Data Hazard is detected from Execute or Memory, this outputs 1
-   
     os_DataHaz   <= s_MemRS_DataDep or s_ExRS_DataDep;
     o_DataHaz   <= os_DataHaz;
-    -- -- Make sure DEC/EX register flush is synchronous with clock
-    -- INST_DFFG: dffg port map(
-    -- i_CLK   => i_CLK,
-    -- i_RST   => i_RST,
-    -- i_WE    => '1',
-    -- i_D     => os_DataHaz,
-    -- o_Q     => os_DataBubble);
-        -- Bubble request should assert immediately when a hazard is detected.
-    -- The pipeline register itself handles the synchronous bubble injection.
     o_DataBubble <= os_DataHaz;
 
-    -- Ensures the reset is enabled at the clock edge, but also reset goes low to allow next instruction through
-    --o_DataBubble <= os_DataBubble and os_DataHaz;
 end architecture;
