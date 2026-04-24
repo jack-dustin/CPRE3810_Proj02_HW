@@ -292,8 +292,8 @@ architecture structure of RISCV_Processor is
 
   signal s_DtE_Reg      : std_logic_vector(180 downto 0); -- 181 bit output
   signal s_ForceAddSub  : std_logic;  -- Signal to pass through processor to ALU - Forces Add/Sub output from ALU
-  --signal s_Ex_WB        : std_logic;  -- For now use this instead of s_WBsel
-  signal s_jump         : std_logic;
+  -- signal s_Ex_WB        : std_logic;  -- For now use this instead of s_WBsel
+  -- signal s_jump         : std_logic;
   signal s_funct3       : std_logic_vector(2 downto 0);   -- 3 bit vector
 
   signal s_RegWrAddr_Dec  : std_logic_vector(4 downto 0); -- 5 bit vector for passing rd past decode
@@ -405,7 +405,7 @@ s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
   port map(
     i_CLK    => iCLK,
     i_RST_PC => iRST,
-    i_WE     => ((not s_Halt) and (not s_PCStall) and (not s_DataHazStall)),
+    i_WE     => ((not s_Halt) and (not s_PCStall) and ((not s_DataHazStall) or s_DtE_Reg(132))),
     i_imm    => s_Oext_Dec_to_Fetch,
     i_alu    => s_JalrTarget,
     c_PC_sel => s_Fetchsrc,
@@ -427,7 +427,7 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
     port map(i_CLK  => iCLK,
              i_RST  => iRST,
              i_FLUSH => s_IFIDFlush,
-             i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
+             i_WE   => (s_DtE_Reg(132) or ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall))),   -- Used to stop on wfi or for stalling
              i_D    => s_FtD_Reg_In,  -- Input is now muxed for flush and stall
              o_Q    => s_FtD_Reg);
 

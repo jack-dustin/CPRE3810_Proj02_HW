@@ -27,12 +27,8 @@ res_idx:
         .word   3
 .text
         # NEW RISCV                # ORIGINAL MIPS
-	#li   sp, 0x10011000        # li $sp, 0x10011000
-        lui sp, 0x10011
-        addi sp, sp, 0x000
-	#li   fp, 0                 # li $fp, 0
-        lui fp, 0x00000
-        addi fp, fp, 0x000
+	li   sp, 0x10011000        # li $sp, 0x10011000
+	li   fp, 0                 # li $fp, 0
 	la   ra, pump              # la $ra pump
 	j    main
 pump:
