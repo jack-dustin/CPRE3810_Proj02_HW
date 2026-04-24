@@ -106,7 +106,7 @@ begin
             port map(
                 i_CLK => i_CLK,
                 i_RST => i_RST,
-                i_WE  => i_WE,
+                i_WE  => i_WE ,
                 i_D   => s_D(i),
                 o_Q   => o_Q(i)
             );

@@ -54,5 +54,7 @@ begin
     -- No stalls in this baseline unit
     o_PCStall   <= '0';
     o_IFIDStall <= '0';
+    -- o_PCStall   <= s_BranchHaz;
+    -- o_IFIDStall <= s_BranchHaz;
 
 end architecture;

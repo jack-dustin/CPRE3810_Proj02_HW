@@ -116,7 +116,8 @@ begin
     s_ExRS2And_2    <= s_ExRS2And_0 and s_ExRS2And_1;
     s_ExRS2And_3    <= s_ExRS2And_2 and s_Ex_RS2_Dep(4);
 
-    s_ExRS_res  <= (s_ExRS2And_3 and i_DecUsesRS2) or s_ExRS1And_3;
+    s_ExRS_res  <= (s_ExRS1And_3) or
+               (s_ExRS2And_3 and i_DecUsesRS2);
     --s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr;    -- If RS Haz and RegWr Haz --> A data Haz Exists
     s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr when i_ExRD /= "00000" else '0';
 
@@ -147,7 +148,8 @@ begin
     s_MemRS2And_2   <= s_MemRS2And_0 and s_MemRS2And_1;
     s_MemRS2And_3   <= s_MemRS2And_2 and s_Mem_RS2_Dep(4);
 
-    s_MemRS_res     <= s_MemRS1And_3 or s_MemRS2And_3; 
+    s_MemRS_res     <= (s_MemRS1And_3) or
+                   (s_MemRS2And_3 and i_DecUsesRS2);
     -- If RS = rd,
     --    RegWr = 1,
     --    rd != x0,  IT IS A DATA HAZARD    

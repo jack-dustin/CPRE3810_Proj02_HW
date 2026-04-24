@@ -107,7 +107,7 @@ architecture structure of RISCV_Processor is
   -- JALR target (ALU result with LSB cleared)
   signal s_JalrTarget   : std_logic_vector(N-1 downto 0);
 
-  --signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
+  signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
   signal s_all_but_halt_execute : std_logic_vector(179 downto 0);
   signal s_HaltDecoded : std_logic;
 
@@ -335,13 +335,15 @@ architecture structure of RISCV_Processor is
     i_ExRegWr   : in  std_logic;
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
+
     i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
-  signal s_DecUsesRS1 : std_logic;
+
+
   signal s_DecUsesRS2 : std_logic;
   signal s_DataHazStall : std_logic;
   signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
@@ -352,23 +354,13 @@ begin
 
   s_Ovfl  <= '0';
   oALUOut <= s_ALUOut;
+-- Add signal declaration:
 
-  
-s_DecUsesRS1 <= '1' when (
-                    s_FtD_Reg(6 downto 0) = "0110011" or  -- R-type
-                    s_FtD_Reg(6 downto 0) = "0010011" or  -- I-type ALU
-                    s_FtD_Reg(6 downto 0) = "0000011" or  -- loads
-                    s_FtD_Reg(6 downto 0) = "0100011" or  -- stores
-                    s_FtD_Reg(6 downto 0) = "1100011" or  -- branches
-                    s_FtD_Reg(6 downto 0) = "1100111"     -- jalr
-                 )
-                 else '0';
-
-s_DecUsesRS2 <= '1' when (
-                    s_FtD_Reg(6 downto 0) = "0110011" or  -- R-type
-                    s_FtD_Reg(6 downto 0) = "0100011" or  -- stores
-                    s_FtD_Reg(6 downto 0) = "1100011"     -- branches
-                 )
+-- R-type and B-type (store uses rs2 but is a source not destination — still relevant)
+-- S-type also uses rs2 as the data to write
+s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
+                        or s_FtD_Reg(6 downto 0) = "1100011"   -- B-type
+                        or s_FtD_Reg(6 downto 0) = "0100011")  -- S-type
                  else '0';
 
   -- WFI halt detection
@@ -379,7 +371,7 @@ s_DecUsesRS2 <= '1' when (
                       s_FtD_Reg(14 downto 12) = "000"    and
                       s_FtD_Reg(31 downto 20) = x"105")
             else '0';
- s_Halt <= s_MtWB_Reg(71);
+s_Halt <= s_MtWB_Reg(71);
 
   -- s_jump <= s_jal or s_DtE_Reg(132); 
   -- --s_jump <= s_jal or s_jalr;
@@ -398,7 +390,7 @@ s_DecUsesRS2 <= '1' when (
   --   bit 0: any non-sequential PC update
   s_Fetchsrc(1) <= s_DtE_Reg(132);  -- jalr from EX
   s_Fetchsrc(0) <= s_jal or (s_Branch and s_branch_from_decode) or s_DtE_Reg(132);
-
+  
   with iInstLd select
     s_IMemAddr <= s_PC      when '0',
                   iInstAddr when others;
@@ -436,12 +428,12 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
 
   Fetch_To_Decode_Reg: FetchDecode_Reg
     generic map(N => 97)      -- 97 bit register
-    port map(i_CLK  => iCLK,
-             i_RST  => iRST,
-             i_FLUSH => s_IFIDFlush,
+  port map(i_CLK  => iCLK,
+           i_RST  => iRST,
+             i_FLUSH => (s_IFIDFlush),
              i_WE   => ((not s_FtD_Reg(96)) and (not s_IFIDStall) and (not s_DataHazStall)),   -- Used to stop on wfi or for stalling
              i_D    => s_FtD_Reg_In,  -- Input is now muxed for flush and stall
-             o_Q    => s_FtD_Reg);
+           o_Q    => s_FtD_Reg);
 
   s_RegWrAddr_Dec <= s_FtD_Reg(11 downto 7);      -- s_Inst(11 downto 7);
   s_ForceAddSub <= s_FtD_Reg(2);              -- 2nd bit of OpCode
@@ -565,15 +557,7 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
     i_ALUctl    => s_ALUctl_OverRide, 
     o_ALUout    => s_ALUOut);                 -- o_branchOut => s_brTaken);
 
-  --   -- include PC+4
-  --   LUI_MUX: mux2t1_N   
-  -- generic map(N => N)
-  -- port map(
-  --   i_D0 => s_ALUout,
-  --   i_D1 => s_DtE_Reg(176 downto 145),  -- immediate
-  --   i_S  => s_DtE_REG(144),
-  --   o_O  => s_EXout
-  -- );
+
 
   INST_BUSMUX_4t1_0: busMux_4t1 port map(
         i_Da    => s_ALUout, -- ALUoutput 00     
@@ -659,13 +643,13 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
 -------------------------------------------------------
 ---------------- Data Hazard Dectection ---------------
     Data_Hazard_Detection: dataHaz port map(
-    i_DecRS1      => s_FtD_Reg(19 downto 15),
-    i_DecRS2      => s_FtD_Reg(24 downto 20),
-    i_ExRD        => s_DtE_Reg(141 downto 137),
-    i_ExRegWr     => s_DtE_Reg(142),
-    i_MemRD       => s_EtM_Reg(71 downto 67),
-    i_MemRegWr    => s_EtM_Reg(72),
-    i_DecUsesRS1  => s_DecUsesRS1,
+    i_DecRS1      => s_FtD_Reg(19 downto 15),   -- Fetch/Dec i_RS1
+    i_DecRS2      => s_FtD_Reg(24 downto 20),   -- Fetch/Dec i_RS2
+    i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
+    i_ExRegWr     => s_DtE_Reg(142),            -- Dec/Ex RegWr EN
+    i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
+    i_MemRegWr    => s_EtM_Reg(72),             -- Ex/Mem RegWr EN
+  
     i_DecUsesRS2  => s_DecUsesRS2,
     i_CLK         => iCLK,
     i_RST         => iRST,
@@ -676,14 +660,15 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
 ---------------- Control Hazard Dectection ---------------
 Ctrl_Hazard_Detection: ctrlHaz
   port map(
-    i_IDBranch      => s_Branch or s_jal,  
-    i_IDBranchTaken => s_branch_from_decode or s_jal,
-    i_EXJump        => s_DtE_Reg(132),
+    i_IDBranch      => s_Branch,
+    i_IDBranchTaken => s_branch_from_decode,
+    i_IDJal         => s_jal,
+    i_EXJalr        => s_DtE_Reg(132),
     o_CtrlHaz       => s_CtrlHaz,
     o_IFIDFlush     => s_IFIDFlush,
     o_IDEXFlush     => s_IDEXFlush,
     o_PCStall       => s_PCStall,
     o_IFIDStall     => s_IFIDStall
-  );
+  );  
 
 end structure;

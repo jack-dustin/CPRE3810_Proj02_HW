@@ -27,12 +27,12 @@ res_idx:
         .word   3
 .text
         # NEW RISCV                # ORIGINAL MIPS
-	#li   sp, 0x10011000        # li $sp, 0x10011000
-        lui sp, 0x10011
-        addi sp, sp, 0x000
-	#li   fp, 0                 # li $fp, 0
-        lui fp, 0x00000
-        addi fp, fp, 0x000
+	li   sp, 0x10011000        # li $sp, 0x10011000
+        #lui sp, 0x10011
+        #addi sp, sp, 0x000
+	li   fp, 0                 # li $fp, 0
+        #lui fp, 0x00000
+        #addi fp, fp, 0x000
 	la   ra, pump              # la $ra pump
 	j    main
 pump:
@@ -313,7 +313,7 @@ recast:
         lw   t2, 32(fp)            # lw      $2,32($fp)
         slt  t2,    t3, t2         # slt     $2,$3,$2
         beq  t2,    x0, pat        # beq     $2,$zero,pat # beq, j to simulate bne
-        j    example
+        j    example                                                                                  
 pat:
 
        	la   t2, visited             # la      $2, visited
