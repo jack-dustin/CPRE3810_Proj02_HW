@@ -90,9 +90,7 @@ architecture structure of RISCV_Processor is
 
   -- ALU signals
   signal s_ALUOut       : std_logic_vector(N-1 downto 0);
-  signal s_ALUIn1       : std_logic_vector(N-1 downto 0);
   signal s_ALUIn2       : std_logic_vector(N-1 downto 0);
-  signal s_ALUdata      : std_logic_vector(N-1 downto 0); -- Decode-stage RS2/IMM mux output
   signal s_RS1orPC      : std_logic_vector(N-1 downto 0);
 
   -- LUI / AUIPC bypass flags
@@ -113,17 +111,6 @@ architecture structure of RISCV_Processor is
   signal s_all_but_halt_execute : std_logic_vector(179 downto 0);
   signal s_HaltDecoded : std_logic;
 
-
-  -- Forwarding signals
-  -- ID/EX forwarding metadata is carried above the original 180-bit payload:
-  --   s_DtE_Reg(190)              = original ALUSrc for the EX-stage instruction
-  --   s_DtE_Reg(189 downto 185)   = original rs1 register number
-  --   s_DtE_Reg(184 downto 180)   = original rs2 register number
-  -- Existing old ID/EX payload bits remain at [179:0]. Halt moved from [180] to [191].
-  signal s_ForwardA        : std_logic_vector(1 downto 0);
-  signal s_ForwardB_Raw    : std_logic_vector(1 downto 0);
-  signal s_ForwardB_ALU    : std_logic_vector(1 downto 0);
-  signal s_StoreDataToMem  : std_logic_vector(31 downto 0);
 
 
   component mem is
@@ -269,7 +256,7 @@ architecture structure of RISCV_Processor is
   signal s_IFIDStall  : std_logic;
 
     signal s_FtD_Reg_In : std_logic_vector(96 downto 0);
-  signal s_DtE_Reg_In : std_logic_vector(191 downto 0);
+  signal s_DtE_Reg_In : std_logic_vector(180 downto 0);
     
   component proj2_branch is 
   port( 
@@ -304,7 +291,7 @@ architecture structure of RISCV_Processor is
           o_Q     : out std_logic_vector(N-1 downto 0));   -- (Bus) Data value output
   end component;
 
-  signal s_DtE_Reg      : std_logic_vector(191 downto 0); -- 192 bit output
+  signal s_DtE_Reg      : std_logic_vector(180 downto 0); -- 181 bit output
   signal s_ForceAddSub  : std_logic;  -- Signal to pass through processor to ALU - Forces Add/Sub output from ALU
   signal s_funct3       : std_logic_vector(2 downto 0);   -- 3 bit vector
 
@@ -357,27 +344,6 @@ architecture structure of RISCV_Processor is
   signal s_DecUsesRS2 : std_logic;
   signal s_DataHazStall : std_logic;
   signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
-
-  component forwardingUnit is
-    port(
-    i_IDEX_RS1      : in  std_logic_vector(4 downto 0);
-    i_IDEX_RS2      : in  std_logic_vector(4 downto 0);
-
-    i_EXMEM_RD      : in  std_logic_vector(4 downto 0);
-    i_EXMEM_RegWr   : in  std_logic;
-    i_EXMEM_MemRead : in  std_logic;
-
-    i_MEMWB_RD      : in  std_logic_vector(4 downto 0);
-    i_MEMWB_RegWr   : in  std_logic;
-
-    -- 00 = normal ID/EX value
-    -- 10 = EX/MEM result
-    -- 01 = MEM/WB final writeback value
-    -- 11 = unused / not generated
-    o_ForwardA      : out std_logic_vector(1 downto 0);
-    o_ForwardB      : out std_logic_vector(1 downto 0)
-  );
-  end component;
 begin
 
 ---------------------------------------------
@@ -498,7 +464,7 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
     i_D0 => s_Ors2,
     i_D1 => s_Oext,
     i_S  => s_ALUsrc,
-    o_O  => s_ALUdata
+    o_O  => s_ALUIn2
   );
 
     INST_BRANCHING: proj2_branch port map(
@@ -544,16 +510,16 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
                    & s_FtD_Reg(95 downto 64)  -- PC + 4             -- [127:96]
                    & s_RS1orPC                -- RS1 Or PC          -- [95:64]
                    & s_Ors2                   -- RS2 for Stores     -- [63:32]
-                   & s_ALUdata);               -- RS2 Or IMM         -- [31:0]
+                   & s_ALUIn2);               -- RS2 Or IMM         -- [31:0]
 
-s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(24 downto 20) & s_all_but_halt_execute;
+s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
 
   Decode_To_Execute_Reg: DecodeExecute_Reg
-    generic map(N => 192)
+    generic map(N => 181)
     port map(i_CLK => iCLK,
             i_RST => iRST,
             i_FLUSH => s_IDEXFlush or s_DataHazFlush,
-            i_WE  => (not s_DtE_Reg(191)),
+            i_WE  => (not s_DtE_Reg(180)),
             i_D   => s_DtE_Reg_In,
             o_Q   => s_DtE_Reg);
   -- s_Inst(2) = OpCode(2) = s_DtE_Reg(143)
@@ -563,70 +529,10 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(2
   s_ALUctl_OverRide(2)  <= ((not s_DtE_Reg(143)) and s_DtE_Reg(130));     -- not OpCode(2) and s_ALUctl(2)
   s_ALUctl_OverRide(3)  <= ((not s_DtE_Reg(143)) and s_DtE_Reg(131));     -- not OpCode(2) and s_ALUctl(3)
 
-  -- EX-stage forwarding control.
-  -- Select encoding from forwardingUnit:
-  --   00 = normal ID/EX value
-  --   01 = MEM/WB final writeback value
-  --   10 = EX/MEM result
-  --   11 = unused, mapped back to normal value by the mux input choice below
-  Forwarding_Unit: forwardingUnit
-    port map(
-      i_IDEX_RS1       => s_DtE_Reg(189 downto 185),
-      i_IDEX_RS2       => s_DtE_Reg(184 downto 180),
-      i_EXMEM_RD       => s_EtM_Reg(71 downto 67),
-      i_EXMEM_RegWr    => s_EtM_Reg(72),
-      i_EXMEM_MemRead  => s_EtM_Reg(65),
-      i_MEMWB_RD       => s_MtWB_Reg(69 downto 65),
-      i_MEMWB_RegWr    => s_MtWB_Reg(70),
-      o_ForwardA       => s_ForwardA,
-      o_ForwardB       => s_ForwardB_Raw
-    );
-
-  -- Do not forward into ALU operand B when this instruction's B operand is an immediate.
-  -- Stores still need rs2 forwarding for store data, so only mask the ALU-B select.
-  s_ForwardB_ALU <= "00" when s_DtE_Reg(190) = '1' else s_ForwardB_Raw;
-
-  -- Choose normal ID/EX A, MEM/WB WB-data, or EX/MEM result for ALU input A.
-  ALU_RS1_Forwarding: busMux_4t1
-  port map(
-    i_Da => s_DtE_Reg(95 downto 64),
-    i_Db => s_RegWrData,
-    i_Dc => s_EtM_Reg(63 downto 32),
-    i_Dd => s_DtE_Reg(95 downto 64),
-    C_S0 => s_ForwardA(0),
-    C_S1 => s_ForwardA(1),
-    o_Do => s_ALUIn1
-  );
-
-  -- Choose normal ID/EX B, MEM/WB WB-data, or EX/MEM result for ALU input B.
-  ALU_RS2_Forwarding: busMux_4t1
-  port map(
-    i_Da => s_DtE_Reg(31 downto 0),
-    i_Db => s_RegWrData,
-    i_Dc => s_EtM_Reg(63 downto 32),
-    i_Dd => s_DtE_Reg(31 downto 0),
-    C_S0 => s_ForwardB_ALU(0),
-    C_S1 => s_ForwardB_ALU(1),
-    o_Do => s_ALUIn2
-  );
-
-  -- Store-data forwarding. Stores use the immediate for ALU B, but their rs2 data still
-  -- must be forwarded into the EX/MEM store-data field when rs2 depends on an older rd.
-  StoreData_Forwarding: busMux_4t1
-  port map(
-    i_Da => s_DtE_Reg(63 downto 32),
-    i_Db => s_RegWrData,
-    i_Dc => s_EtM_Reg(63 downto 32),
-    i_Dd => s_DtE_Reg(63 downto 32),
-    C_S0 => s_ForwardB_Raw(0),
-    C_S1 => s_ForwardB_Raw(1),
-    o_Do => s_StoreDataToMem
-  );
-
   ALU0: proj02_ALU
   port map(
-    i_A         => s_ALUIn1,   -- s_RS1orPC and ~s_isLUI. If s_isLUI is 0 --> 1, allows normal operation, else 0
-    i_B         => s_ALUIn2,    -- s_ALUIn2
+    i_A         => s_DtE_Reg(95 downto 64),   -- s_RS1orPC and ~s_isLUI. If s_isLUI is 0 --> 1, allows normal operation, else 0
+    i_B         => s_DtE_Reg(31 downto 0),    -- s_ALUIn2
     i_ALUctl    => s_ALUctl_OverRide, 
     o_ALUout    => s_ALUOut);                 -- o_branchOut => s_brTaken);
 
@@ -651,7 +557,7 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(2
     port map(i_CLK => iCLK,
              i_RST => iRST,
              i_WE  => not s_EtM_Reg(76),
-             i_D   =>   s_DtE_Reg(191)            -- Halt           -- [76]
+             i_D   =>   s_DtE_Reg(180)            -- Halt           -- [76]
                       & s_DtE_Reg(179 downto 177) -- Funct3 bits    -- [75:73]
                       & s_DtE_Reg(142)            -- RegWrite EN    -- [72]
                       & s_DtE_Reg(141 downto 137) -- rd             -- [71:67]
@@ -659,7 +565,7 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(2
                       & s_DtE_Reg(135)            -- DMem Read EN   -- [65]
                       & s_DtE_Reg(134)            -- Write Back Sel -- [64]
                       & s_EXout                   -- ALU_out        -- [63:32]  -- For addressing and Write Back
-                      & s_StoreDataToMem,           -- RS2/store data   -- [31:0]
+                      & s_DtE_Reg(63 downto 32),  -- RS2            -- [31:0]
              o_Q   => s_EtM_Reg);
 
   s_DMemAddr <= s_EtM_Reg(63 downto 32);
@@ -717,9 +623,9 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
     i_DecRS1      => s_FtD_Reg(19 downto 15),   -- Fetch/Dec i_RS1
     i_DecRS2      => s_FtD_Reg(24 downto 20),   -- Fetch/Dec i_RS2
     i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
-    i_ExRegWr     => s_DtE_Reg(135),            -- load-use only: Dec/Ex MemRead
+    i_ExRegWr     => s_DtE_Reg(142),            -- Dec/Ex RegWr EN
     i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
-    i_MemRegWr    => '0',                       -- no MEM-stage stall; forwarding handles it
+    i_MemRegWr    => s_EtM_Reg(72),             -- Ex/Mem RegWr EN
   
     i_DecUsesRS2  => s_DecUsesRS2,
     i_CLK         => iCLK,
