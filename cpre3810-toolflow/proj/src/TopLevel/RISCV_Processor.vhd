@@ -502,7 +502,9 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
     o_O  => s_ALUdata
   );
 
-    INST_BRANCHING: proj2_branch port map(
+
+
+  INST_BRANCHING: proj2_branch port map(
     i_A      => s_Ors1,     -- Output RS1
     i_B      => s_Ors2,     -- Branches compare RS1 vs RS2
     c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
