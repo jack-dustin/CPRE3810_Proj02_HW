@@ -349,6 +349,7 @@ architecture structure of RISCV_Processor is
     i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
+    i_isLoad    : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
@@ -424,7 +425,7 @@ s_Halt <= s_MtWB_Reg(71);
   IFetch: proj1_fetch
   port map(
     i_CLK    => iCLK,
-    i_RST_PC => iRST,
+    i_RST_PC => iRST,                                                          -- jalr from EX
     i_WE     => ((not s_Halt) and (not s_PCStall) and ((not s_DataHazStall) or s_DtE_Reg(132))),
     i_imm    => s_Oext_Dec_to_Fetch,
     i_alu    => s_JalrTarget,
@@ -724,6 +725,7 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
     i_DecUsesRS2  => s_DecUsesRS2,
     i_CLK         => iCLK,
     i_RST         => iRST,
+    i_isLoad      => s_DtE_Reg(134),            -- WB_sel --> 0 if instruction is a load
     o_DataHaz     => s_DataHazStall,
     o_DataBubble  => s_DataHazFlush);
     
