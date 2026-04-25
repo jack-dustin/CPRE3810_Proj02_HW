@@ -2,17 +2,6 @@
 -- CprE 3810 Proj02 - Decode to Execute Pipeline Register
 -- Start Date: 4.10.2026,   3:26 PM
 
--- Needs 106-Bit Register:
-    -- ALU_Output       --> 32 bits
-    -- Memory Output    --> 32 bits
-    -- imm (auipc/lui)  --> 32 bits 
-    -- WriteBack Mux    --> 2 bits
-    -- Total: 98 bits
-        -- Depreciated ^^^^
-
-
-
-
 -- Bit Mapping:
 -- CONTROLS: 
     -- 
@@ -23,6 +12,8 @@
 -- DATA:
     -- LOAD_out         --> 32 bits     [63:32]
     -- ALU_out          --> 32 bits     [31:0]
+    
+-- ^^^ This is now depreciated; Current register uses 72 bits
 
 library IEEE;
 use IEEE.std_logic_1164.all;

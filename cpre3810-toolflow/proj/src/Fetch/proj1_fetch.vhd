@@ -79,27 +79,10 @@ architecture structural of proj1_fetch is
     -- (instantiate components)
     -- Component => Entity Ports/Signals
     begin   
-        --s_CLK_n <= not i_CLK;
         o_PC  <= is_PC;
         o_PC4 <= s_PC_4_mux; -- Output "PC + 4" for use in jal instructions (to be stored in rd)
 
-                -- First mux: choose between PC+4 and PC+imm
-        -- INST_BUSMUX_1: busMux_2t1
-        -- port map(i_dZero    => s_PC_4_mux,
-        --          i_dOne     => i_imm,
-        --          ALUSrc     => c_PC_sel(0),
-        --          o_dOUT     => os_busMux1);
-                 
-        -- -- Second mux: choose between previous result and jalr target
-        -- -- Note: c_PC_sel(1) should only be 1 for jalr instructions, 
-        -- -- so this mux will only select the ALU output for jalr, 
-        -- -- and will select between PC+4 and PC+imm for all other instructions (including branches)
-        -- INST_BUSMUX_2: busMux_2t1
-        -- port map(i_dZero    => os_busMux1,
-        --          i_dOne     => i_alu,
-        --          ALUSrc     => c_PC_sel(1),
-        --          o_dOUT     => os_busMux2);
-
+        -- Choose between PC+4, PC+imm, and jalr target
         INST_BUSMUX_1: busMux_4t1
         port map(
             i_Da => s_PC_4_mux,
@@ -111,10 +94,11 @@ architecture structural of proj1_fetch is
             O_Do => os_busMux2
         );
                  
+        -- TODO: See if we can merge mux above and mux below for clarity/cleaness?
         -- Reset override: force 0x00400000 on reset
         INST_BUSMUX_3: busMux_2t1
-        port map(i_dZero    => os_busMux2,
-                 i_dOne     => x"00400000",
+        port map(i_dZero    => os_busMux2,      -- PC+4, PC+imm, OR jalr target
+                 i_dOne     => x"00400000",     -- PC reset value
                  ALUSrc     => i_RST_PC,
                  o_dOUT     => os_busMux3);
 
@@ -135,14 +119,5 @@ architecture structural of proj1_fetch is
                  o_S    => s_PC_4_mux,     -- Signal carries to busMux(0)
                  i_C    => '0',            -- Hardcode carry in bit to 0
                  o_C    =>  open);         -- "open" is used in VHDL to indicate an output not connected to anything
-
-        -- -- PC + imm into (1)
-        -- INST_ADDER_N_IMM: basic_adder_n     
-        -- generic map (N => N)
-        -- port map(i_aB0  => is_PC,
-        --          i_aB1  => i_imm,
-        --          o_S    => s_PC_imm_mux,    -- Signal carries to busMux(1)
-        --          i_C    => '0',             -- Hardcode carry in bit to 0
-        --          o_C    => open);           -- "open" is used in VHDL to indicate an output not connected to anything
 
 end structural;
