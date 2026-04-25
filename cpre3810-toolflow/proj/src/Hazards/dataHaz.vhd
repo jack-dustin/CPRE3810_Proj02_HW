@@ -19,6 +19,9 @@ entity dataHaz is port(
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
 
+    i_isLoad    : in  std_logic;  -- WB_sel --> 0 for Load, 1 for ALU
+      -- This is needed from the Execute stage ONLY. After Memory, the data is forwarded to ALU and shouldn't be stalled
+
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
 end entity;
@@ -29,36 +32,24 @@ architecture mixed of dataHaz is
     signal s_Ex_RS1_Dep     : std_logic_vector(4 downto 0);
     signal s_Ex_RS2_Dep     : std_logic_vector(4 downto 0);
 
-    signal s_ExRS1And_0     : std_logic;
-    signal s_ExRS1And_1     : std_logic;
-    signal s_ExRS1And_2     : std_logic;
-    signal s_ExRS1And_3     : std_logic;    -- This = 1 if EX(rd) = DEC(rs1)
-
-
-    signal s_ExRS2And_0     : std_logic;
-    signal s_ExRS2And_1     : std_logic;
-    signal s_ExRS2And_2     : std_logic;
-    signal s_ExRS2And_3     : std_logic;    -- This = 1 if EX(rd) = DEC(rs2)
+    signal s_EXrd_eq_rs1    : std_logic;    -- This = 1 if EX(rd) = DEC(rs1)
+    signal s_EXrd_eq_rs2    : std_logic;    -- This = 1 if EX(rd) = DEC(rs2)
 
     signal s_ExRS_res       : std_logic;    -- This = 1 if Ex(rd) = DEC(rs1 or rs2)
-    signal s_ExRS_DataDep   : std_logic;    -- This = 1 if there is a data hazard
+    signal s_EX_Data_Haz    : std_logic;    -- This = 1 if there is a data hazard
 
     -- Checking Memory
     signal s_Mem_RS1_Dep    : std_logic_vector(4 downto 0);
     signal s_Mem_RS2_Dep    : std_logic_vector(4 downto 0);
 
-    signal s_MemRS1And_0    : std_logic;
-    signal s_MemRS1And_1    : std_logic;
-    signal s_MemRS1And_2    : std_logic;
-    signal s_MemRS1And_3    : std_logic;    -- This = 1 if EX(rd) = DEC(rs1)
+    signal s_Mrd_eq_rs1     : std_logic;    -- This = 1 if EX(rd) = DEC(rs1)
+    signal s_Mrd_eq_rs2     : std_logic;    -- This = 1 if EX(rd) = DEC(rs2)
 
-    signal s_MemRS2And_0    : std_logic;
-    signal s_MemRS2And_1    : std_logic;
-    signal s_MemRS2And_2    : std_logic;
-    signal s_MemRS2And_3    : std_logic;    -- This = 1 if EX(rd) = DEC(rs2)
+    signal s_Erd_is_0       : std_logic;    -- This is 0 if rd = 0
+    signal s_Mrd_is_0       : std_logic;    -- This is 0 if rd = 0
 
     signal s_MemRS_res      : std_logic;    -- This = 1 if Ex(rd) = DEC(rs1 or rs2)
-    signal s_MemRS_DataDep  : std_logic;    -- This = 1 if there is a data hazard
+    signal s_M_Data_Haz     : std_logic;    -- This = 1 if there is a data hazard
 
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
     signal os_DataBubble    : std_logic;    -- Internal signal for data flush signal
@@ -73,77 +64,61 @@ end component;
 
 begin
 
-  -- EX(rd) AND DEC(rs1)
-    -- Check for dependencies between Ex rd and RS1:
-    s_Ex_RS1_Dep(0) <=  i_ExRD(0) xnor i_DecRS1(0);
-    s_Ex_RS1_Dep(1) <=  i_ExRD(1) xnor i_DecRS1(1);
-    s_Ex_RS1_Dep(2) <=  i_ExRD(2) xnor i_DecRS1(2);
-    s_Ex_RS1_Dep(3) <=  i_ExRD(3) xnor i_DecRS1(3);
-    s_Ex_RS1_Dep(4) <=  i_ExRD(4) xnor i_DecRS1(4);
+-- Check for dependencies between EX(rd) and RSn:
+    -- rs1
+    s_Ex_RS1_Dep    <=  i_ExRD xnor i_DecRS1; -- [n,n] = 1, [n,m] = 0
 
-    -- AND tree
-    s_ExRS1And_0    <= s_Ex_RS1_Dep(0) and s_Ex_RS1_Dep(1);
-    s_ExRS1And_1    <= s_Ex_RS1_Dep(2) and s_Ex_RS1_Dep(3);
-    s_ExRS1And_2    <= s_ExRS1And_0 and s_ExRS1And_1;
-    s_ExRS1And_3    <= s_ExRS1And_2 and s_Ex_RS1_Dep(4);
+    -- AND tree     -- [E] rd & rs1 equalivent flag
+    s_EXrd_eq_rs1   <= s_Ex_RS1_Dep(0) and s_Ex_RS1_Dep(1) and 
+                       s_Ex_RS1_Dep(2) and s_Ex_RS1_Dep(3) and 
+                       s_Ex_RS1_Dep(4);
+  
+    s_Ex_RS2_Dep    <=  i_ExRD xnor i_DecRS2; -- [n,n] = 1, [n,m] = 0
+
+    -- AND tree     -- [E] rd & rs2 equalivent flag
+    s_EXrd_eq_rs2   <= s_Ex_RS2_Dep(0) and s_Ex_RS2_Dep(1) and 
+                       s_Ex_RS2_Dep(2) and s_Ex_RS2_Dep(3) and 
+                       s_Ex_RS2_Dep(4);
+    
+-- Check for dependencies betwen M(rd) and RSn:
+    -- rs1
+    s_Mem_RS1_Dep   <= i_MemRD xnor i_DecRS1;   -- [n,n] = 1, [n,m] = 0
+ 
+    -- AND tree     -- [M] rd & rs1 equalivent flag
+    s_Mrd_eq_rs1    <= s_Mem_RS1_Dep(0) and s_Mem_RS1_Dep(1) and 
+                       s_Mem_RS1_Dep(2) and s_Mem_RS1_Dep(3) and 
+                       s_Mem_RS1_Dep(4);
+
+    -- rs2
+    s_Mem_RS2_Dep   <= i_MemRD xnor i_DecRS2;   -- [n,n] = 1, [n,m] = 0
+  
+    -- AND tree     -- [M] rd & rs2 equalivent flag
+    s_Mrd_eq_rs2    <= s_Mem_RS2_Dep(0) and s_Mem_RS2_Dep(1) and 
+                       s_Mem_RS2_Dep(2) and s_Mem_RS2_Dep(3) and 
+                       s_Mem_RS2_Dep(4);
+
+-- These signals are 0 if rd = 0
+    s_Erd_is_0  <= i_ExRD(0) or i_ExRD(1) or i_ExRD(2) or i_ExRD(3) or i_ExRD(4);
+    s_Mrd_is_0  <= i_MemRD(0) or i_MemRD(1) or i_MemRD(2) or i_MemRD(3) or i_MemRD(4);
 
 
-  -- EX(rd) AND DEC(rs2)
-    s_Ex_RS2_Dep(0) <=  i_ExRD(0) xnor i_DecRS2(0);
-    s_Ex_RS2_Dep(1) <=  i_ExRD(1) xnor i_DecRS2(1);
-    s_Ex_RS2_Dep(2) <=  i_ExRD(2) xnor i_DecRS2(2);
-    s_Ex_RS2_Dep(3) <=  i_ExRD(3) xnor i_DecRS2(3);
-    s_Ex_RS2_Dep(4) <=  i_ExRD(4) xnor i_DecRS2(4);
+-- Logic for Data Hazard Output signals
+    s_ExRS_res  <= (s_EXrd_eq_rs2 and i_DecUsesRS2) or s_EXrd_eq_rs1;
+    s_EX_Data_Haz  <= s_ExRS_res and i_ExRegWr and s_Erd_is_0;  -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
-    -- AND tree
-    s_ExRS2And_0    <= s_Ex_RS2_Dep(0) and s_Ex_RS2_Dep(1);
-    s_ExRS2And_1    <= s_Ex_RS2_Dep(2) and s_Ex_RS2_Dep(3);
-    s_ExRS2And_2    <= s_ExRS2And_0 and s_ExRS2And_1;
-    s_ExRS2And_3    <= s_ExRS2And_2 and s_Ex_RS2_Dep(4);
-
-    s_ExRS_res  <= (s_ExRS2And_3 and i_DecUsesRS2) or s_ExRS1And_3;
-    --s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr;    -- If RS Haz and RegWr Haz --> A data Haz Exists
-    s_ExRS_DataDep  <= s_ExRS_res and i_ExRegWr when i_ExRD /= "00000" else '0';
-
-  -- MEM(rd) and DEC(rs1)
-    -- Check for dependencies betwen Mem rd and RS1:
-    s_Mem_RS1_Dep(0)    <= i_MemRD(0) xnor i_DecRS1(0);
-    s_Mem_RS1_Dep(1)    <= i_MemRD(1) xnor i_DecRS1(1);
-    s_Mem_RS1_Dep(2)    <= i_MemRD(2) xnor i_DecRS1(2);
-    s_Mem_RS1_Dep(3)    <= i_MemRD(3) xnor i_DecRS1(3);
-    s_Mem_RS1_Dep(4)    <= i_MemRD(4) xnor i_DecRS1(4);
-
-    -- AND tree
-    s_MemRS1And_0   <= s_Mem_RS1_Dep(0) and s_Mem_RS1_Dep(1);
-    s_MemRS1And_1   <= s_Mem_RS1_Dep(2) and s_Mem_RS1_Dep(3);
-    s_MemRS1And_2   <= s_MemRS1And_0 and s_MemRS1And_1;
-    s_MemRS1And_3   <= s_MemRS1And_2 and s_Mem_RS1_Dep(4);
-
-  -- MEM(rd) and DEC(rs2)
-    s_Mem_RS2_Dep(0)    <= i_MemRD(0) xnor i_DecRS2(0);
-    s_Mem_RS2_Dep(1)    <= i_MemRD(1) xnor i_DecRS2(1);
-    s_Mem_RS2_Dep(2)    <= i_MemRD(2) xnor i_DecRS2(2);
-    s_Mem_RS2_Dep(3)    <= i_MemRD(3) xnor i_DecRS2(3);
-    s_Mem_RS2_Dep(4)    <= i_MemRD(4) xnor i_DecRS2(4);
-
-    -- AND tree
-    s_MemRS2And_0   <= s_Mem_RS2_Dep(0) and s_Mem_RS2_Dep(1);
-    s_MemRS2And_1   <= s_Mem_RS2_Dep(2) and s_Mem_RS2_Dep(3);
-    s_MemRS2And_2   <= s_MemRS2And_0 and s_MemRS2And_1;
-    s_MemRS2And_3   <= s_MemRS2And_2 and s_Mem_RS2_Dep(4);
-
-    s_MemRS_res     <= s_MemRS1And_3 or s_MemRS2And_3; 
-    -- If RS = rd,
-    --    RegWr = 1,
-    --    rd != x0,  IT IS A DATA HAZARD    
-    s_MemRS_DataDep <= s_MemRS_res and i_MemRegWr when i_MemRD /= "00000" else '0'; -- Does nothing if hazard is for x0
+    s_MemRS_res     <= s_Mrd_eq_rs1 or s_Mrd_eq_rs2; 
+    s_M_Data_Haz <= s_MemRS_res and i_MemRegWr and s_Mrd_is_0; -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
   -----------------------------------------------------------
   ---------------- Output Data Hazard Status ----------------
   
     -- If a Data Hazard is detected from Execute or Memory, this outputs 1
-    os_DataHaz   <= s_MemRS_DataDep or s_ExRS_DataDep;
-    o_DataHaz   <= os_DataHaz;
-    o_DataBubble <= os_DataHaz;
+    os_DataHaz    <= s_M_Data_Haz or s_EX_Data_Haz;
+    o_DataBubble  <= os_DataHaz;  
+    o_DataHaz     <= os_DataHaz and (not i_isLoad);  -- Required for stalling
+
+
+
+
 
 end architecture;
