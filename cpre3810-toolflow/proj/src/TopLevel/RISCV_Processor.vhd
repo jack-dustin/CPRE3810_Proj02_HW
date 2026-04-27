@@ -109,8 +109,6 @@ architecture structure of RISCV_Processor is
   -- JALR target (ALU result with LSB cleared)
   signal s_JalrTarget   : std_logic_vector(N-1 downto 0);
 
-  signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
-  signal s_all_but_halt_execute : std_logic_vector(179 downto 0);
   signal s_HaltDecoded : std_logic;
 
 
@@ -123,6 +121,7 @@ architecture structure of RISCV_Processor is
   signal s_ForwardA        : std_logic_vector(1 downto 0);
   signal s_ForwardB_Raw    : std_logic_vector(1 downto 0);
   signal s_ForwardB_ALU    : std_logic_vector(1 downto 0);
+  signal s_ForwardBranch   : std_logic_vector(1 downto 0);
   signal s_StoreDataToMem  : std_logic_vector(31 downto 0);
 
 
@@ -269,7 +268,6 @@ architecture structure of RISCV_Processor is
   signal s_IFIDStall  : std_logic;
 
     signal s_FtD_Reg_In : std_logic_vector(96 downto 0);
-  signal s_DtE_Reg_In : std_logic_vector(191 downto 0);
     
   component proj2_branch is 
   port( 
@@ -290,6 +288,7 @@ architecture structure of RISCV_Processor is
           o_Q     : out std_logic_vector(N-1 downto 0));   -- (Bus) Data value output
   end component;
 
+  signal s_all_but_halt_decode : std_logic_vector(95 downto 0);
   signal s_FtD_Reg      : std_logic_vector(96 downto 0);  -- 96 bit output
   signal s_branch_from_decode : std_logic;
 
@@ -304,7 +303,10 @@ architecture structure of RISCV_Processor is
           o_Q     : out std_logic_vector(N-1 downto 0));   -- (Bus) Data value output
   end component;
 
+  signal s_all_but_halt_execute : std_logic_vector(190 downto 0);
   signal s_DtE_Reg      : std_logic_vector(191 downto 0); -- 192 bit output
+  signal s_DtE_Reg_In : std_logic_vector(191 downto 0);
+
   signal s_ForceAddSub  : std_logic;  -- Signal to pass through processor to ALU - Forces Add/Sub output from ALU
   signal s_funct3       : std_logic_vector(2 downto 0);   -- 3 bit vector
 
@@ -312,6 +314,10 @@ architecture structure of RISCV_Processor is
   signal s_RegWr_Dec      : std_logic;  -- RegWrite EN for decode stage
 
   signal s_DMemWr_Dec     : std_logic;    -- Dmem Write EN for decode stage
+
+  -- Signals for picking normal vs forwarded value
+  signal s_Ors1_fwd     : std_logic_vector(N-1 downto 0);
+  signal s_Ors2_fwd     : std_logic_vector(N-1 downto 0);
 
   component ExecuteMemory_Reg is
     generic (N : integer := 101);   -- 101 bit register
@@ -350,6 +356,7 @@ architecture structure of RISCV_Processor is
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
     i_isLoad    : in  std_logic;
+    i_isBranch  : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
@@ -361,6 +368,9 @@ architecture structure of RISCV_Processor is
 
   component forwardingUnit is
     port(
+    i_IFID_RS1      : in  std_logic_vector(4 downto 0);
+    i_IFID_RS2      : in  std_logic_vector(4 downto 0);
+
     i_IDEX_RS1      : in  std_logic_vector(4 downto 0);
     i_IDEX_RS2      : in  std_logic_vector(4 downto 0);
 
@@ -376,7 +386,9 @@ architecture structure of RISCV_Processor is
     -- 01 = MEM/WB final writeback value
     -- 11 = unused / not generated
     o_ForwardA      : out std_logic_vector(1 downto 0);
-    o_ForwardB      : out std_logic_vector(1 downto 0)
+    o_ForwardB      : out std_logic_vector(1 downto 0);
+
+    o_ForwardBranch : out std_logic_vector(1 downto 0)    -- [V(0), RS1]   [V(1), RS2]    0 --> o_RegFile, 1 --> o_ALU  
   );
   end component;
 begin
@@ -436,7 +448,8 @@ s_Halt <= s_MtWB_Reg(71);
 ----------------------------------------------
 ---------------- DECODE STAGE ----------------
 s_all_but_halt_decode <=(others => '0') when s_IFIDFlush = '1' else
-                  (  s_PC4     -- PC+4 Value     -- [95:64]
+                  (--HALT                        -- [96]  
+                     s_PC4     -- PC+4 Value     -- [95:64]
                    & s_PC      -- PC Value       -- [63:32]
                    & s_Inst);  -- Instructions   -- [31:0]
 
@@ -503,10 +516,23 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
   );
 
 
+  Mux_Branching_RS1: mux2t1_N
+  generic map(N => N)
+  port map(i_D0 => s_Ors1,  -- Default/normal RS1_Val
+           i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS1_Val
+           i_S  => s_ForwardBranch(0),
+           o_O  => s_Ors1_fwd);
+
+  Mux_Branching_RS2: mux2t1_N
+  generic map(N => N)
+  port map(i_D0 => s_Ors2,  -- Default/normal RS2_Val
+           i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS1_Val
+           i_S  => s_ForwardBranch(1),
+           o_O  => s_Ors2_fwd);
 
   INST_BRANCHING: proj2_branch port map(
-    i_A      => s_Ors1,     -- Output RS1
-    i_B      => s_Ors2,     -- Branches compare RS1 vs RS2
+    i_A      => s_Ors1_fwd,     -- Output RS1*
+    i_B      => s_Ors2_fwd,     -- Branches compare RS1* vs RS2*
     c_funct3 => s_FtD_Reg(14 downto 12),  -- funct3(2:0)
     o_out    => s_branch_from_decode);
 
@@ -532,7 +558,11 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
 -----------------------------------------------
 ---------------- EXECUTE STAGE ----------------
  s_all_but_halt_execute <=  (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
-                  (  s_funct3                 -- RawFunct3_fr_Load  -- [179:177]
+                  (-- HALT                                          -- [191]
+                     s_ALUsrc                 -- (RS2 or imm) sel   -- [190]  
+                   & s_FtD_Reg(19 downto 15)  -- RS1                -- [189:185]
+                   & s_FtD_Reg(24 downto 20)  -- RS2                -- [184:180]
+                   & s_funct3                 -- RawFunct3_fr_Load  -- [179:177]
                    & s_Oext                   -- Immediate          -- [176:145]
                    & s_isLUI                  -- Inst is lui        -- [144] 
                    & s_ForceAddSub            -- Force AddSub_o     -- [143]
@@ -547,9 +577,9 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
                    & s_FtD_Reg(95 downto 64)  -- PC + 4             -- [127:96]
                    & s_RS1orPC                -- RS1 Or PC          -- [95:64]
                    & s_Ors2                   -- RS2 for Stores     -- [63:32]
-                   & s_ALUdata);               -- RS2 Or IMM         -- [31:0]
+                   & s_ALUdata);              -- RS2 Or IMM         -- [31:0]
 
-s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(24 downto 20) & s_all_but_halt_execute;
+s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
 
   Decode_To_Execute_Reg: DecodeExecute_Reg
     generic map(N => 192)
@@ -574,15 +604,18 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(2
   --   11 = unused, mapped back to normal value by the mux input choice below
   Forwarding_Unit: forwardingUnit
     port map(
+      i_IFID_RS1       => s_FtD_Reg(19 downto 15),
+      i_IFID_RS2       => s_FtD_Reg(24 downto 20),
       i_IDEX_RS1       => s_DtE_Reg(189 downto 185),
       i_IDEX_RS2       => s_DtE_Reg(184 downto 180),
-      i_EXMEM_RD       => s_EtM_Reg(71 downto 67),
-      i_EXMEM_RegWr    => s_EtM_Reg(72),
-      i_EXMEM_MemRead  => s_EtM_Reg(65),
+      i_EXMEM_RD       => s_EtM_Reg(71 downto 67),  
+      i_EXMEM_RegWr    => s_EtM_Reg(72),            
+      i_EXMEM_MemRead  => s_EtM_Reg(65),            
       i_MEMWB_RD       => s_MtWB_Reg(69 downto 65),
       i_MEMWB_RegWr    => s_MtWB_Reg(70),
       o_ForwardA       => s_ForwardA,
-      o_ForwardB       => s_ForwardB_Raw
+      o_ForwardB       => s_ForwardB_Raw,
+      o_ForwardBranch  => s_ForwardBranch(1 downto 0)
     );
 
   -- Do not forward into ALU operand B when this instruction's B operand is an immediate.
@@ -654,15 +687,15 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_ALUsrc & s_FtD_Reg(19 downto 15) & s_FtD_Reg(2
     port map(i_CLK => iCLK,
              i_RST => iRST,
              i_WE  => not s_EtM_Reg(76),
-             i_D   =>   s_DtE_Reg(191)            -- Halt           -- [76]
-                      & s_DtE_Reg(179 downto 177) -- Funct3 bits    -- [75:73]
-                      & s_DtE_Reg(142)            -- RegWrite EN    -- [72]
-                      & s_DtE_Reg(141 downto 137) -- rd             -- [71:67]
-                      & s_DtE_Reg(136)            -- DMem Write EN  -- [66]
-                      & s_DtE_Reg(135)            -- DMem Read EN   -- [65]
-                      & s_DtE_Reg(134)            -- Write Back Sel -- [64]
-                      & s_EXout                   -- ALU_out        -- [63:32]  -- For addressing and Write Back
-                      & s_StoreDataToMem,           -- RS2/store data   -- [31:0]
+             i_D   =>   s_DtE_Reg(191)            -- Halt             -- [76]
+                      & s_DtE_Reg(179 downto 177) -- Funct3 bits      -- [75:73]
+                      & s_DtE_Reg(142)            -- RegWrite EN      -- [72]
+                      & s_DtE_Reg(141 downto 137) -- rd               -- [71:67]
+                      & s_DtE_Reg(136)            -- DMem Write EN    -- [66]
+                      & s_DtE_Reg(135)            -- DMem Read EN     -- [65]
+                      & s_DtE_Reg(134)            -- Write Back Sel   -- [64]
+                      & s_EXout                   -- ALU_out          -- [63:32]  -- For addressing and Write Back
+                      & s_StoreDataToMem,         -- RS2/store data   -- [31:0]
              o_Q   => s_EtM_Reg);
 
   s_DMemAddr <= s_EtM_Reg(63 downto 32);
@@ -717,19 +750,20 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
 -------------------------------------------------------
 ---------------- Data Hazard Dectection ---------------
     Data_Hazard_Detection: dataHaz port map(
-    i_DecRS1      => s_FtD_Reg(19 downto 15),   -- Fetch/Dec i_RS1
-    i_DecRS2      => s_FtD_Reg(24 downto 20),   -- Fetch/Dec i_RS2
-    i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
-    i_ExRegWr     => s_DtE_Reg(135),            -- load-use only: Dec/Ex MemRead
-    i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
-    i_MemRegWr    => '0',                       -- no MEM-stage stall; forwarding handles it
-  
-    i_DecUsesRS2  => s_DecUsesRS2,
-    i_CLK         => iCLK,
-    i_RST         => iRST,
-    i_isLoad      => s_DtE_Reg(134),            -- WB_sel --> 0 if instruction is a load
-    o_DataHaz     => s_DataHazStall,
-    o_DataBubble  => s_DataHazFlush);
+      i_DecRS1      => s_FtD_Reg(19 downto 15),   -- Fetch/Dec i_RS1
+      i_DecRS2      => s_FtD_Reg(24 downto 20),   -- Fetch/Dec i_RS2
+      i_ExRD        => s_DtE_Reg(141 downto 137), -- Dec/Ex rd
+      i_ExRegWr     => s_DtE_Reg(142),            -- RegFile RegWrite form Execute Stage
+      i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
+      i_MemRegWr    => '0',                       -- no MEM-stage stall; forwarding handles it
+
+      i_DecUsesRS2  => s_DecUsesRS2,
+      i_CLK         => iCLK,
+      i_RST         => iRST,
+      i_isLoad      => s_DtE_Reg(134),            -- WB_sel --> 0 if instruction is a load
+      i_isBranch    => s_Branch, 
+      o_DataHaz     => s_DataHazStall,
+      o_DataBubble  => s_DataHazFlush);
     
 ----------------------------------------------------------
 ---------------- Control Hazard Dectection ---------------
