@@ -309,7 +309,7 @@ recast:
         lw   t2, 32(fp)            # lw      $2,32($fp)
         slt  t2,    t3, t2         # slt     $2,$3,$2
         beq  t2,    x0, pat        # beq     $2,$zero,pat # beq, j to simulate bne
-        j    example
+        j    example                                                                                  
 pat:
 
        	la   t2, visited             # la      $2, visited

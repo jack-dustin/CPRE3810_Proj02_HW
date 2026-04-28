@@ -1,0 +1,229 @@
+# //  Questa Sim-64
+# //  Version 2025.1_2 linux_x86_64 Apr  7 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+vlib work
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity andg2
+# -- Compiling architecture dataflow of andg2
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity dataHaz
+# -- Compiling architecture mixed of dataHaz
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity dffg
+# -- Compiling architecture mixed of dffg
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity invg
+# -- Compiling architecture dataflow of invg
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity mux2t1
+# -- Compiling architecture structural of mux2t1
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity mux2t1_N
+# -- Compiling architecture structural of mux2t1_N
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity org2
+# -- Compiling architecture dataflow of org2
+# End time: 20:27:23 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:23 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity tb_dataHaz
+# -- Compiling architecture dataHaz of tb_dataHaz
+# End time: 20:27:24 on Apr 20,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:24 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity xorg2
+# -- Compiling architecture dataflow of xorg2
+# End time: 20:27:24 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity andg2
+# -- Compiling architecture dataflow of andg2
+# End time: 20:27:32 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity dataHaz
+# -- Compiling architecture mixed of dataHaz
+# End time: 20:27:32 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity dffg
+# -- Compiling architecture mixed of dffg
+# End time: 20:27:32 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity invg
+# -- Compiling architecture dataflow of invg
+# End time: 20:27:32 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity mux2t1
+# -- Compiling architecture structural of mux2t1
+# End time: 20:27:32 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:32 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity mux2t1_N
+# -- Compiling architecture structural of mux2t1_N
+# End time: 20:27:33 on Apr 20,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:33 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity org2
+# -- Compiling architecture dataflow of org2
+# End time: 20:27:33 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:33 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity tb_dataHaz
+# -- Compiling architecture dataHaz of tb_dataHaz
+# End time: 20:27:33 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd
+# QuestaSim-64 vcom 2025.1_2 Compiler 2025.04 Apr  7 2025
+# Start time: 20:27:33 on Apr 20,2026
+# vcom -reportprogress 300 -work work /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity xorg2
+# -- Compiling architecture dataflow of xorg2
+# End time: 20:27:33 on Apr 20,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.tb_datahaz
+# vsim work.tb_datahaz 
+# Start time: 20:27:40 on Apr 20,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.tb_datahaz(datahaz)#1
+add wave sim:/tb_dataHaz/*
+run 300
+run 300
+run 500
+run 500
+un 200
+# ambiguous command name "un": union_image unknown unknownOptionError unless unload unset unsetenv
+# UVM Details: design does not contain any  UVM components, UVM debugging is disabled, or an  unknown questa_uvm_pkg has been loaded.

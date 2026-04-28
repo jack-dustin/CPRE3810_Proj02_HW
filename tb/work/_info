@@ -1,0 +1,396 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11e vcom 2025.1_2 2025.04, Apr  7 2025
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb
+T_opt
+!s110 1776734861
+Ve_?Si3_zHW7E<BOVMnI[n2
+04 10 7 work tb_datahaz datahaz 1
+=1-000ae431a4f1-69e6d28c-cfcad-642e
+R0
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work
+tCvgOpt 0
+n@_opt
+OL;O;2025.1_2;82
+Eandg2
+Z2 w1776543358
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 9
+R1
+Z5 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd
+Z6 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd
+l0
+Z7 L23 1
+VQ@<<<@nlJ=eiIl4BJDFzW2
+!s100 YT?bGzEmcFo:DlnoC^B4_0
+Z8 OL;C;2025.1_2;82
+32
+Z9 !s110 1776734852
+!i10b 1
+Z10 !s108 1776734852.000000
+Z11 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd|
+Z12 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/andg2.vhd|
+!i113 0
+Z13 o-work work
+Z14 tExplicit 1 CvgOpt 0
+Adataflow
+R3
+R4
+DEx4 work 5 andg2 0 22 Q@<<<@nlJ=eiIl4BJDFzW2
+!i122 9
+l32
+Z15 L31 6
+VJVOzCk?IH:iJ5bCRU`CK13
+!s100 I`@Z@UBObS]<7m8bPgKUS1
+R8
+32
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 0
+R13
+R14
+Edatahaz
+Z16 w1776730098
+R3
+R4
+!i122 10
+R1
+Z17 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd
+Z18 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd
+l0
+Z19 L11 1
+VA?OEI^;G<51b]Gl5KE]RW2
+!s100 Dz`kcj@cdZVazN4V3D05L3
+R8
+32
+R9
+!i10b 1
+R10
+Z20 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd|
+Z21 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dataHaz.vhd|
+!i113 0
+R13
+R14
+Amixed
+R3
+R4
+DEx4 work 7 datahaz 0 22 A?OEI^;G<51b]Gl5KE]RW2
+!i122 10
+l89
+L26 172
+Ve`5D]EHiWG6a6FP9EfBP?2
+!s100 MnEcgaj6ngG^9V6AJPiLJ2
+R8
+32
+R9
+!i10b 1
+R10
+R20
+R21
+!i113 0
+R13
+R14
+Edffg
+Z22 w1776547047
+R3
+R4
+!i122 11
+R1
+Z23 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd
+Z24 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd
+l0
+R7
+V<]b9Vm3e`GAN;Cnj:57L>2
+!s100 T4gcXQGMCgKJbn8XhBM;b0
+R8
+32
+R9
+!i10b 1
+R10
+Z25 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd|
+Z26 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/dffg.vhd|
+!i113 0
+R13
+R14
+Amixed
+R3
+R4
+DEx4 work 4 dffg 0 22 <]b9Vm3e`GAN;Cnj:57L>2
+!i122 11
+l37
+L33 29
+V`CHXPZKVEek`3gFWL_zFm2
+!s100 iOdlTUid@@]UimFK_53^C1
+R8
+32
+R9
+!i10b 1
+R10
+R25
+R26
+!i113 0
+R13
+R14
+Einvg
+Z27 w1776539804
+R3
+R4
+!i122 12
+R1
+Z28 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd
+Z29 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd
+l0
+R7
+VQ?6hb9ePk@>kZZ9k]hNSO3
+!s100 _XK?_^5z0Rm1<k12?;5R?2
+R8
+32
+R9
+!i10b 1
+R10
+Z30 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd|
+Z31 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/invg.vhd|
+!i113 0
+R13
+R14
+Adataflow
+R3
+R4
+DEx4 work 4 invg 0 22 Q?6hb9ePk@>kZZ9k]hNSO3
+!i122 12
+l31
+L30 6
+Vch>li:oKYZkCO5]GamViK1
+!s100 bk7I76o8e1LURdoZEQb8H0
+R8
+32
+R9
+!i10b 1
+R10
+R30
+R31
+!i113 0
+R13
+R14
+Emux2t1
+R27
+R3
+R4
+!i122 13
+R1
+Z32 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd
+Z33 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd
+l0
+R19
+V<C?QMecVn1[Z[JFVVi?Y03
+!s100 Z@IR;4LaGiadCllWP_gb[3
+R8
+32
+R9
+!i10b 1
+R10
+Z34 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd|
+Z35 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1.vhd|
+!i113 0
+R13
+R14
+Astructural
+R3
+R4
+DEx4 work 6 mux2t1 0 22 <C?QMecVn1[Z[JFVVi?Y03
+!i122 13
+l57
+L23 71
+VIkPG[9:S`d4:C4XCHNbhU1
+!s100 EV9al9F9TdzEi0^95^LV^3
+R8
+32
+R9
+!i10b 1
+R10
+R34
+R35
+!i113 0
+R13
+R14
+Emux2t1_n
+R27
+R3
+R4
+!i122 14
+R1
+Z36 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd
+Z37 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd
+l0
+L21 1
+VFY=Tc@WO1TP4Z42>dBMei3
+!s100 BKZeKCAB2i6lge3>7TA3d3
+R8
+32
+Z38 !s110 1776734853
+!i10b 1
+R10
+Z39 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd|
+Z40 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/mux2t1_N.vhd|
+!i113 0
+R13
+R14
+Astructural
+R3
+R4
+DEx4 work 8 mux2t1_n 0 22 FY=Tc@WO1TP4Z42>dBMei3
+!i122 14
+l39
+L30 21
+V42CUQBzm6g@LDm29Dc=NM3
+!s100 W>5MMWO2LBg`K8[P>h>Ye1
+R8
+32
+R38
+!i10b 1
+R10
+R39
+R40
+!i113 0
+R13
+R14
+Eorg2
+R27
+R3
+R4
+!i122 15
+R1
+Z41 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd
+Z42 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd
+l0
+R7
+V[C`FCj=kL0CTBYLlbjJzD3
+!s100 bGQ1F9eW^Q17OoL9h4g7z2
+R8
+32
+R38
+!i10b 1
+Z43 !s108 1776734853.000000
+Z44 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd|
+Z45 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/org2.vhd|
+!i113 0
+R13
+R14
+Adataflow
+R3
+R4
+DEx4 work 4 org2 0 22 [C`FCj=kL0CTBYLlbjJzD3
+!i122 15
+l32
+R15
+VNHGn>Kh:]BEh4o]ImiG<d3
+!s100 h5_AzR3TdRA0a_K=dQ>mI2
+R8
+32
+R38
+!i10b 1
+R43
+R44
+R45
+!i113 0
+R13
+R14
+Etb_datahaz
+Z46 w1776734516
+R3
+R4
+!i122 16
+R1
+Z47 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd
+Z48 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd
+l0
+L8 1
+VhE1`F8nOhUIhIAkiHC[ch0
+!s100 hkYz[4ClR?AXf3k6ZM;Y>0
+R8
+32
+R38
+!i10b 1
+R43
+Z49 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd|
+Z50 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/tb_dataHaz.vhd|
+!i113 0
+R13
+R14
+Adatahaz
+R3
+R4
+DEx4 work 10 tb_datahaz 0 22 hE1`F8nOhUIhIAkiHC[ch0
+!i122 16
+l48
+L12 212
+VR6ZSGZ=U<zl9E?CMkYSZn3
+!s100 `aUV3DKO71CUD^PPFf_5L1
+R8
+32
+R38
+!i10b 1
+R43
+R49
+R50
+!i113 0
+R13
+R14
+Exorg2
+R27
+R3
+R4
+!i122 17
+R1
+Z51 8/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd
+Z52 F/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd
+l0
+R7
+V;hb`C0MKik;h36`3`SzM60
+!s100 [hI[mXFH4_j16U;>U1Lfn2
+R8
+32
+R38
+!i10b 1
+R43
+Z53 !s90 -reportprogress|300|-work|work|/home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd|
+Z54 !s107 /home/ipridie/cpre3810/proj02/CPRE3810_Proj02_HW/CPRE3810_Proj02_HW/tb/xorg2.vhd|
+!i113 0
+R13
+R14
+Adataflow
+R3
+R4
+DEx4 work 5 xorg2 0 22 ;hb`C0MKik;h36`3`SzM60
+!i122 17
+l32
+R15
+VbmLohbkYjJQ`?EHUY>LoL1
+!s100 Z6[FAPS4fBLB`F?OO<AY72
+R8
+32
+R38
+!i10b 1
+R43
+R53
+R54
+!i113 0
+R13
+R14
