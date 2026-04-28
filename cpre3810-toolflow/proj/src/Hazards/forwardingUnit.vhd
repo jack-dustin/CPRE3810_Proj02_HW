@@ -36,6 +36,14 @@ architecture dataflow of forwardingUnit is
   signal s_EXHazB : std_logic;
   signal s_WBHazA : std_logic;
   signal s_WBHazB : std_logic;
+
+  signal s_rd_xnor_IFID_RS1   : std_logic_vector(4 downto 0); -- Contains i_EXMEM_RD xnor i_IFID_RS1
+      signal s_rd_eq_IFID_RS1 : std_logic;  -- And tree of [i_EXMEM_RD xnor i_IFID_RS1]
+  signal s_rd_xnor_IFID_RS2   : std_logic_vector(4 downto 0); -- And tree of [i_EXMEM_RD xnor i_IFID_RS2]
+      signal s_rd_eq_IFID_RS2 : std_logic;  -- And tree of [i_EXMEM_RD xnor i_IFID_RS2]
+
+  signal s_EXMEM_rd_isnt_0    : std_logic;  -- Holds result of "or i_EXMEM_RD"
+
 begin
 
   -- EX/MEM has priority, but do not forward EX/MEM for loads. For loads in EX/MEM,
@@ -73,16 +81,26 @@ begin
                 "01" when s_WBHazB = '1' else
                 "00";
 
+  ---------------- Forwarding for Branching ----------------    DO NOT CHANGE OR TRY TO SIMPLIFY ANY OF THIS
+              -- Using "and v1" to make an and tree from v1 works fine for the toolflow, but is flagged as a VHDL syntax error by the synthesizer
     -- 1 when:
       -- Haz between MEM rd and DEC RSn     Checking Mem, not EX --> Values forwarded at the beginning of the NEXT stage
       -- MEM RegWrite = 1
       -- Mem is not a Load instruction      Note: [add/lw --> branch] cases look the same. lw shouldn't be forwarded; WB takes care of it already
       -- MEM rd != x0
-                           -- Check Equality                -- Check RegWr    -- Check Load inst     -- Check for x0
-  o_ForwardBranch(0)  <= (and (i_EXMEM_RD xnor i_IFID_RS1)) and i_EXMEM_RegWr and (not i_EXMEM_MemRead) and (or i_EXMEM_RD);
+
+  s_rd_xnor_IFID_RS1  <= i_EXMEM_RD xnor i_IFID_RS1;    -- Check for equality
+      s_rd_eq_IFID_RS1    <= s_rd_xnor_IFID_RS1(0) and s_rd_xnor_IFID_RS1(1) and s_rd_xnor_IFID_RS1(2) and s_rd_xnor_IFID_RS1(3) and s_rd_xnor_IFID_RS1(4);   -- AND tree
+  s_rd_xnor_IFID_RS2  <= i_EXMEM_RD xnor i_IFID_RS2;
+      s_rd_eq_IFID_RS2    <= s_rd_xnor_IFID_RS2(0) and s_rd_xnor_IFID_RS2(1) and s_rd_xnor_IFID_RS2(2) and s_rd_xnor_IFID_RS2(3) and s_rd_xnor_IFID_RS2(4);
+
+  s_EXMEM_rd_isnt_0   <= i_EXMEM_RD(0) or i_EXMEM_RD(1) or i_EXMEM_RD(2) or i_EXMEM_RD(3) or i_EXMEM_RD(4);
+
+                         -- Check Equality    -- Check RegWr     -- Check if Load         -- Check for x0
+  o_ForwardBranch(0)  <= s_rd_eq_IFID_RS1 and i_EXMEM_RegWr and (not i_EXMEM_MemRead) and s_EXMEM_rd_isnt_0;
               -- "and vector" creates an and tree inputting all bits of 'vector'. Same with "or vector"
 
-                           -- Check Equality                -- Check RegWr    -- Check Load inst     -- Check for x0
-  o_ForwardBranch(1)  <= (and (i_EXMEM_RD xnor i_IFID_RS2)) and i_EXMEM_RegWr and (not i_EXMEM_MemRead) and (or i_EXMEM_RD);
+                         -- Check Equality    -- Check RegWr     -- Check if Load         -- Check for x0
+  o_ForwardBranch(1)  <= s_rd_eq_IFID_RS2 and i_EXMEM_RegWr and (not i_EXMEM_MemRead) and s_EXMEM_rd_isnt_0;
               -- "and vector" creates an and tree inputting all bits of 'vector'. Same with "or vector"
 end architecture;
