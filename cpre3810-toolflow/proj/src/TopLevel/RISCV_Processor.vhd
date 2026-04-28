@@ -381,8 +381,6 @@ architecture structure of RISCV_Processor is
     i_MEMWB_RD      : in  std_logic_vector(4 downto 0);
     i_MEMWB_RegWr   : in  std_logic;
 
-    i_isLoad        : in  std_logic;
-
     -- 00 = normal ID/EX value
     -- 10 = EX/MEM result
     -- 01 = MEM/WB final writeback value
@@ -559,7 +557,7 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
 
 -----------------------------------------------
 ---------------- EXECUTE STAGE ----------------   "134 => '1' so that wb_sel chooses ALU out when flushing. This is to ensure mem doesn't think nop is a branching data haz"
- s_all_but_halt_execute <=  (134 => '1', others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
+ s_all_but_halt_execute <=  (others => '0') when (s_IDEXFlush = '1' or s_DataHazFlush = '1') else
                   (-- HALT                                          -- [191]
                      s_ALUsrc                 -- (RS2 or imm) sel   -- [190]  
                    & s_FtD_Reg(19 downto 15)  -- RS1                -- [189:185]
@@ -591,6 +589,7 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
             i_WE  => (not s_DtE_Reg(191)),
             i_D   => s_DtE_Reg_In,
             o_Q   => s_DtE_Reg);
+
   -- s_Inst(2) = OpCode(2) = s_DtE_Reg(143)
     -- This bit is 1 for ONLY aupic, lui, jal, jalr, (and fence).   Use this to force the ALU output to Add/Sub
   s_ALUctl_OverRide(0)  <= s_DtE_Reg(128);                                -- s_ALUctl(0)
@@ -615,7 +614,6 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
       i_EXMEM_MemRead  => s_EtM_Reg(65),            
       i_MEMWB_RD       => s_MtWB_Reg(69 downto 65),
       i_MEMWB_RegWr    => s_MtWB_Reg(70),
-      i_isLoad         => not s_EtM_Reg(64),    -- Not WriteBack; 1 = Load, 0 = ALU   (normally opposite. This shows negated)
       o_ForwardA       => s_ForwardA,
       o_ForwardB       => s_ForwardB_Raw,
       o_ForwardBranch  => s_ForwardBranch(1 downto 0)
@@ -763,7 +761,7 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       i_DecUsesRS2  => s_DecUsesRS2,
       i_CLK         => iCLK,
       i_RST         => iRST,
-      i_isLoad      => not s_DtE_Reg(134),            -- WB_sel --> 0 if instruction is a load
+      i_isLoad      => s_DtE_Reg(135),            -- DMem Read EN --> 1 if load instruction. 
       i_isBranch    => s_Branch, 
       o_DataHaz     => s_DataHazStall,
       o_DataBubble  => s_DataHazFlush);
