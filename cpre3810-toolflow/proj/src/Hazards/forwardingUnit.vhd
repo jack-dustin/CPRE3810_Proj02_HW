@@ -20,6 +20,8 @@ entity forwardingUnit is
     i_MEMWB_RD      : in  std_logic_vector(4 downto 0);
     i_MEMWB_RegWr   : in  std_logic;
 
+    i_isLoad        : in std_logic;
+
     -- 00 = normal ID/EX value
     -- 10 = EX/MEM result
     -- 01 = MEM/WB final writeback value
@@ -76,12 +78,13 @@ begin
     -- 1 when:
       -- Haz between MEM rd and DEC RSn     Checking Mem, not EX --> Values forwarded at the beginning of the NEXT stage
       -- MEM RegWrite = 1
+      -- Mem is not a Load instruction      Note: [add/lw --> branch] cases look the same. lw shouldn't be forwarded; WB takes care of it already
       -- MEM rd != x0
-                           -- Check Equality                -- Check RegWr        -- Check for x0
-  o_ForwardBranch(0)  <= (and (i_EXMEM_RD xnor i_IFID_RS1)) and i_EXMEM_RegWr and (or i_EXMEM_RD);
+                           -- Check Equality                -- Check RegWr    -- Check Load inst     -- Check for x0
+  o_ForwardBranch(0)  <= (and (i_EXMEM_RD xnor i_IFID_RS1)) and i_EXMEM_RegWr and (not i_isLoad) and (or i_EXMEM_RD);
               -- "and vector" creates an and tree inputting all bits of 'vector'. Same with "or vector"
 
-                           -- Check Equality                -- Check RegWr        -- Check for x0
-  o_ForwardBranch(1)  <= (and (i_EXMEM_RD xnor i_IFID_RS2)) and i_EXMEM_RegWr and (or i_EXMEM_RD);
+                           -- Check Equality                -- Check RegWr    -- Check Load inst     -- Check for x0
+  o_ForwardBranch(1)  <= (and (i_EXMEM_RD xnor i_IFID_RS2)) and i_EXMEM_RegWr and (not i_isLoad) and (or i_EXMEM_RD);
               -- "and vector" creates an and tree inputting all bits of 'vector'. Same with "or vector"
 end architecture;

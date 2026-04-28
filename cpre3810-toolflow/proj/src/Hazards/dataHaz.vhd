@@ -55,6 +55,10 @@ architecture mixed of dataHaz is
     signal s_MemRS_res      : std_logic;    -- This = 1 if Ex(rd) = DEC(rs1 or rs2)
     signal s_M_Data_Haz     : std_logic;    -- This = 1 if there is a data hazard
 
+    signal s_LoadHaz        : std_logic;      
+    signal s_BranchHaz      : std_logic;    
+    signal s_Stall          : std_logic;    
+
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
     signal os_DataBubble    : std_logic;    -- Internal signal for data flush signal
 
@@ -99,20 +103,29 @@ begin
 
 
 -- Logic for Data Hazard Output signals
-    s_ExRS_res  <= (s_EXrd_eq_rs2 and i_DecUsesRS2) or s_EXrd_eq_rs1;
-    s_EX_Data_Haz  <= s_ExRS_res and i_ExRegWr and s_Erd_is_0;  -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
+    s_ExRS_res    <= (s_EXrd_eq_rs2 and i_DecUsesRS2) or s_EXrd_eq_rs1;
+    s_EX_Data_Haz <= s_ExRS_res and i_ExRegWr and s_Erd_is_0;  -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
-    s_MemRS_res     <= s_Mrd_eq_rs1 or s_Mrd_eq_rs2; 
-    s_M_Data_Haz <= s_MemRS_res and i_MemRegWr and s_Mrd_is_0; -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
+    s_MemRS_res   <= s_Mrd_eq_rs1 or s_Mrd_eq_rs2; 
+    s_M_Data_Haz  <= s_MemRS_res and i_MemRegWr and s_Mrd_is_0; -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
   -----------------------------------------------------------
   ---------------- Output Data Hazard Status ---------------- 
-  
-    -- If a Data Hazard is detected from Execute or Memory, this outputs* 1
-    os_DataHaz    <= s_M_Data_Haz or s_EX_Data_Haz;
-    o_DataBubble  <= os_DataHaz;    
-    o_DataHaz     <= (s_EX_Data_Haz and (not i_isLoad)) or ( os_DataHaz and i_isBranch);  -- Required for stalling  
-        -- If the hazard is between execute and decode, and the instruction is a load - stall
+      
+    -- If a Data Hazard is detected, these signals go high
+    -- Using these signals here for more clarity on waveform
+    s_LoadHaz     <= s_EX_Data_Haz and i_isLoad;
+    s_BranchHaz   <= (s_EX_Data_Haz or (s_M_Data_Haz and i_isLoad)) and i_isBranch;   -- stall when producer is Ex or load in Mem
+    s_Stall       <= s_LoadHaz or s_BranchHaz;
+
+    -- os_DataHaz    <= s_M_Data_Haz or s_EX_Data_Haz;
+    -- o_DataBubble  <= os_DataHaz;    
+    -- o_DataHaz     <= (s_EX_Data_Haz and (not i_isLoad)) or ( os_DataHaz and i_isBranch);  -- Required for stalling  
+
+    o_DataBubble  <= s_Stall;
+    o_DataHaz     <= s_Stall;
+
+    -- If the hazard is between execute and decode, and the instruction is a load - stall
             -- lw  x28, _(x_)
             -- and x20, x28, x12
         -- If the hazard is between decode and execute or memory, and the instruction is a branch   - stall (once for EX_Haz, twice for Mem_Haz)

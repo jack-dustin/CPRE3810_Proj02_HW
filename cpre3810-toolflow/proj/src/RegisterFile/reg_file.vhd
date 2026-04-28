@@ -71,7 +71,7 @@ architecture structural of reg_file is
             INST_x0: if i = 0 generate
               INST_REGISTER: reg_n
               generic map (N => 32)
-              --port map(i_CLK  => not i_CLK,
+              --port map(i_CLK  => not i_CLK,   
               port map(i_CLK  => i_CLK,
                        i_RST  => i_RST,     -- force RESET of x0 to '1'
                        i_WE   => '0',    
@@ -81,8 +81,8 @@ architecture structural of reg_file is
 
             INST_x1_31: if i /= 0 generate
             INST_REGISTERS: reg_n
-              --port map(i_CLK  => not i_CLK,
-              port map(i_CLK  => i_CLK,
+              port map(i_CLK  => not i_CLK, -- DO NOT REMOVE THIS! WRITING TO REG FILE ON THE NEGATIVE EDGE IS ESSENTIAL!
+              --port map(i_CLK  => i_CLK,
                        i_RST  => i_RST,
                        i_WE   => wire_WE(i),    
                        i_D    => i_DATA,    -- Register Input
