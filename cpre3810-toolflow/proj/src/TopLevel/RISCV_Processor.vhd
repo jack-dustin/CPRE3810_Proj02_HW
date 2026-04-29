@@ -121,7 +121,9 @@ architecture structure of RISCV_Processor is
   signal s_ForwardA        : std_logic_vector(1 downto 0);
   signal s_ForwardB_Raw    : std_logic_vector(1 downto 0);
   signal s_ForwardB_ALU    : std_logic_vector(1 downto 0);
-  signal s_ForwardBranch   : std_logic_vector(1 downto 0);
+  -- signal s_ForwardBranch   : std_logic_vector(1 downto 0);
+  signal s_fwdBranchA      : std_logic_vector(1 downto 0);
+  signal s_fwdBranchB      : std_logic_vector(1 downto 0);
   signal s_StoreDataToMem  : std_logic_vector(31 downto 0);
 
 
@@ -353,9 +355,8 @@ architecture structure of RISCV_Processor is
     i_MemRegWr  : in  std_logic;
 
     i_DecUsesRS2: in  std_logic;
-    i_CLK       : in  std_logic;
-    i_RST       : in  std_logic;
-    i_isLoad    : in  std_logic;
+    i_E_isLoad  : in  std_logic;
+    i_M_isLoad  : in  std_logic;
     i_isBranch  : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
@@ -388,7 +389,8 @@ architecture structure of RISCV_Processor is
     o_ForwardA      : out std_logic_vector(1 downto 0);
     o_ForwardB      : out std_logic_vector(1 downto 0);
 
-    o_ForwardBranch : out std_logic_vector(1 downto 0)    -- [V(0), RS1]   [V(1), RS2]    0 --> o_RegFile, 1 --> o_ALU  
+    o_fwdBranchA    : out std_logic_vector(1 downto 0);   -- Branch forwarding for RS1
+    o_fwdBranchB    : out std_logic_vector(1 downto 0)    -- Branch forwarding for RS2
   );
   end component;
 begin
@@ -516,19 +518,37 @@ s_FtD_Reg_In <= s_HaltDecoded & s_all_but_halt_decode;
   );
 
 
-  Mux_Branching_RS1: mux2t1_N
-  generic map(N => N)
-  port map(i_D0 => s_Ors1,  -- Default/normal RS1_Val
-           i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS1_Val
-           i_S  => s_ForwardBranch(0),
-           o_O  => s_Ors1_fwd);
+  Mux_Branching_RS1: busMux_4t1
+  port map(i_Da => s_Ors1,                    -- Default/normal RS1_Val
+           i_Db => s_RegWrData,               -- ByPass register file - avoid waiting for clock edge to write
+           i_Dc => s_EtM_Reg(63 downto 32),   -- Forwarded RS1_Val  (rd)
+           i_Dd => s_Ors1,                    -- Default/normal RS1_Val
+           C_S0 => s_fwdBranchA(0), 
+           C_S1 => s_fwdBranchA(1), 
+           o_Do => s_Ors1_fwd);
 
-  Mux_Branching_RS2: mux2t1_N
-  generic map(N => N)
-  port map(i_D0 => s_Ors2,  -- Default/normal RS2_Val
-           i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS1_Val
-           i_S  => s_ForwardBranch(1),
-           o_O  => s_Ors2_fwd);
+  Mux_Branching_RS2: busMux_4t1
+  port map(i_Da => s_Ors2,                    -- Default/normal RS2_Val
+           i_Db => s_RegWrData,               -- ByPass register file - avoid waiting for clock edge to write
+           i_Dc => s_EtM_Reg(63 downto 32),   -- Forwarded RS2_Val  (rd),
+           i_Dd => s_Ors2,                    -- Default/normal RS2_Val 
+           C_S0 => s_fwdBranchB(0),
+           C_S1 => s_fwdBranchB(1), 
+           o_Do => s_Ors2_fwd);
+
+  -- Mux_Branching_RS1: mux2t1_N
+  -- generic map(N => N)
+  -- port map(i_D0 => s_Ors1,  -- Default/normal RS1_Val
+  --          i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS1_Val
+  --          i_S  => s_ForwardBranch(0),
+  --          o_O  => s_Ors1_fwd);
+
+  -- Mux_Branching_RS2: mux2t1_N
+  -- generic map(N => N)
+  -- port map(i_D0 => s_Ors2,  -- Default/normal RS2_Val
+  --          i_D1 => s_EtM_Reg(63 downto 32),        -- Forwarded RS2_Val
+  --          i_S  => s_ForwardBranch(1),
+  --          o_O  => s_Ors2_fwd);
 
   INST_BRANCHING: proj2_branch port map(
     i_A      => s_Ors1_fwd,     -- Output RS1*
@@ -616,7 +636,8 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
       i_MEMWB_RegWr    => s_MtWB_Reg(70),
       o_ForwardA       => s_ForwardA,
       o_ForwardB       => s_ForwardB_Raw,
-      o_ForwardBranch  => s_ForwardBranch(1 downto 0)
+      o_fwdBranchA     => s_fwdBranchA(1 downto 0),   -- Branch forwarding for RS1
+      o_fwdBranchB     => s_fwdBranchB(1 downto 0)    -- Branch forwarding for RS2
     );
 
   -- Do not forward into ALU operand B when this instruction's B operand is an immediate.
@@ -759,9 +780,8 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       i_MemRegWr    => s_EtM_Reg(72),             -- Mem Reg Write; MEM-stage stalls for [lw --> branch] case
 
       i_DecUsesRS2  => s_DecUsesRS2,
-      i_CLK         => iCLK,
-      i_RST         => iRST,
-      i_isLoad      => s_DtE_Reg(135),            -- DMem Read EN --> 1 if load instruction. 
+      i_E_isLoad    => s_DtE_Reg(135),            -- DMem Read EN --> 1 if load instruction. 
+      i_M_isLoad    => s_EtM_Reg(65),
       i_isBranch    => s_Branch, 
       o_DataHaz     => s_DataHazStall,
       o_DataBubble  => s_DataHazFlush);

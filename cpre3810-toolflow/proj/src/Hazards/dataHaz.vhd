@@ -16,11 +16,9 @@ entity dataHaz is port(
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
     i_DecUsesRS2: in  std_logic;
-    i_CLK       : in  std_logic;
-    i_RST       : in  std_logic;
 
-    i_isLoad    : in  std_logic;    -- WB_sel --> 0 for Load, 1 for ALU
-      -- This is needed from the Execute stage ONLY. Check for load instruction. If prdoucer then lw --> stall once
+    i_E_isLoad  : in  std_logic;    -- MemRead      from the Execute stage      -- if producer then lw --> stall once
+    i_M_isLoad  : in  std_logic;    -- MemRead      From the Memory  stage
 
     i_isBranch  : in  std_logic;    -- Need to check for data dependency and if instruction is branch
       -- If producer then branch --> Stall once     Give time for execute to make it back to decode
@@ -55,20 +53,14 @@ architecture mixed of dataHaz is
     signal s_MemRS_res      : std_logic;    -- This = 1 if Ex(rd) = DEC(rs1 or rs2)
     signal s_M_Data_Haz     : std_logic;    -- This = 1 if there is a data hazard
 
-    signal s_LoadHaz        : std_logic;      
-    signal s_BranchHaz      : std_logic;    
+    signal s_LoadUseHaz     : std_logic;      
+    signal s_BranchExHaz    : std_logic;    
+    signal s_BranchMemHaz   : std_logic;
     signal s_Stall          : std_logic;    
 
     signal os_DataHaz       : std_logic;    -- Internal Signal for final data hazard signal
     signal os_DataBubble    : std_logic;    -- Internal signal for data flush signal
 
-component dffg is
-  port(i_CLK        : in  std_logic;     -- Clock input
-       i_RST        : in  std_logic;     -- Reset input
-       i_WE         : in  std_logic;     -- Write enable input
-       i_D          : in  std_logic;     -- Data value input
-       o_Q          : out std_logic);   -- Data value output
-end component;
 
 begin
 
@@ -107,7 +99,7 @@ begin
     s_ExRS_res    <= (s_EXrd_eq_rs2 and i_DecUsesRS2) or s_EXrd_eq_rs1;
     s_EX_Data_Haz <= s_ExRS_res and i_ExRegWr and s_Erd_isnt_0;  -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
-    s_MemRS_res   <= s_Mrd_eq_rs1 or s_Mrd_eq_rs2; 
+    s_MemRS_res   <= s_Mrd_eq_rs1 or (s_Mrd_eq_rs2 and i_DecUsesRS2); 
     s_M_Data_Haz  <= s_MemRS_res and i_MemRegWr and s_Mrd_isnt_0; -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
   -----------------------------------------------------------
@@ -115,12 +107,15 @@ begin
       
     -- If a Data Hazard is detected, these signals go high
     -- Using these signals here for more clarity on waveform
-    s_LoadHaz     <= s_EX_Data_Haz and i_isLoad;
-    s_BranchHaz   <= (s_EX_Data_Haz or (s_M_Data_Haz and i_isLoad)) and i_isBranch;   -- stall when producer is Ex or load in Mem
-    s_Stall       <= s_LoadHaz or s_BranchHaz;
+    s_LoaduseHaz    <= s_EX_Data_Haz and i_E_isLoad;
+    -- s_BranchExHaz   <= (s_EX_Data_Haz or (s_M_Data_Haz and i_E_isLoad)) and i_isBranch;   -- stall when producer is Ex or load in Mem
+    s_BranchExHaz   <= s_EX_Data_Haz and i_isBranch;
+    s_BranchMemHaz  <= i_isBranch and s_M_Data_Haz and i_M_isLoad;
 
-    o_DataBubble  <= s_Stall;
-    o_DataHaz     <= s_Stall;
+    s_Stall         <= s_LoadUseHaz or s_BranchExHaz or s_BranchMemHaz;   -- final stall signal
+
+    o_DataBubble    <= s_Stall;
+    o_DataHaz       <= s_Stall;
 
     -- If the hazard is between execute and decode, and the instruction is a load - stall
             -- lw  x28, _(x_)
