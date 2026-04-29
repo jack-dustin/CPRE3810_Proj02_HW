@@ -3,61 +3,71 @@
 # CprE 381 toolflow Timing dump
 #
 
-FMax: 43.43mhz Clk Constraint: 20.00ns Slack: -3.03ns
+FMax: 41.72mhz Clk Constraint: 20.00ns Slack: -3.97ns
 
 The path is given below
 
  ===================================================================
- From Node    : reg_file:Rfile|reg_n:\GEN_REGISTERS:16:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:27:RegI|s_Q
- To Node      : FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:6:RegI|s_Q
+ From Node    : reg_file:Rfile|reg_n:\GEN_REGISTERS:6:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:24:RegI|s_Q
+ To Node      : FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:11:RegI|s_Q
  Launch Clock : iCLK (INVERTED)
  Latch Clock  : iCLK
  Data Arrival Path:
  Total (ns)  Incr (ns)     Type  Element
  ==========  ========= ==  ====  ===================================
      10.000     10.000           launch edge time
-     13.199      3.199  F        clock network delay
-     13.431      0.232     uTco  reg_file:Rfile|reg_n:\GEN_REGISTERS:16:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:27:RegI|s_Q
-     13.431      0.000 FF  CELL  Rfile|\GEN_REGISTERS:16:INST_x1_31:INST_REGISTERS|\G_nBit_Reg:27:RegI|s_Q|q
-     13.771      0.340 FF    IC  Rfile|INST_MUX_1|Mux4~6|datac
-     14.052      0.281 FF  CELL  Rfile|INST_MUX_1|Mux4~6|combout
-     14.421      0.369 FF    IC  Rfile|INST_MUX_1|Mux4~7|datac
-     14.682      0.261 FR  CELL  Rfile|INST_MUX_1|Mux4~7|combout
-     15.847      1.165 RR    IC  Rfile|INST_MUX_1|Mux4~8|datac
-     16.134      0.287 RR  CELL  Rfile|INST_MUX_1|Mux4~8|combout
-     16.335      0.201 RR    IC  Rfile|INST_MUX_1|Mux4~11|datac
-     16.622      0.287 RR  CELL  Rfile|INST_MUX_1|Mux4~11|combout
-     16.825      0.203 RR    IC  Rfile|INST_MUX_1|Mux4~16|datad
-     16.980      0.155 RR  CELL  Rfile|INST_MUX_1|Mux4~16|combout
-     17.845      0.865 RR    IC  Rfile|INST_MUX_1|Mux4~19|datad
-     17.984      0.139 RF  CELL  Rfile|INST_MUX_1|Mux4~19|combout
-     18.256      0.272 FF    IC  INST_BRANCHING|INST_BLT|INST_32_Compare|\G_nBit_Comparator:27:CompI|INST_AxorB|o_F|datad
-     18.406      0.150 FR  CELL  INST_BRANCHING|INST_BLT|INST_32_Compare|\G_nBit_Comparator:27:CompI|INST_AxorB|o_F|combout
-     19.150      0.744 RR    IC  INST_BRANCHING|INST_BLT|INST_4_Combine|\G_nBit_Combine:3:CombineI|INST_EQ1_AND_EQ0|o_F~1|datab
-     19.568      0.418 RR  CELL  INST_BRANCHING|INST_BLT|INST_4_Combine|\G_nBit_Combine:3:CombineI|INST_EQ1_AND_EQ0|o_F~1|combout
-     20.366      0.798 RR    IC  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:1:CombineI|INST_EQ1_AND_EQ0|o_F~4|datab
-     20.727      0.361 RF  CELL  INST_BRANCHING|INST_BLT|INST_2_Combine|\G_nBit_Combine:1:CombineI|INST_EQ1_AND_EQ0|o_F~4|combout
-     21.020      0.293 FF    IC  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_EQ1_AND_LT0|o_F|datab
-     21.388      0.368 FF  CELL  INST_BRANCHING|INST_BLT|INST_1_Combine|\G_nBit_Combine:0:CombineI|INST_EQ1_AND_LT0|o_F|combout
-     21.678      0.290 FF    IC  Ctrl_Hazard_Detection|s_BranchHaz~3|dataa
-     22.069      0.391 FR  CELL  Ctrl_Hazard_Detection|s_BranchHaz~3|combout
-     22.304      0.235 RR    IC  Ctrl_Hazard_Detection|s_BranchHaz~7|datab
-     22.722      0.418 RR  CELL  Ctrl_Hazard_Detection|s_BranchHaz~7|combout
-     22.932      0.210 RR    IC  Ctrl_Hazard_Detection|o_IFIDFlush~0|datad
-     23.087      0.155 RR  CELL  Ctrl_Hazard_Detection|o_IFIDFlush~0|combout
-     23.292      0.205 RR    IC  Ctrl_Hazard_Detection|o_IFIDFlush~1|datad
-     23.431      0.139 RF  CELL  Ctrl_Hazard_Detection|o_IFIDFlush~1|combout
-     25.371      1.940 FF    IC  Fetch_To_Decode_Reg|\G_nBit_Reg:6:RegI|s_Q|sclr
-     25.998      0.627 FF  CELL  FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:6:RegI|s_Q
+     13.177      3.177  F        clock network delay
+     13.409      0.232     uTco  reg_file:Rfile|reg_n:\GEN_REGISTERS:6:INST_x1_31:INST_REGISTERS|dffg:\G_nBit_Reg:24:RegI|s_Q
+     13.409      0.000 FF  CELL  Rfile|\GEN_REGISTERS:6:INST_x1_31:INST_REGISTERS|\G_nBit_Reg:24:RegI|s_Q|q
+     13.935      0.526 FF    IC  Rfile|INST_MUX_1|Mux7~12|datad
+     14.060      0.125 FF  CELL  Rfile|INST_MUX_1|Mux7~12|combout
+     14.288      0.228 FF    IC  Rfile|INST_MUX_1|Mux7~13|datad
+     14.438      0.150 FR  CELL  Rfile|INST_MUX_1|Mux7~13|combout
+     15.384      0.946 RR    IC  Rfile|INST_MUX_1|Mux7~14|datad
+     15.539      0.155 RR  CELL  Rfile|INST_MUX_1|Mux7~14|combout
+     15.743      0.204 RR    IC  Rfile|INST_MUX_1|Mux7~15|datad
+     15.898      0.155 RR  CELL  Rfile|INST_MUX_1|Mux7~15|combout
+     16.914      1.016 RR    IC  Rfile|INST_MUX_1|Mux7~16|datad
+     17.069      0.155 RR  CELL  Rfile|INST_MUX_1|Mux7~16|combout
+     17.274      0.205 RR    IC  Rfile|INST_MUX_1|Mux7~19|datad
+     17.429      0.155 RR  CELL  Rfile|INST_MUX_1|Mux7~19|combout
+     18.149      0.720 RR    IC  Mux_Branching_RS1|INST_BUSMUX_10|Selector7~1|datad
+     18.304      0.155 RR  CELL  Mux_Branching_RS1|INST_BUSMUX_10|Selector7~1|combout
+     18.529      0.225 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~5|datac
+     18.816      0.287 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~5|combout
+     19.021      0.205 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~6|datad
+     19.176      0.155 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~6|combout
+     19.379      0.203 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~7|datad
+     19.534      0.155 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~7|combout
+     19.738      0.204 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~8|datad
+     19.893      0.155 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~8|combout
+     20.099      0.206 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~9|datad
+     20.254      0.155 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~9|combout
+     20.458      0.204 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~10|datad
+     20.613      0.155 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~10|combout
+     21.019      0.406 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~11|datac
+     21.306      0.287 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~11|combout
+     21.509      0.203 RR    IC  INST_BRANCHING|INST_BGEU_OR|o_F~12|datac
+     21.796      0.287 RR  CELL  INST_BRANCHING|INST_BGEU_OR|o_F~12|combout
+     21.997      0.201 RR    IC  Ctrl_Hazard_Detection|s_BranchHaz~0|datac
+     22.284      0.287 RR  CELL  Ctrl_Hazard_Detection|s_BranchHaz~0|combout
+     22.489      0.205 RR    IC  Ctrl_Hazard_Detection|o_IFIDFlush~2|datad
+     22.644      0.155 RR  CELL  Ctrl_Hazard_Detection|o_IFIDFlush~2|combout
+     22.848      0.204 RR    IC  Ctrl_Hazard_Detection|o_IFIDFlush~3|datad
+     23.003      0.155 RR  CELL  Ctrl_Hazard_Detection|o_IFIDFlush~3|combout
+     23.436      0.433 RR    IC  Ctrl_Hazard_Detection|o_IFIDFlush~0|datad
+     23.575      0.139 RF  CELL  Ctrl_Hazard_Detection|o_IFIDFlush~0|combout
+     26.303      2.728 FF    IC  Fetch_To_Decode_Reg|\G_nBit_Reg:11:RegI|s_Q|sclr
+     26.930      0.627 FF  CELL  FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:11:RegI|s_Q
  Data Required Path:
  Total (ns)  Incr (ns)     Type  Element
  ==========  ========= ==  ====  ===================================
      20.000     20.000           latch edge time
-     22.965      2.965  R        clock network delay
-     22.973      0.008           clock pessimism removed
-     22.953     -0.020           clock uncertainty
-     22.971      0.018     uTsu  FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:6:RegI|s_Q
- Data Arrival Time  :    25.998
- Data Required Time :    22.971
- Slack              :    -3.027 (VIOLATED)
+     22.956      2.956  R        clock network delay
+     22.964      0.008           clock pessimism removed
+     22.944     -0.020           clock uncertainty
+     22.962      0.018     uTsu  FetchDecode_Reg:Fetch_To_Decode_Reg|dffg:\G_nBit_Reg:11:RegI|s_Q
+ Data Arrival Time  :    26.930
+ Data Required Time :    22.962
+ Slack              :    -3.968 (VIOLATED)
  ===================================================================
