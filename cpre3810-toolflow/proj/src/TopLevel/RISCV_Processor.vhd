@@ -124,6 +124,7 @@ architecture structure of RISCV_Processor is
   signal s_ForwardBranch   : std_logic_vector(1 downto 0);
   signal s_StoreDataToMem  : std_logic_vector(31 downto 0);
 
+  signal s_DebugHazBus : std_logic_vector(127 downto 0);
 
   component mem is
     generic(ADDR_WIDTH : integer;
@@ -624,6 +625,9 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
   s_ForwardB_ALU <= "00" when s_DtE_Reg(190) = '1' else s_ForwardB_Raw;
 
   -- Choose normal ID/EX A, MEM/WB WB-data, or EX/MEM result for ALU input A.
+-- 00 = normal ID/EX rs1
+-- 01 = MEM/WB writeback data
+-- 10 = EX/MEM result
   ALU_RS1_Forwarding: busMux_4t1
   port map(
     i_Da => s_DtE_Reg(95 downto 64),
@@ -636,6 +640,9 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
   );
 
   -- Choose normal ID/EX B, MEM/WB WB-data, or EX/MEM result for ALU input B.
+-- 00 = normal
+-- 01 = MEM/WB
+-- 10 = EX/MEM
   ALU_RS2_Forwarding: busMux_4t1
   port map(
     i_Da => s_DtE_Reg(31 downto 0),
@@ -649,6 +656,7 @@ s_DtE_Reg_In <= s_FtD_Reg(96) & s_all_but_halt_execute;
 
   -- Store-data forwarding. Stores use the immediate for ALU B, but their rs2 data still
   -- must be forwarded into the EX/MEM store-data field when rs2 depends on an older rd.
+
   StoreData_Forwarding: busMux_4t1
   port map(
     i_Da => s_DtE_Reg(63 downto 32),
@@ -780,5 +788,39 @@ Ctrl_Hazard_Detection: ctrlHaz
     o_PCStall       => s_PCStall,
     o_IFIDStall     => s_IFIDStall
   );  
+
+
+
+-- debug only signals
+    s_DebugHazBus(1 downto 0)     <= s_ForwardA;
+    s_DebugHazBus(3 downto 2)     <= s_ForwardB_Raw;
+    s_DebugHazBus(5 downto 4)     <= s_ForwardB_ALU;
+    s_DebugHazBus(7 downto 6)     <= s_ForwardBranch(1 downto 0);
+
+    s_DebugHazBus(8)              <= s_DataHazStall;
+    s_DebugHazBus(9)              <= s_DataHazFlush;
+    s_DebugHazBus(10)             <= s_PCStall;
+    s_DebugHazBus(11)             <= s_IFIDStall;
+    s_DebugHazBus(12)             <= s_IFIDFlush;
+    s_DebugHazBus(13)             <= s_IDEXFlush;
+
+    s_DebugHazBus(15 downto 14)   <= s_Fetchsrc;
+
+    s_DebugHazBus(20 downto 16)   <= s_DtE_Reg(189 downto 185); -- ID/EX rs1
+    s_DebugHazBus(25 downto 21)   <= s_DtE_Reg(184 downto 180); -- ID/EX rs2
+    s_DebugHazBus(30 downto 26)   <= s_DtE_Reg(141 downto 137); -- ID/EX rd
+
+    s_DebugHazBus(35 downto 31)   <= s_EtM_Reg(71 downto 67);   -- EX/MEM rd
+    s_DebugHazBus(40 downto 36)   <= s_MtWB_Reg(69 downto 65);  -- MEM/WB rd
+
+    s_DebugHazBus(41)             <= s_EtM_Reg(72);             -- EX/MEM RegWr
+    s_DebugHazBus(42)             <= s_MtWB_Reg(70);            -- MEM/WB RegWr
+    s_DebugHazBus(43)             <= s_DtE_Reg(135);            -- ID/EX MemRead
+    s_DebugHazBus(44)             <= s_EtM_Reg(65);             -- EX/MEM MemRead
+
+    s_DebugHazBus(76 downto 45)   <= s_ALUIn1;
+    s_DebugHazBus(108 downto 77)  <= s_ALUIn2;
+
+    s_DebugHazBus(127 downto 109) <= (others => '0');
 
 end structure;
