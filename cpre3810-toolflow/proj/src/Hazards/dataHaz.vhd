@@ -15,12 +15,15 @@ entity dataHaz is port(
     i_ExRegWr   : in  std_logic;
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
+    i_DecUsesRS1: in  std_logic;
     i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
 
     i_isLoad    : in  std_logic;    -- WB_sel --> 0 for Load, 1 for ALU
       -- This is needed from the Execute stage ONLY. Check for load instruction. If prdoucer then lw --> stall once
+
+    i_isMemLoad : in  std_logic;
 
     i_isBranch  : in  std_logic;    -- Need to check for data dependency and if instruction is branch
       -- If producer then branch --> Stall once     Give time for execute to make it back to decode
@@ -104,10 +107,10 @@ begin
 
 
 -- Logic for Data Hazard Output signals
-    s_ExRS_res    <= (s_EXrd_eq_rs2 and i_DecUsesRS2) or s_EXrd_eq_rs1;
+    s_ExRS_res    <= (s_EXrd_eq_rs1 and i_DecUsesRS1) or (s_EXrd_eq_rs2 and i_DecUsesRS2);
     s_EX_Data_Haz <= s_ExRS_res and i_ExRegWr and s_Erd_isnt_0;  -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
-    s_MemRS_res   <= s_Mrd_eq_rs1 or s_Mrd_eq_rs2; 
+    s_MemRS_res   <= (s_Mrd_eq_rs1 and i_DecUsesRS1) or (s_Mrd_eq_rs2 and i_DecUsesRS2); 
     s_M_Data_Haz  <= s_MemRS_res and i_MemRegWr and s_Mrd_isnt_0; -- If {RS Haz} and {RegWr Haz} and {rd != 0} --> A data Haz Exists
 
   -----------------------------------------------------------
@@ -116,7 +119,7 @@ begin
     -- If a Data Hazard is detected, these signals go high
     -- Using these signals here for more clarity on waveform
     s_LoadHaz     <= s_EX_Data_Haz and i_isLoad;
-    s_BranchHaz   <= (s_EX_Data_Haz or (s_M_Data_Haz and i_isLoad)) and i_isBranch;   -- stall when producer is Ex or load in Mem
+    s_BranchHaz   <= (s_EX_Data_Haz or (s_M_Data_Haz and i_isMemLoad)) and i_isBranch;   -- stall when producer is Ex or load in Mem
     s_Stall       <= s_LoadHaz or s_BranchHaz;
 
     o_DataBubble  <= s_Stall;

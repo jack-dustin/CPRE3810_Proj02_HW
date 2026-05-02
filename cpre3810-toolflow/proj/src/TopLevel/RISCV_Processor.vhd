@@ -353,17 +353,20 @@ architecture structure of RISCV_Processor is
     i_MemRD     : in  std_logic_vector(4 downto 0);
     i_MemRegWr  : in  std_logic;
 
+    i_DecUsesRS1: in  std_logic;
     i_DecUsesRS2: in  std_logic;
     i_CLK       : in  std_logic;
     i_RST       : in  std_logic;
     i_isLoad    : in  std_logic;
+    i_isMemLoad : in  std_logic;
     i_isBranch  : in  std_logic;
     o_DataHaz   : out std_logic;
     o_DataBubble: out std_logic);
   end component;
 
 
-  signal s_DecUsesRS2 : std_logic;
+  signal s_DecUsesRS1   : std_logic;
+  signal s_DecUsesRS2   : std_logic;
   signal s_DataHazStall : std_logic;
   signal s_DataHazFlush : std_logic;  -- Resets Decode/Execute Register on Positive Edge of Clock
 
@@ -401,9 +404,18 @@ begin
   oALUOut <= s_ALUOut;
 -- Add signal declaration:
 
+
+s_DecUsesRs1  <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type  
+                        or s_FtD_Reg(6 downto 0) = "1100011"   -- B-type  
+                        or s_FtD_Reg(6 downto 0) = "0010011"   -- I-type
+                        or s_FtD_Reg(6 downto 0) = "0100011"   -- S-type      -- Store
+                        or s_FtD_Reg(6 downto 0) = "1100111"   -- Jalr
+                        or s_FtD_Reg(6 downto 0) = "0000011")  -- L-type      -- Load
+                     else '0';
+
 -- R-type and B-type (store uses rs2 but is a source not destination — still relevant)
 -- S-type also uses rs2 as the data to write
-s_DecUsesRS2 <= '1' when (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
+s_DecUsesRS2 <= '1' when  (s_FtD_Reg(6 downto 0) = "0110011"   -- R-type
                         or s_FtD_Reg(6 downto 0) = "1100011"   -- B-type
                         or s_FtD_Reg(6 downto 0) = "0100011")  -- S-type
                  else '0';
@@ -766,10 +778,12 @@ Memory_To_WriteBack_Reg: MemoryWriteback_Reg
       i_MemRD       => s_EtM_Reg(71 downto 67),   -- Ex/Mem rd
       i_MemRegWr    => s_EtM_Reg(72),             -- Mem Reg Write; MEM-stage stalls for [lw --> branch] case
 
+      i_DecUsesRs1  => s_DecUsesRs1,
       i_DecUsesRS2  => s_DecUsesRS2,
       i_CLK         => iCLK,
       i_RST         => iRST,
       i_isLoad      => s_DtE_Reg(135),            -- DMem Read EN --> 1 if load instruction. 
+      i_isMemLoad   => s_EtM_Reg(65),
       i_isBranch    => s_Branch, 
       o_DataHaz     => s_DataHazStall,
       o_DataBubble  => s_DataHazFlush);
